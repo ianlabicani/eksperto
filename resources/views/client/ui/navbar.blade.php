@@ -15,16 +15,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Applications</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Profile</a>
-                </li>
-
-                <li class="nav-item">
                     <form method="POST" action="{{ route('logout') }}" class="d-inline ">
                         @csrf
-                        <button type="submit" class="nav-link btn btn-link text-danger">Logout</button>
+                        <button type="submit" class="btn btn-outline-danger">Logout</button>
                     </form>
                 </li>
             </ul>
