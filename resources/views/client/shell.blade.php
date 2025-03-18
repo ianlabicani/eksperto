@@ -13,23 +13,19 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    {{--
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-    <div class="bg-light min-vh-100 d-flex flex-column">
 
-        <!-- Page Content -->
-        <main class="flex-grow-1">
-            <div class="container py-4">
-                @yield('content')
-            </div>
-        </main>
-    </div>
+    <!-- Page Content -->
+    @include('client.ui.navbar')
+    <main class="flex-grow-1">
+        @yield('content')
+    </main>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
