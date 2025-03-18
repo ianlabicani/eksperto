@@ -10,7 +10,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="">My Jobs</a>
+                    <a class="nav-link" href="{{ route('client.job-listings.index') }}">
+                        <i class="fas fa-briefcase"></i> Jobs
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Applications</a>
@@ -19,7 +21,6 @@
                     <a class="nav-link" href="">Profile</a>
                 </li>
 
-                <!-- Logout -->
                 <li class="nav-item">
                     <form method="POST" action="{{ route('logout') }}" class="d-inline ">
                         @csrf

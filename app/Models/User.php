@@ -51,4 +51,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function jobListings()
+    {
+        return $this->hasMany(JobListing::class, 'client_id');
+    }
 }
