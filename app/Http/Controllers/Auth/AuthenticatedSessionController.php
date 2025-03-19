@@ -36,6 +36,10 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(route('peso.dashboard', absolute: false));
         }
 
+        if ($request->user()->roles()->first()->name === 'expert') {
+            return redirect()->intended(route('expert.dashboard', absolute: false));
+        }
+
         return redirect()->intended(route('client.dashboard', absolute: false));
     }
 
