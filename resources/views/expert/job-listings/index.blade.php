@@ -1,25 +1,59 @@
-@extends('client.shell')
+@extends('expert.shell')
 
 @section('content')
     <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="fw-bold">My Job Listings</h2>
-            <a href="{{ route('client.job-listings.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Post a Job</a>
-        </div>
+        <h2 class="fw-bold">Job Listings</h2>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+        <!-- Filter Form -->
+        <form method="GET" action="{{ route('expert.job-listings.index') }}" class="mb-3">
+            <div class="row g-2">
+                <!-- Search -->
+                <div class="col-md-3">
+                    <input type="text" name="search" class="form-control" placeholder="Search title or category"
+                        value="{{ request('search') }}">
+                </div>
+
+                <!-- Status Filter -->
+                <div class="col-md-2">
+                    <select name="status" class="form-control">
+                        <option value="">All Status</option>
+                        <option value="open" {{ request('status') == 'open' ? 'selected' : '' }}>Open</option>
+                        <option value="closed" {{ request('status') == 'closed' ? 'selected' : '' }}>Closed</option>
+                    </select>
+                </div>
+
+                <!-- Date Range Filter -->
+                <div class="col-md-5 d-flex align-items-center justify-content-between">
+                    <!-- Start Date -->
+                    <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
+
+                    <!-- Arrow Icon -->
+                    <span class="mx-2">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+
+                    <!-- End Date -->
+                    <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
+                </div>
+
+
+                <!-- Filter & Reset Buttons -->
+                <div class="col-md-2 d-flex align-items-center gap-2">
+                    <button type="submit" class="btn btn-primary d-flex align-items-center gap-1"><i
+                            class="fas fa-filter"></i>
+                        Filter</button>
+                    <a href="{{ route('expert.job-listings.index') }}" class="btn btn-secondary d-flex text-nowrap">Clear
+                        Filters</a>
+                </div>
             </div>
-        @endif
+        </form>
 
         @if ($jobListings->isEmpty())
-            <div class="alert alert-info text-center">No job listings found. Start by posting a job.</div>
+            <div class="alert alert-info text-center">No job listings available.</div>
         @else
             <div class="row">
                 @foreach ($jobListings as $job)
-                    <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="col-md-3 col-lg-4 mb-4">
                         <div class="card shadow-lg border-0">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">{{ $job->title }}</h5>
@@ -41,27 +75,17 @@
                                         data-bs-target="#viewJobModal{{ $job->id }}">
                                         View
                                     </button>
-
-                                    <a href="{{ route('client.job-listings.edit', $job->id) }}"
-                                        class="btn btn-outline-warning btn-sm">Edit</a>
-
-                                    <!-- Delete Button (Triggers Modal) -->
-                                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#deleteJobModal" data-job-id="{{ $job->id }}">
-                                        Delete
-                                    </button>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- Include Modal File -->
-                    @include('client.job-listings.ui.show-modal', ['job' => $job])
+                    @include('expert.job-listings.ui.show-modal', ['job' => $job])
                 @endforeach
-
-                <!-- Delete Confirmation Modal -->
-                @include('client.job-listings.ui.destroy-modal')
+            </div>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center">
+                {{ $jobListings->links() }}
             </div>
         @endif
     </div>

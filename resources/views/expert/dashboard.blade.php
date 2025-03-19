@@ -1,4 +1,4 @@
-@extends('client.shell')
+@extends('expert.shell')
 
 @section('content')
     <div class="container">

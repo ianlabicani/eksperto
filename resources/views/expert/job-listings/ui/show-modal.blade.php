@@ -18,7 +18,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{{ route('client.job-listings.edit', $job->id) }}" class="btn btn-primary">Edit Job</a>
+                <a href="{{ route('expert.job-applications.create', ["job_listing_id" => $job->id]) }}"
+                    class="btn btn-primary">Apply</a>
             </div>
         </div>
     </div>
