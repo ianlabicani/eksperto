@@ -23,4 +23,16 @@ class JobListing extends Model
     {
         return $this->belongsTo(User::class, 'client_id');
     }
+
+    public function jobApplications($status = null)
+    {
+        $query = $this->hasMany(JobApplication::class);
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        return $query;
+    }
+
 }

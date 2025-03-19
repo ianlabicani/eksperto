@@ -35,6 +35,20 @@
                                 <p class="card-text text-muted small">
                                     <i class="bi bi-calendar"></i> Posted on {{ $job->created_at->format('M d, Y') }}
                                 </p>
+                                <p class="card-text text-muted small">
+                                    <i class="fas fa-users"></i> Applications:
+                                    <strong>{{ $job->jobApplications()->count() }}</strong>
+                                </p>
+
+                                <!-- Status-wise Count -->
+                                <p class="card-text medium">
+                                    <span class="badge bg-warning">Pending:
+                                        {{ $job->jobApplications()->where('status', 'pending')->count() }}</span>
+                                    <span class="badge bg-danger">Rejected:
+                                        {{ $job->jobApplications()->where('status', 'rejected')->count() }}</span>
+                                    <span class="badge bg-secondary">Cancelled:
+                                        {{ $job->jobApplications()->where('status', 'cancelled')->count() }}</span>
+                                </p>
 
                                 <div class="d-flex justify-content-end gap-2">
                                     <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
@@ -44,7 +58,6 @@
 
                                     <a href="{{ route('client.job-listings.edit', $job->id) }}"
                                         class="btn btn-outline-warning btn-sm">Edit</a>
-
                                     <!-- Delete Button (Triggers Modal) -->
                                     <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#deleteJobModal" data-job-id="{{ $job->id }}">
@@ -55,6 +68,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <!-- Include Modal File -->
                     @include('client.job-listings.ui.show-modal', ['job' => $job])
