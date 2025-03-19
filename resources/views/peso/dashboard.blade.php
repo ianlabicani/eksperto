@@ -42,6 +42,7 @@
                 </div>
             </div>
 
+            <!-- TODO: Show how many jobs are there in a certain job category -->
         </div>
     </div>
 @endsection
