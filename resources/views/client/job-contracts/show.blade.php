@@ -35,7 +35,7 @@
                     </span>
                 </p>
                 <p><strong><i class="fas fa-file-alt"></i> Contract Terms:</strong></p>
-                <div class="border p-3 bg-light rounded w-75 me-auto">
+                <div class="border p-3 bg-light rounded w-75 ms-auto">
                     {!! nl2br(e($jobContract->contract_terms)) !!}
                 </div>
             </div>
@@ -50,10 +50,6 @@
                         {{ $jobContract->contractNegotiation->expert->name }}
                     </p>
                     <p><strong><i class="fas fa-file-alt"></i> Proposed Changes:</strong></p>
-                    <div class="border p-3 bg-light rounded">
-                        {!! nl2br(e($jobContract->contractNegotiation->negotiation_message)) !!}
-                    </div>
-
                     <p class="mt-2">
                         <strong><i class="fas fa-info-circle"></i> Status:</strong>
                         @php
@@ -69,6 +65,9 @@
                             {{ ucfirst($negotiationStatus) }}
                         </span>
                     </p>
+                    <div class="border p-3 bg-light rounded w-75 me-auto">
+                        {!! nl2br(e($jobContract->contractNegotiation->negotiation_message)) !!}
+                    </div>
 
                     <!-- Client can accept or reject if negotiation is still pending -->
                     @if($negotiationStatus === 'pending')

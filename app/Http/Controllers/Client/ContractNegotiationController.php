@@ -75,7 +75,7 @@ class ContractNegotiationController extends Controller
         $negotiation = ContractNegotiation::findOrFail($id);
         $negotiation->update(['status' => 'accepted']);
         $negotiation->jobContract->update(['status' => 'active']);
-
+        $negotiation->jobContract->jobApplication->update(['status' => 'accepted']);
         return redirect()->back()->with('success', 'Negotiation accepted successfully.');
     }
 
@@ -84,6 +84,7 @@ class ContractNegotiationController extends Controller
         $negotiation = ContractNegotiation::findOrFail($id);
         $negotiation->update(['status' => 'rejected']);
         $negotiation->jobContract->update(['status' => 'cancelled']);
+        $negotiation->jobContract->jobApplication->update(['status' => 'rejected']);
 
         return redirect()->back()->with('error', 'Negotiation rejected.');
     }

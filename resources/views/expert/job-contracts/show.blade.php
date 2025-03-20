@@ -99,7 +99,7 @@
             </div>
         @endif
 
-        @if($jobContract->status === 'pending')
+        @if($jobContract->status === 'pending' && $jobContract->contractNegotiation === null)
             <!-- Amend Contract Form -->
             <div class="card shadow-sm mt-4">
                 <div class="card-body">
