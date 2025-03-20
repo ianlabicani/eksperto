@@ -13,6 +13,7 @@ Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert'])->g
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('job-listings', JobListingController::class);
     Route::resource('job-applications', JobApplicationController::class);
+    // TODO: refactor the accept and negotiate
     Route::post('job-contracts/accept/{id}', [JobContractController::class, 'accept'])->name('job-contracts.accept');
     Route::post('job-contracts/negotiate/{id}', [JobContractController::class, 'negotiate'])->name('job-contracts.negotiate');
     Route::resource('job-contracts', JobContractController::class);

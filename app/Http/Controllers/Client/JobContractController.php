@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContractNegotiation;
 use App\Models\JobApplication;
 use App\Models\JobContract;
 use Illuminate\Http\Request;
@@ -64,7 +65,7 @@ class JobContractController extends Controller
      */
     public function show(JobContract $jobContract)
     {
-        //
+        return view('client.job-contracts.show', compact('jobContract'));
     }
 
     /**
@@ -72,7 +73,8 @@ class JobContractController extends Controller
      */
     public function edit(JobContract $jobContract)
     {
-        //
+        throw new \Exception('Method not implemented');
+
     }
 
     /**
@@ -80,7 +82,8 @@ class JobContractController extends Controller
      */
     public function update(Request $request, JobContract $jobContract)
     {
-        //
+        throw new \Exception('Method not implemented');
+
     }
 
     /**
@@ -88,6 +91,6 @@ class JobContractController extends Controller
      */
     public function destroy(JobContract $jobContract)
     {
-        //
+        throw new \Exception('Method not implemented');
     }
 }
