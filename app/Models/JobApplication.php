@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class JobApplication extends Model
 {
-    protected $fillable = ['expert_id', 'job_listing_id', 'cover_letter', 'status'];
+    protected $fillable = ['client_id', 'expert_id', 'job_listing_id', 'cover_letter', 'status'];
 
     public function expert()
     {
@@ -15,10 +15,10 @@ class JobApplication extends Model
 
     public function jobListing()
     {
-        return $this->belongsTo(JobListing::class);
+        return $this->belongsTo(JobListing::class, 'job_listing_id');
     }
 
-    public function contract()
+    public function jobContract()
     {
         return $this->hasOne(JobContract::class);
     }

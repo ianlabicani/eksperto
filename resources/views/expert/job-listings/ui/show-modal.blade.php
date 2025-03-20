@@ -14,7 +14,7 @@
                     ₱{{ number_format($jobListing->salary ?? 0, 2) }}</p>
                 <p><strong><i class="fas fa-map-marker-alt"></i> Location:</strong> {{ $jobListing->location }}</p>
                 <p><strong><i class="fas fa-briefcase"></i> Employment Type:</strong>
-                    {{ ucfirst($jobListing->employment_type) }}</p>
+                    {{ ucfirst($jobListing->job_type) }}</p>
                 <p><strong><i class="fas fa-file-alt"></i> Requirements:</strong>
                     {!! nl2br(e($jobListing->requirements)) !!}</p>
                 <p><strong><i class="fas fa-calendar-alt"></i> Deadline:</strong>

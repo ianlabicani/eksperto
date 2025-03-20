@@ -7,7 +7,7 @@
             <i class="fas fa-arrow-left"></i> Back to Applications
         </a>
 
-        <div class="card mt-3">
+        <div class="card mt-3 shadow-sm">
             <div class="card-body">
                 <h4 class="card-title"><i class="fas fa-briefcase"></i> {{ $jobApplication->jobListing->title }}</h4>
                 <p class="card-text"><strong><i class="fas fa-map-marker-alt"></i> Location:</strong>
@@ -48,6 +48,50 @@
                 @endif
             </div>
         </div>
+
+        <!-- Display Job Contract if exists -->
+        @if ($jobApplication->jobContract)
+            <div class="card mt-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-file-signature"></i> Job Contract</h5>
+                    <p><strong><i class="fas fa-calendar-alt"></i> Start Date:</strong>
+                        {{ \Carbon\Carbon::parse($jobApplication->jobContract->start_date)->format('M d, Y') }}
+                    </p>
+                    <p><strong><i class="fas fa-calendar-check"></i> End Date:</strong>
+                        {{ $jobApplication->jobContract->end_date ? \Carbon\Carbon::parse($jobApplication->jobContract->end_date)->format('M d, Y') : 'Ongoing' }}
+                    </p>
+                    <p class="mt-2">
+                        <strong><i class="fas fa-info-circle"></i> Contract Status:</strong>
+                        @php
+                            $contractStatus = $jobApplication->jobContract->status;
+                            $contractBadge = match ($contractStatus) {
+                                'pending' => 'warning',
+                                'accepted' => 'success',
+                                'rejected' => 'danger',
+                                'cancelled' => 'secondary',
+                                default => 'dark',
+                            };
+                        @endphp
+                        <span class="badge bg-{{ $contractBadge }}">
+                            {{ ucfirst($contractStatus) }}
+                        </span>
+                    </p>
+                    <p><strong><i class="fas fa-file-alt"></i> Contract Terms:</strong></p>
+                    <div class="border p-3 bg-light rounded w-75 me-auto">
+                        {!! nl2br(e($jobApplication->jobContract->contract_terms)) !!}
+                    </div>
+
+                    <a href="{{ route('expert.job-contracts.show', $jobApplication->jobContract->id) }}"
+                        class="btn btn-primary mt-3">
+                        <i class="fas fa-eye"></i> View Contract Details
+                    </a>
+                </div>
+            </div>
+        @else
+            <div class="alert alert-info mt-4">
+                <i class="fas fa-info-circle"></i> The client is still reviewing your application.
+            </div>
+        @endif
     </div>
 
     <!-- Confirmation Modal -->

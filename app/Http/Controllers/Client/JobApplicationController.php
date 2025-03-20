@@ -14,13 +14,13 @@ class JobApplicationController extends Controller
      */
     public function index(Request $request)
     {
-        $jobListing = JobListing::findOrFail($request->query('job_listing_id'));
-        $jobApplications = $jobListing->jobApplications()->get();
-        $pendingApplications = $jobApplications->where('status', 'pending');
-        $acceptedApplications = $jobApplications->where('status', 'accepted');
-        $rejectedApplications = $jobApplications->where('status', 'rejected');
+        // Get the authenticated expert
+        $client = $request->user();
 
-        return view('client.job-applications.index', compact('jobApplications', 'jobListing', 'pendingApplications', 'acceptedApplications', 'rejectedApplications'));
+        // Retrieve all job applications of the expert
+        $jobApplications = $client->jobApplicants()->get();
+
+        return view('client.job-applications.index', compact('jobApplications'));
     }
 
     /**
@@ -28,7 +28,12 @@ class JobApplicationController extends Controller
      */
     public function show(JobApplication $jobApplication)
     {
-        return view('client.job-applications.show', compact('jobApplication'));
+        $jobListing = $jobApplication->jobListing;
+        $jobApplications = $jobListing->jobApplications()->get();
+        $pendingApplications = $jobApplications->where('status', 'pending');
+        $acceptedApplications = $jobApplications->where('status', 'accepted');
+        $rejectedApplications = $jobApplications->where('status', 'rejected');
+        return view('client.job-applications.show', compact('jobListing', 'pendingApplications', 'acceptedApplications', 'rejectedApplications'));
     }
 
     /**

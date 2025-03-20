@@ -39,12 +39,14 @@ class JobApplicationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'client_id' => 'required|exists:users,id',
             'job_listing_id' => 'required|exists:job_listings,id',
             'cover_letter' => 'nullable|string|max:500',
         ]);
 
         $jobApplication = JobApplication::create([
             'expert_id' => $request->user()->id,
+            'client_id' => $validated['client_id'],
             'job_listing_id' => $validated['job_listing_id'],
             'cover_letter' => $validated['cover_letter'],
         ]);

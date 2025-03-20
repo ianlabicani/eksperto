@@ -78,11 +78,11 @@
                 @if ($jobApplication->status === 'accepted')
                     Review the application
                 @else
-                    @if ($jobApplication->contract === null)
+                    @if ($jobApplication->jobContract === null)
                         <a href="{{ route('client.job-contracts.create', ['jobApplication' => $jobApplication]) }}"
                             class="btn btn-primary btn-sm">Create Contract</a>
                     @else
-                        <a href="{{ route('client.job-contracts.show', $jobApplication->contract) }}"
+                        <a href="{{ route('client.job-contracts.show', $jobApplication->jobContract) }}"
                             class="btn btn-info btn-sm">View Contract</a>
                     @endif
                     <form action="{{ route('client.job-applications.update', $jobApplication->id) }}" method="POST">
