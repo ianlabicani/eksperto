@@ -17,9 +17,18 @@
                 <p><strong>Description:</strong> {!! nl2br(e($job->description)) !!}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{{ route('client.job-listings.edit', $job->id) }}" class="btn btn-primary">Edit Job</a>
+                <button type="button" class="btn btn-outline-danger me-auto" data-bs-toggle="modal"
+                    data-bs-target="#deleteJobModal" data-job-id="{{ $job->id }}">
+                    Delete
+                </button>
+                <a href="{{ route('client.job-applications.index', ['job_listing_id' => $job->id]) }}"
+                    class="btn btn-outline-primary">
+                    View Applications
+                </a>
+                <a href="{{ route('client.job-listings.edit', $job->id) }}" class="btn btn-outline-primary">Edit Job</a>
             </div>
         </div>
     </div>
 </div>
+
+@include('client.job-listings.ui.destroy-modal')
