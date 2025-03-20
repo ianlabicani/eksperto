@@ -60,6 +60,8 @@ class JobListingController extends Controller
                 'job_type' => 'required|string',
                 'requirements' => 'required|string',
                 'deadline' => 'required|date',
+                'vacancies' => 'required|numeric',
+                'rate' => 'required|string'
             ]);
 
 
@@ -75,6 +77,8 @@ class JobListingController extends Controller
                 'requirements' => $validated['requirements'],
                 'status' => 'open',
                 'deadline' => $validated['deadline'],
+                'vacancies' => $validated['vacancies'],
+                'rate' => $validated['rate']
             ]);
 
             // Redirect back with success message

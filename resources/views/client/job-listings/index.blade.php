@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="fw-bold">My Job Listings</h2>
+            <h2 class="fw-bold mb-0">My Job Listings</h2>
             <a href="{{ route('client.job-listings.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Post a Job</a>
         </div>
@@ -18,47 +18,13 @@
             <div class="alert alert-info text-center">No job listings found. Start by posting a job.</div>
         @else
             <div class="row">
-                @foreach ($jobListings as $job)
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="card shadow-lg border-0" data-bs-toggle="modal" data-bs-target="#viewJobModal{{ $job->id }}"
-                            style="cursor: pointer;">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">{{ $job->title }}</h5>
-                                <p class="card-text text-muted mb-1">{{ $job->category }}</p>
-                                <p class="card-text">
-                                    <span class="badge bg-secondary text-capitalize">{{ $job->employment_type }}</span>
-                                    <br>
-                                    <strong>₱{{ number_format($job->salary ?? 0, 2) }}</strong>
-                                </p>
-                                <p class="card-text text-muted small mb-2">
-                                    <i class="bi bi-geo-alt"></i> {{ $job->location }}
-                                </p>
-                                <p class="card-text text-muted small">
-                                    <i class="bi bi-calendar"></i> Posted on {{ $job->created_at->format('M d, Y') }}
-                                </p>
-                                <p class="card-text text-muted small">
-                                    <i class="fas fa-users"></i> Applications:
-                                    <strong>{{ $job->jobApplications()->count() }}</strong>
-                                </p>
-
-                                <!-- Status-wise Count -->
-                                <p class="card-text medium">
-                                    <span class="badge bg-warning">Pending:
-                                        {{ $job->jobApplications()->where('status', 'pending')->count() }}</span>
-                                    <span class="badge bg-danger">Rejected:
-                                        {{ $job->jobApplications()->where('status', 'rejected')->count() }}</span>
-                                    <span class="badge bg-secondary">Cancelled:
-                                        {{ $job->jobApplications()->where('status', 'cancelled')->count() }}</span>
-                                </p>
-                            </div>
-                        </div>
+                @foreach ($jobListings as $jobListing)
+                    <div class="col-md-5 col-lg-3 mb-4">
+                        @include('client.job-listings.ui.job-listing-card', ['jobListing' => $jobListing])
                     </div>
-
                     <!-- Include Modal File -->
-                    @include('client.job-listings.ui.show-modal', ['job' => $job])
-
+                    @include('client.job-listings.ui.show-modal', ['jobListing' => $jobListing])
                 @endforeach
-
             </div>
         @endif
     </div>

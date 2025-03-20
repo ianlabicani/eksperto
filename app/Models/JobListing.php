@@ -12,11 +12,13 @@ class JobListing extends Model
         'description',
         'category',
         'salary',
+        'rate',
         'location',
         'job_type',
         'requirements',
         'status',
-        'deadline'
+        'deadline',
+        'vacancies'
     ];
 
     public function client()
