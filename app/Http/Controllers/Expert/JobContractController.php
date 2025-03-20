@@ -70,12 +70,14 @@ class JobContractController extends Controller
     public function accept(JobContract $jobContract)
     {
         $jobContract->update(['status' => 'active']);
+        $jobContract->jobApplication()->update(['status' => 'accepted']);
         return back()->with('success', 'Contract accepted successfully');
     }
 
     public function decline(JobContract $jobContract)
     {
         $jobContract->update(['status' => 'cancelled']);
+        $jobContract->jobApplication()->update(['status' => 'cancelled']);
         return back()->with('success', 'Contract declined successfully');
     }
 }
