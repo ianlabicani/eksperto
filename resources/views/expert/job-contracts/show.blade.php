@@ -24,14 +24,14 @@
                         $status = $jobContract->status;
                         $statusBadge = match ($status) {
                             'pending' => 'warning',
-                            'accepted' => 'success',
+                            'active' => 'success',
                             'rejected' => 'danger',
                             'cancelled' => 'secondary',
                             default => 'dark',
                         };
                     @endphp
                     <span class="badge bg-{{ $statusBadge }}">
-                        {{ ucfirst($jobContract->contractNegotiation->status) }}
+                        {{ ucfirst($jobContract->status) }}
                     </span>
                 </p>
                 <p><strong><i class="fas fa-file-alt"></i> Contract Terms:</strong></p>
@@ -40,12 +40,18 @@
                 </div>
 
                 <!-- TODO:  make another layer for checking this in controller-->
-                @if ($jobContract->contractNegotiation === null)
+                @if ($jobContract->contractNegotiation === null && $jobContract->status === 'pending')
                     <div class="mt-4 d-flex gap-2 align-items-center">
-                        <form action="{{ route('expert.job-contracts.accept', $jobContract->id) }}" method="POST">
+                        <form action="{{ route('expert.job-contracts.accept', $jobContract) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-success">
                                 <i class="fas fa-check"></i> Accept Contract
+                            </button>
+                        </form>
+                        <form action="{{ route('expert.job-contracts.decline', $jobContract) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fas fa-times"></i> Decline Contract
                             </button>
                         </form>
                     </div>
@@ -55,10 +61,6 @@
 
         <!-- Check if negotiation has already been requested -->
         @if ($jobContract->contractNegotiation !== null)
-            <div class="alert alert-warning mt-4">
-                <i class="fas fa-exclamation-triangle"></i> You have already negotiated. Awaiting client's response.
-            </div>
-
             <!-- Display Negotiation Details -->
             <div class="card shadow-sm mt-3">
                 <div class="card-body">
@@ -91,7 +93,13 @@
 
                 </div>
             </div>
-        @else
+
+            <div class="alert alert-warning mt-4">
+                <i class="fas fa-exclamation-triangle"></i> You have already negotiated. Awaiting client's response.
+            </div>
+        @endif
+
+        @if($jobContract->status === 'pending')
             <!-- Amend Contract Form -->
             <div class="card shadow-sm mt-4">
                 <div class="card-body">

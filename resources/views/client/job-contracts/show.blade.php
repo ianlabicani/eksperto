@@ -24,7 +24,7 @@
                     @php
                         $statusBadge = match ($jobContract->status) {
                             'pending' => 'warning',
-                            'accepted' => 'success',
+                            'active' => 'success',
                             'rejected' => 'danger',
                             'cancelled' => 'secondary',
                             default => 'dark',

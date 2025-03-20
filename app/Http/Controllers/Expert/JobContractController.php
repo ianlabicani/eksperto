@@ -69,30 +69,13 @@ class JobContractController extends Controller
 
     public function accept(JobContract $jobContract)
     {
-        $jobContract->update(['status' => 'accepted']);
+        $jobContract->update(['status' => 'active']);
         return back()->with('success', 'Contract accepted successfully');
     }
 
-    public function negotiate(Request $request, JobContract $jobContract)
+    public function decline(JobContract $jobContract)
     {
-        // Validate the request
-        $request->validate([
-            'contract_terms' => 'required|string|min:10',
-        ]);
-
-        // Check if the authenticated expert is associated with the contract
-        if ($jobContract->jobApplication->expert_id !== auth()->id()) {
-            return redirect()->route('expert.job-contracts.show', $jobContract->id)
-                ->with('error', 'You are not authorized to amend this contract.');
-        }
-
-        // Mark the contract as "pending amendment"
-        $jobContract->update([
-            'contract_terms' => $request->contract_terms,
-            'status' => 'amend_requested', // Assuming you have a status column
-        ]);
-
-        return redirect()->route('expert.job-contracts.show', $jobContract->id)
-            ->with('success', 'Amendment request sent successfully.');
+        $jobContract->update(['status' => 'cancelled']);
+        return back()->with('success', 'Contract declined successfully');
     }
 }
