@@ -52,35 +52,13 @@
             <div class="alert alert-info text-center">No job listings available.</div>
         @else
             <div class="row">
-                @foreach ($jobListings as $job)
-                    <div class="col-md-3 col-lg-4 mb-4">
-                        <div class="card shadow-lg border-0">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">{{ $job->title }}</h5>
-                                <p class="card-text text-muted mb-1">{{ $job->category }}</p>
-                                <p class="card-text">
-                                    <span class="badge bg-secondary text-capitalize">{{ $job->employment_type }}</span>
-                                    <br>
-                                    <strong>₱{{ number_format($job->salary ?? 0, 2) }}</strong>
-                                </p>
-                                <p class="card-text text-muted small mb-2">
-                                    <i class="bi bi-geo-alt"></i> {{ $job->location }}
-                                </p>
-                                <p class="card-text text-muted small">
-                                    <i class="bi bi-calendar"></i> Posted on {{ $job->created_at->format('M d, Y') }}
-                                </p>
-
-                                <div class="d-flex justify-content-end gap-2">
-                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#viewJobModal{{ $job->id }}">
-                                        View
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                @foreach ($jobListings as $jobListing)
+                    <div class="col-md-5 col-lg-3 mb-4">
+                        @include('expert.job-listings.ui.job-listing-card', ['jobListing' => $jobListing])
                     </div>
+
                     <!-- Include Modal File -->
-                    @include('expert.job-listings.ui.show-modal', ['job' => $job])
+                    @include('expert.job-listings.ui.show-modal', ['job' => $jobListing])
                 @endforeach
             </div>
             <!-- Pagination -->
