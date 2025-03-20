@@ -20,7 +20,8 @@
             <div class="row">
                 @foreach ($jobListings as $job)
                     <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="card shadow-lg border-0">
+                        <div class="card shadow-lg border-0" data-bs-toggle="modal" data-bs-target="#viewJobModal{{ $job->id }}"
+                            style="cursor: pointer;">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">{{ $job->title }}</h5>
                                 <p class="card-text text-muted mb-1">{{ $job->category }}</p>
@@ -49,33 +50,15 @@
                                     <span class="badge bg-secondary">Cancelled:
                                         {{ $job->jobApplications()->where('status', 'cancelled')->count() }}</span>
                                 </p>
-
-                                <div class="d-flex justify-content-end gap-2">
-                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#viewJobModal{{ $job->id }}">
-                                        View
-                                    </button>
-
-                                    <a href="{{ route('client.job-listings.edit', $job->id) }}"
-                                        class="btn btn-outline-warning btn-sm">Edit</a>
-                                    <!-- Delete Button (Triggers Modal) -->
-                                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#deleteJobModal" data-job-id="{{ $job->id }}">
-                                        Delete
-                                    </button>
-
-                                </div>
                             </div>
                         </div>
                     </div>
 
-
                     <!-- Include Modal File -->
                     @include('client.job-listings.ui.show-modal', ['job' => $job])
+
                 @endforeach
 
-                <!-- Delete Confirmation Modal -->
-                @include('client.job-listings.ui.destroy-modal')
             </div>
         @endif
     </div>
