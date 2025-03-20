@@ -73,26 +73,18 @@
                 </p>
                 <p><strong>Cover Letter:</strong></p>
                 <p>{!! nl2br(e($jobApplication->cover_letter ?? 'No cover letter provided.')) !!}</p>
-                <p><strong>Resume:</strong>
-                    @if ($jobApplication->resume)
-                        <a href="{{ asset('storage/' . $jobApplication->resume) }}" target="_blank"
-                            class="btn btn-outline-primary btn-sm">View Resume</a>
-                    @else
-                        <span class="text-muted">No resume uploaded</span>
-                    @endif
-                </p>
             </div>
             <div class="modal-footer">
                 @if ($jobApplication->status === 'accepted')
                     Review the application
                 @else
-                    <form action="{{ route('client.job-applications.update', $jobApplication->id) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <input type="hidden" name="status" value="accepted">
-                        <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                    </form>
-
+                    @if ($jobApplication->contract === null)
+                        <a href="{{ route('client.job-contracts.create', ['jobApplication' => $jobApplication]) }}"
+                            class="btn btn-primary btn-sm">Create Contract</a>
+                    @else
+                        <a href="{{ route('client.job-contracts.show', $jobApplication->contract) }}"
+                            class="btn btn-info btn-sm">View Contract</a>
+                    @endif
                     <form action="{{ route('client.job-applications.update', $jobApplication->id) }}" method="POST">
                         @csrf
                         @method('PATCH')

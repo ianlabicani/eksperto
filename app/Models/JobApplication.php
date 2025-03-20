@@ -17,4 +17,9 @@ class JobApplication extends Model
     {
         return $this->belongsTo(JobListing::class);
     }
+
+    public function contract()
+    {
+        return $this->hasOne(JobContract::class);
+    }
 }
