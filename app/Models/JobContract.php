@@ -36,4 +36,9 @@ class JobContract extends Model
     {
         return $this->belongsTo(User::class, 'expert_id');
     }
+
+    public function contractNegotiation()
+    {
+        return $this->hasOne(ContractNegotiation::class);
+    }
 }

@@ -58,7 +58,7 @@
                     </div>
 
                     <!-- Include Modal File -->
-                    @include('expert.job-listings.ui.show-modal', ['job' => $jobListing])
+                    @include('expert.job-listings.ui.show-modal', ['jobListing' => $jobListing])
                 @endforeach
             </div>
             <!-- Pagination -->

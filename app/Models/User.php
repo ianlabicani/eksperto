@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(JobListing::class, 'client_id');
     }
+
+    public function jobApplications()
+    {
+        return $this->hasMany(JobApplication::class, 'expert_id');
+    }
 }

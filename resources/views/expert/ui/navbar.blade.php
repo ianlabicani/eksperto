@@ -20,6 +20,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('expert.job-contracts.index') }}">
+                        <i class="fas fa-file-contract"></i> Contracts
+                    </a>
+                </li>
+                <li class="nav-item">
                     <form method="POST" action="{{ route('logout') }}" class="d-inline ">
                         @csrf
                         <button type="submit" class="btn btn-outline-danger">Logout</button>
