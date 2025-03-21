@@ -34,7 +34,7 @@
                     class="btn btn-outline-primary">
                     <i class="fas fa-eye"></i> View Applications
                 </a>
-                <a href="{{ route('client.job-listings.edit', $jobListing->id) }}" class="btn btn-outline-primary">
+                <a href="{{ route('client.job-listings.edit', $jobListing->id) }}" class="btn btn-outline-warning">
                     <i class="fas fa-edit"></i> Edit Job
                 </a>
             </div>
