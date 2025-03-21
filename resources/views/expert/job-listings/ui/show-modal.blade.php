@@ -36,7 +36,8 @@
                     <a href="{{ route('expert.job-applications.show', $application) }}" class="btn btn-primary">
                         <i class="fas fa-eye"></i> View Application
                     </a>
-                @else
+                @endif
+                @if($jobListing->status === 'open' && !$application)
                     <a href="{{ route('expert.job-applications.create', ['job_listing_id' => $jobListing->id]) }}"
                         class="btn btn-primary">
                         <i class="fas fa-paper-plane"></i> Apply
