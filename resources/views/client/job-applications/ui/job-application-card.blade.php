@@ -29,8 +29,8 @@
 
             <div class="d-flex justify-content-between">
                 @if ($jobApplication->status === 'accepted')
-                    <a href="{{ route('client.job-applications.show', $jobApplication) }}"
-                        class="btn btn-outline-primary btn-sm w-100">Review Application</a>
+                    <a href="{{ route('client.job-contracts.show', $jobApplication->jobContract) }}"
+                        class="btn btn-outline-primary btn-sm w-100">Review Contract</a>
                 @else
                     <button type="button" class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal"
                         data-bs-target="#viewApplicationModal{{ $jobApplication->id }}">
