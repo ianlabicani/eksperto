@@ -40,6 +40,10 @@
                 <i class="fas fa-ban"></i> Cancelled:
                 {{ $jobListing->jobApplications()->where('status', 'cancelled')->count() }}
             </span>
+            <span class="badge bg-success">
+                <i class="fas fa-check-circle"></i> Accepted:
+                {{ $jobListing->jobApplications()->where('status', 'accepted')->count() }}
+            </span>
         </p>
     </div>
 </div>
