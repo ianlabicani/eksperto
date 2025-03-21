@@ -65,4 +65,28 @@ class User extends Authenticatable
     {
         return $this->hasMany(JobApplication::class, 'client_id');
     }
+
+    public function isClient()
+    {
+        return $this->roles()->where('name', 'client')->exists();
+    }
+
+    public function isExpert()
+    {
+        return $this->roles()->where('name', 'expert')->exists();
+    }
+
+    public function isPeso()
+    {
+        return $this->roles()->where('name', 'peso')->exists();
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles()->where('name', 'admin')->exists();
+    }
+
+
+
+
 }
