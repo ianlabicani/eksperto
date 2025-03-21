@@ -48,7 +48,7 @@
                     <div class="alert alert-danger mt-4">
                         <i class="fas fa-exclamation-triangle"></i> You cancelled this application.
                     </div>
-                @elseif ($jobApplication->jobCotract === null && $jobApplication->status === 'pending')
+                @elseif ($jobApplication->jobCotract !== null && $jobApplication->status === 'pending')
                     <!-- Button to trigger modal -->
                     <button type="button" class="btn btn-lg w-100 btn-outline-danger" data-bs-toggle="modal"
                         data-bs-target="#confirmCancelModal">
