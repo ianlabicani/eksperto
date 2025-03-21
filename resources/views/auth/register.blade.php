@@ -34,6 +34,56 @@
                             @enderror
                         </div>
 
+                        <!-- Role Selection -->
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select id="role" name="role" class="form-select @error('role') is-invalid @enderror" required>
+                                <option value="">Select a role</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role }}" {{ old('role') == $role ? 'selected' : '' }}>
+                                        {{ ucfirst($role) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('role')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Role Description -->
+                        <div id="role-description" class="alert alert-info d-none"></div>
+
+                        @push('scripts')
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    const roleSelect = document.getElementById("role");
+                                    const roleDescription = document.getElementById("role-description");
+
+                                    const roleInfo = {
+                                        client: "Clients can post job listings and hire experts.",
+                                        expert: "Experts can apply for jobs and provide services.",
+                                        peso: "PESO (Public Employment Service Office) manages job postings and applications.",
+                                        admin: "Admins have full control over the platform.",
+                                    };
+
+                                    function updateRoleDescription() {
+                                        const selectedRole = roleSelect.value;
+                                        if (selectedRole && roleInfo[selectedRole]) {
+                                            roleDescription.textContent = roleInfo[selectedRole];
+                                            roleDescription.classList.remove("d-none");
+                                        } else {
+                                            roleDescription.classList.add("d-none");
+                                        }
+                                    }
+
+                                    roleSelect.addEventListener("change", updateRoleDescription);
+                                    updateRoleDescription(); // Initialize in case of old value
+                                });
+                            </script>
+                        @endpush
+
+
+
                         <!-- Password -->
                         <div class="mb-3">
                             <label for="password" class="form-label">
