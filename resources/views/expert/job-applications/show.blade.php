@@ -13,9 +13,18 @@
                 <p class="card-text"><strong><i class="fas fa-map-marker-alt"></i> Location:</strong>
                     {{ $jobApplication->jobListing->location }}</p>
                 <p class="card-text"><strong><i class="fas fa-info-circle"></i> Application Status:</strong>
-                    <span
-                        class="badge bg-{{ $jobApplication->status == 'pending' ? 'warning' : ($jobApplication->status == 'approved' ? 'success' : 'danger') }}">
-                        {{ ucfirst($jobApplication->status) }}
+                    @php
+                        $status = $jobApplication->status;
+                        $statusBadge = match ($status) {
+                            'pending' => 'warning',
+                            'accepted' => 'success',
+                            'rejected' => 'danger',
+                            'cancelled' => 'secondary',
+                            default => 'dark',
+                        };
+                    @endphp
+                    <span class="badge bg-{{ $statusBadge }}">
+                        {{ ucfirst($status) }}
                     </span>
                 </p>
                 <p class="card-text"><strong><i class="fas fa-calendar-alt"></i> Submitted on:</strong>
@@ -39,7 +48,7 @@
                     <div class="alert alert-danger mt-4">
                         <i class="fas fa-exclamation-triangle"></i> You cancelled this application.
                     </div>
-                @else
+                @elseif ($jobApplication->jobCotract === null && $jobApplication->status === 'pending')
                     <!-- Button to trigger modal -->
                     <button type="button" class="btn btn-lg w-100 btn-outline-danger" data-bs-toggle="modal"
                         data-bs-target="#confirmCancelModal">
