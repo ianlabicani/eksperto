@@ -1,5 +1,5 @@
-<div class="card shadow-lg border-0 job-card" data-bs-toggle="modal"
-    data-bs-target="#viewJobModal{{ $jobListing->id }}">
+<div class="card shadow-lg border-0 job-card {{ $jobListing->status === 'closed' ? 'bg-dark-subtle' : '' }}"
+    data-bs-toggle="modal" data-bs-target="#viewJobModal{{ $jobListing->id }}">
     <div class="card-body">
         <h5 class="card-title fw-bold">{{ $jobListing->title }}</h5>
         <p class="card-text text-muted mb-1">{{ $jobListing->category }}</p>
@@ -44,6 +44,14 @@
                 <i class="fas fa-check-circle"></i> Accepted:
                 {{ $jobListing->jobApplications()->where('status', 'accepted')->count() }}
             </span>
+        </p>
+        <p class="card-text">
+            <strong>Status:</strong>
+            @if ($jobListing->status === 'closed')
+                <span class="badge bg-danger"><i class="fas fa-lock"></i> Closed</span>
+            @else
+                <span class="badge bg-success"><i class="fas fa-check"></i> Open</span>
+            @endif
         </p>
     </div>
 </div>
