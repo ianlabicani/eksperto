@@ -14,6 +14,9 @@
                 <p><strong>Applicant:</strong> {{ $jobApplication->expert->name }}</p>
                 <p><strong>Applied On:</strong> {{ $jobApplication->created_at->format('F d, Y') }}</p>
                 <p><strong>Status:</strong> <span class="badge bg-info">{{ ucfirst($jobApplication->status) }}</span></p>
+                <div class="border p-3 bg-light rounded w-75 me-auto">
+                    {!! nl2br(e($jobApplication->cover_letter)) !!}
+                </div>
             </div>
         </div>
 
