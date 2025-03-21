@@ -30,7 +30,7 @@
                     data-bs-target="#deleteJobModal" data-job-id="{{ $jobListing->id }}">
                     <i class="fas fa-trash"></i> Delete
                 </button>
-                <a href="{{ route('client.job-applications.show', $jobListing->id) }}" class="btn btn-outline-primary">
+                <a href="{{ route('client.job-applications.index') }}" class="btn btn-outline-primary">
                     <i class="fas fa-eye"></i> View Applications
                 </a>
                 <a href="{{ route('client.job-listings.edit', $jobListing->id) }}" class="btn btn-outline-warning">
