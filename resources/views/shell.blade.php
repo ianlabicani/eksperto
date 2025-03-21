@@ -27,6 +27,7 @@
         </main>
     </div>
 
+    @stack('scripts') <!-- This will be replaced by pushed scripts -->
 </body>
 
 </html>
