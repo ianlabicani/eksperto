@@ -23,7 +23,6 @@ class JobContractController extends Controller
     public function create()
     {
         throw new \Exception('Method not implemented');
-
     }
 
     /**
@@ -69,15 +68,38 @@ class JobContractController extends Controller
 
     public function accept(JobContract $jobContract)
     {
+        // Eager load related models
+        $jobContract->load('jobApplication.jobListing');
+
+        $jobApplication = $jobContract->jobApplication;
+        $jobListing = $jobApplication->jobListing;
+
+        // Batch update to minimize queries
         $jobContract->update(['status' => 'active']);
-        $jobContract->jobApplication()->update(['status' => 'accepted']);
+        $jobApplication->update(['status' => 'accepted']);
+
+        // Update vacancies & job listing status
+        if ($jobListing->vacancies > 0) {
+            $jobListing->decrement('vacancies');
+        }
+
+        if ($jobListing->vacancies === 0) {
+            $jobListing->update(['status' => 'closed']);
+        }
+
         return back()->with('success', 'Contract accepted successfully');
     }
 
     public function decline(JobContract $jobContract)
     {
+        // Eager load job application
+        $jobContract->load('jobApplication');
+
+        // Batch update
         $jobContract->update(['status' => 'cancelled']);
-        $jobContract->jobApplication()->update(['status' => 'cancelled']);
+        $jobContract->jobApplication->update(['status' => 'cancelled']);
+
         return back()->with('success', 'Contract declined successfully');
     }
+
 }

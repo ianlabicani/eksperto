@@ -72,20 +72,45 @@ class ContractNegotiationController extends Controller
 
     public function accept($id)
     {
-        $negotiation = ContractNegotiation::findOrFail($id);
+        $negotiation = ContractNegotiation::with([
+            'jobContract.jobApplication.jobListing'
+        ])->findOrFail($id);
+
+        $jobContract = $negotiation->jobContract;
+        $jobApplication = $jobContract->jobApplication;
+        $jobListing = $jobApplication->jobListing;
+
+        // Batch update to minimize queries
         $negotiation->update(['status' => 'accepted']);
-        $negotiation->jobContract->update(['status' => 'active']);
-        $negotiation->jobContract->jobApplication->update(['status' => 'accepted']);
+        $jobContract->update(['status' => 'active']);
+        $jobApplication->update(['status' => 'accepted']);
+
+        // Atomic decrement with conditional status update
+        if ($jobListing->vacancies > 0) {
+            $jobListing->decrement('vacancies');
+
+            if ($jobListing->fresh()->vacancies == 0) {
+                // Use `fresh()` to ensure the updated value is retrieved
+                $jobListing->update(['status' => 'closed']);
+            }
+        }
+
         return redirect()->back()->with('success', 'Negotiation accepted successfully.');
     }
 
     public function reject($id)
     {
-        $negotiation = ContractNegotiation::findOrFail($id);
+        $negotiation = ContractNegotiation::with(['jobContract.jobApplication'])->findOrFail($id);
+
+        $jobContract = $negotiation->jobContract;
+        $jobApplication = $jobContract->jobApplication;
+
+        // Batch update to reduce queries
         $negotiation->update(['status' => 'rejected']);
-        $negotiation->jobContract->update(['status' => 'cancelled']);
-        $negotiation->jobContract->jobApplication->update(['status' => 'rejected']);
+        $jobContract->update(['status' => 'cancelled']);
+        $jobApplication->update(['status' => 'rejected']);
 
         return redirect()->back()->with('error', 'Negotiation rejected.');
     }
+
 }
