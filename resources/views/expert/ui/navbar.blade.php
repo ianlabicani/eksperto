@@ -24,11 +24,27 @@
                         <i class="fas fa-file-contract"></i> Contracts
                     </a>
                 </li>
-                <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}" class="d-inline ">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger">Logout</button>
-                    </form>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                <i class="fas fa-user-edit"></i>
+                                Edit Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout</button>
+                            </form>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>

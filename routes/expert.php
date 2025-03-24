@@ -8,7 +8,7 @@ use App\Http\Controllers\Expert\JobListingController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert'])->group(function () {
+Route::prefix('expert')->name('expert.')->middleware(['auth', 'profile.complete', 'role:expert'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('job-listings', JobListingController::class);

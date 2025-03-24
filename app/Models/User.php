@@ -86,7 +86,10 @@ class User extends Authenticatable
         return $this->roles()->where('name', 'admin')->exists();
     }
 
-
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 
 
 }

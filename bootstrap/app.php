@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureProfileIsComplete;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'role' => RoleMiddleware::class,
+            'profile.complete' => EnsureProfileIsComplete::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
