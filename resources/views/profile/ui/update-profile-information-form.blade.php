@@ -1,6 +1,9 @@
 <form method="POST" action="{{ route('profile.update') }}">
     @csrf
     @method('PATCH')
+
+    <h5 class="fw-bold">Profile Information</h5>
+
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}"
@@ -8,8 +11,9 @@
     </div>
 
     <div class="mb-3">
-        <label for="name" class="form-label">First Name</label>
-        <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+        <label for="first_name" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="first_name" name="first_name"
+            value="{{ old('first_name', $profile->first_name) }}" required>
     </div>
 
     <div class="mb-3">
@@ -36,39 +40,14 @@
     </div>
 
     <div class="mb-3">
-        <label for="contact" class="form-label">Contact</label>
-        <input type="text" class="form-control" id="contact" name="contact"
-            value="{{ old('contact', $profile->contact) }}" required>
+        <label for="sex" class="form-label">Sex</label>
+        <select class="form-select" id="sex" name="sex" required>
+            <option value="" disabled {{ old('sex', $profile->sex) === null ? 'selected' : '' }}>Select your sex</option>
+            <option value="male" {{ old('sex', $profile->sex) === 'male' ? 'selected' : '' }}>Male</option>
+            <option value="female" {{ old('sex', $profile->sex) === 'female' ? 'selected' : '' }}>Female</option>
+            <option value="other" {{ old('sex', $profile->sex) === 'other' ? 'selected' : '' }}>Other</option>
+        </select>
     </div>
 
-    <div class="mb-3">
-        <label for="house_number" class="form-label">House No.</label>
-        <input type="text" class="form-control" id="house_number" name="house_number"
-            value="{{ old('house_number', $profile->house_number) }}">
-    </div>
-
-    <div class="mb-3">
-        <label for="street" class="form-label">Street</label>
-        <input type="text" class="form-control" id="street" name="street" value="{{ old('street', $profile->street) }}">
-    </div>
-
-    <div class="mb-3">
-        <label for="barangay" class="form-label">Barangay</label>
-        <input type="text" class="form-control" id="barangay" name="barangay"
-            value="{{ old('barangay', $profile->barangay) }}">
-    </div>
-
-    <div class="mb-3">
-        <label for="municipality" class="form-label">Municipality</label>
-        <input type="text" class="form-control" id="municipality" name="municipality"
-            value="{{ old('municipality', $profile->municipality) }}">
-    </div>
-
-    <div class="mb-3">
-        <label for="province" class="form-label">Province</label>
-        <input type="text" class="form-control" id="province" name="province"
-            value="{{ old('province', $profile->province) }}">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="submit" class="btn btn-primary">Save Profile</button>
 </form>

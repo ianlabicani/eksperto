@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Address;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -15,15 +16,14 @@ use Validator;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function edit(Request $request): View
     {
         $user = $request->user();
         $profile = $user->profile ?? new Profile();
+        $contacts = $user->contacts ?? [];
+        $address = $user->address ?? new Address();
 
-        return view('profile.edit', compact('user', 'profile'));
+        return view('profile.edit', compact('user', 'profile', 'contacts', 'address'));
     }
 
     public function update(Request $request): RedirectResponse
@@ -31,36 +31,13 @@ class ProfileController extends Controller
         $user = $request->user();
 
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'suffix' => ['nullable', 'string', 'max:50'],
             'date_of_birth' => ['nullable', 'date'],
-            'contact' => ['required', 'string', 'max:20'],
-            'house_number' => ['nullable', 'string', 'max:50'],
-            'street' => ['nullable', 'string', 'max:255'],
-            'barangay' => ['nullable', 'string', 'max:255'],
-            'municipality' => ['nullable', 'string', 'max:255'],
-            'province' => ['nullable', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($user->id),
-            ],
+            'sex' => ['required', 'string']
         ]);
-
-        // Update user details
-        $user->fill([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-        ]);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
 
         $user->save();
 

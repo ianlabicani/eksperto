@@ -27,7 +27,7 @@ class EnsureProfileIsComplete
      */
     private function isProfileComplete($user)
     {
-        return $user->profile()->exists();
+        return $user->profile()->exists() && $user->contacts()->exists() && $user->address()->exists();
     }
 }
 

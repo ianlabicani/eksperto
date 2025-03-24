@@ -91,5 +91,14 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
 
 }
