@@ -11,9 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('job_applications', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('expert_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('job_listing_id')->constrained('job_listings')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('expert_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('job_listing_id')->constrained('job_listings')->onDelete('cascade');
             $table->text('cover_letter')->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected', 'cancelled'])->default('pending');
             $table->timestamps();

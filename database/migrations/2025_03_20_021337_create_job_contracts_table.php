@@ -11,10 +11,10 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('job_contracts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('job_application_id')->constrained('job_applications')->onDelete('cascade');
-            $table->foreignId('client_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('expert_id')->constrained('users')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('job_application_id')->constrained('job_applications')->onDelete('cascade');
+            $table->foreignUuid('client_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('expert_id')->constrained('users')->onDelete('cascade');
             $table->enum('status', ['pending', 'active', 'completed', 'cancelled'])->default('pending');
             $table->date('start_date');
             $table->date('end_date')->nullable();

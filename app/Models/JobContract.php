@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class JobContract extends Model
 {
+    use HasUuids;
+
     protected $fillable = [
         'job_application_id',
         'client_id',

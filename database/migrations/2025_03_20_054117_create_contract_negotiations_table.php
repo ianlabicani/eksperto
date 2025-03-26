@@ -11,9 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('contract_negotiations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('job_contract_id')->constrained('job_contracts')->onDelete('cascade');
-            $table->foreignId('expert_id')->constrained('users')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('job_contract_id')->constrained('job_contracts')->onDelete('cascade');
+            $table->foreignUuid('expert_id')->constrained('users')->onDelete('cascade');
             $table->text('negotiation_message');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamps();
