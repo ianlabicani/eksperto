@@ -16,7 +16,7 @@ use Validator;
 
 class ProfileController extends Controller
 {
-    public function edit(Request $request): View
+    public function edit(Request $request, $id): View
     {
         $user = $request->user();
         $profile = $user->profile ?? new Profile();
@@ -52,6 +52,16 @@ class ProfileController extends Controller
         $user->profile()->updateOrCreate(['user_id' => $user->id], $profileData);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function show(Request $request, $id): View
+    {
+        $user = User::findOrFail($id);
+        $profile = $user->profile ?? new Profile();
+        $contacts = $user->contacts ?? [];
+        $address = $user->address ?? new Address();
+
+        return view('profile.show', compact('user', 'profile', 'contacts', 'address'));
     }
 
 

@@ -32,14 +32,16 @@
                         <i class="fas fa-user"></i> Profile
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profile.edit', Auth::user()->id) }}">
+                                <i class="fas fa-user-edit"></i> Edit Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                 @csrf
-                                <button type="submit" class="dropdown-item text-danger">Logout</button>
+                                <button type="submit" class="dropdown-item text-danger"><i
+                                        class="fas fa-sign-out-alt"></i> Logout</button>
                             </form>
                         </li>
                     </ul>
