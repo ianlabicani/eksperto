@@ -41,6 +41,13 @@
             </div>
         </div>
 
+        @if ($jobContract->status === 'active')
+            <div class="alert alert-success mt-4">
+                <i class="fas fa-check-circle"></i> Congratulations! Your contract is now active. We wish you a successful
+                collaboration ahead!
+            </div>
+        @endif
+
         <!-- Display Negotiation Request if exists -->
         @if ($jobContract->contractNegotiation !== null)
             <div class="card shadow-sm mt-4">
