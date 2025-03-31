@@ -87,17 +87,6 @@ class JobListingController extends Controller
             //throw $th;
             dd($th);
         }
-
-
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(JobListing $jobListing)
-    {
-        //
     }
 
     /**
@@ -113,14 +102,6 @@ class JobListingController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, JobListing $jobListing)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(JobListing $jobListing)
@@ -128,5 +109,14 @@ class JobListingController extends Controller
 
         $jobListing->delete();
         return redirect()->route('client.job-listings.index')->with('success', 'Job listing deleted successfully!');
+    }
+
+    public function showWithApplications(JobListing $jobListing)
+    {
+        $jobApplications = $jobListing->jobApplications()->get();
+        $pendingApplications = $jobApplications->where('status', 'pending');
+        $acceptedApplications = $jobApplications->where('status', 'accepted');
+        $rejectedApplications = $jobApplications->where('status', 'rejected');
+        return view('client.job-applications.show', compact('jobListing', 'pendingApplications', 'acceptedApplications', 'rejectedApplications'));
     }
 }

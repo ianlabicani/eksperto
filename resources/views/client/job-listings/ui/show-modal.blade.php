@@ -26,11 +26,8 @@
                     {!! nl2br(e($jobListing->description)) !!}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger me-auto" data-bs-toggle="modal"
-                    data-bs-target="#deleteJobModal" data-job-id="{{ $jobListing->id }}">
-                    <i class="fas fa-trash"></i> Delete
-                </button>
-                <a href="{{ route('client.job-applications.index') }}" class="btn btn-outline-primary">
+                <a href="{{ route('client.job-listings.showWithApplications', ['jobListing' => $jobListing->id]) }}"
+                    class="btn btn-outline-primary">
                     <i class="fas fa-eye"></i> View Applications
                 </a>
                 <a href="{{ route('client.job-listings.edit', $jobListing->id) }}" class="btn btn-outline-warning">

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('client')->name('client.')->middleware(['auth', 'profile.complete', 'role:client'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('client/job-listings/{jobListing}/job-applications', [JobListingController::class, 'showWithApplications'])->name('job-listings.showWithApplications');
     Route::resource('job-listings', JobListingController::class);
     Route::resource('job-applications', JobApplicationController::class);
     Route::resource('job-contracts', JobContractController::class);

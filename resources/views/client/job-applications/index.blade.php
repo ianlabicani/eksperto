@@ -11,9 +11,10 @@
         @else
             <div class="list-group">
                 @foreach ($jobApplications as $applicant)
-                    <a href="{{ route('client.job-applications.show', $applicant->id) }}"
+                    <a href="{{ route('client.job-listings.showWithApplications', ['jobListing' => $applicant->jobListing->id]) }}"
                         class="list-group-item list-group-item-action">
-                        <h5 class="mb-1"><i class="fas fa-file-alt"></i> {{ $applicant->jobListing->title }}</h5>
+                        <h4 class="mb-1"><i class="fas fa-file-alt"></i> {{ $applicant->jobListing->title }}</h4>
+                        <h5 class="mb-1"><i class="fas fa-user-alt"></i> {{ $applicant->expert->name }}</h5>
                         <p class="mb-1"><i class="fas fa-map-marker-alt"></i> {{ $applicant->jobListing->location }}</p>
                         <small>
                             <i class="fas fa-info-circle"></i> Status:

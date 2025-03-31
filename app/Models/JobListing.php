@@ -39,5 +39,4 @@ class JobListing extends Model
 
         return $query;
     }
-
 }
