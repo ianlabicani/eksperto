@@ -8,7 +8,7 @@
         <ul class="list-unstyled d-flex flex-column gap-2">
             <li>
                 <a class="text-decoration-none text-muted {{ request()->routeIs('expert.profile.index') ? 'custom-active' : ''  }}"
-                    href="">
+                    href="{{ route('expert.profile.index') }}">
                     <i class="fa fa-user" aria-hidden="true" style="width: 20px"></i> Personal
                 </a>
             </li>
