@@ -41,9 +41,8 @@
                         <i class="fas fa-user"></i> Profile
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item"
-                                href="{{ route('profile.edit', ["profile" => auth()->user()->profile]) }}">
-                                <i class="fas fa-user-edit"></i> Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ route('expert.profile.index') }}">
+                                <i class="fas fa-user"></i> Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
