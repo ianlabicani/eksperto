@@ -13,13 +13,9 @@ class ProfileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user();
-        $profile = $user->profile ?? new Profile();
-        $address = $user->address ?? new Address();
-
-        return view('expert.profile.index', compact('user', 'profile', 'address'));
+        return view('expert.profile.index');
     }
 
     /**

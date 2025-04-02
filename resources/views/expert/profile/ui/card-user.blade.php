@@ -1,4 +1,10 @@
-<div class="card rounded-0 shadow-lg">
+@php
+    use Illuminate\Support\Facades\Auth;
+
+    $user = Auth::user();
+@endphp
+
+<div class="card shadow-lg mb-3">
     <div class="card-body">
         <div class="rounded-circle mb-3" style="width: 120px; height: 120px; overflow: hidden; margin: auto;">
             <img src="{{ asset('images/profile-placeholder.jpg') }}" alt="Eksperto Logo"

@@ -101,4 +101,9 @@ class User extends Authenticatable
         return $this->hasOne(Address::class);
     }
 
+    public function educationalBackgrounds()
+    {
+        return $this->hasMany(EducationalBackground::class);
+    }
+
 }

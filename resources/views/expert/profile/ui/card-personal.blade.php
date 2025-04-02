@@ -1,4 +1,14 @@
-<div class="card rounded-0 mt-3 shadow-lg">
+@php
+    use Illuminate\Support\Facades\Auth;
+
+    $user = Auth::user();
+    $profile = $user->profile;
+    $address = $user->address;
+
+@endphp
+
+
+<div class="card mt-3 shadow-lg">
     <div class="card-header">
         <h3>Personal Information</h3>
     </div>

@@ -1,4 +1,4 @@
-<div class="card mt-3 rounded-0 shadow-lg">
+<div class="card mb-3 shadow-lg">
     <div class="card-header">
         <h2>Profile Settings</h2>
     </div>
@@ -13,8 +13,9 @@
                 </a>
             </li>
             <li>
-                <a class="text-decoration-none text-muted {{ request()->routeIs('') ? 'custom-active' : ''  }}" href="">
-                    <i class="fa fa-graduation-cap" style="width: 20px"></i> Educational
+                <a class="text-decoration-none text-muted {{ request()->routeIs('expert.educational-background.index') ? 'custom-active' : ''  }}"
+                    href="{{ route('expert.educational-background.index') }}">
+                    <i class="fa fa-graduation-cap" style="width: 20px"></i> Educational Background
                 </a>
             </li>
             <li>
