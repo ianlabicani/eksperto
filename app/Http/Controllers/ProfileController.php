@@ -12,11 +12,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Validator;
 
 class ProfileController extends Controller
 {
-    public function edit(Request $request, $id): View
+    public function edit(Request $request): View
     {
         $user = $request->user();
         $profile = $user->profile ?? new Profile();
