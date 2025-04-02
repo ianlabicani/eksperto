@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('expert.dashboard') }}">Eksperto</a>
-
+        <a class="navbar-brand" href="{{ route('expert.dashboard') }}">
+            <img src="{{ asset('logo/eksperto-logo.png') }}" alt="Eksperto Logo" class="img-fluid"
+                style="max-width: 30px;">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -15,13 +17,22 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('expert.job-applications.index') }}">
-                        <i class="fas fa-file-alt"></i> Applications
+                    <a class="nav-link" href="{{ route('expert.job-contracts.index') }}">
+                        <i class="fas fa-file-contract"></i> Contracts
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('expert.job-contracts.index') }}">
-                        <i class="fas fa-file-contract"></i> Contracts
+                    <a class="nav-link" href="{{ route('expert.job-applications.index') }}">
+                        <i class="fas fa-file-alt"></i>
+                        Applications
+                        <span class="badge bg-danger">5</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-file-contract"></i>
+                        Messages
+                        <span class="badge bg-danger">3</span>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
