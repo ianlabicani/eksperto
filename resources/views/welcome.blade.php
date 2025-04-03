@@ -53,64 +53,19 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="bg-primary text-white text-center py-5">
-        <div class="container">
-            <h1 class="fw-bold">Find & Hire Experts Easily</h1>
-            <p class="lead">Connect with skilled professionals and get your projects done efficiently.</p>
-            <div class="mt-4">
-                <a href="{{ route('register') }}" class="btn btn-light btn-lg text-primary fw-bold">Join Now</a>
-                <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
-            </div>
-        </div>
-    </section>
+    @include('hero')
 
-    <!-- Features Section -->
-    <section id="features" class="container my-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-primary">Why Choose Eksperto?</h2>
-            <p class="text-muted">A trusted platform for clients and professionals.</p>
-        </div>
+    <div class="container">
+        @include('banner')
+        @include('job-listings-section')
+        @include('quick-guide')
+    </div>
 
-        <div class="row text-center">
-            <div class="col-md-4 d-flex">
-                <div class="card shadow-sm h-100 w-100">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Verified Experts</h5>
-                        <p class="card-text text-muted flex-grow-1">
-                            Work with top-rated professionals in your industry.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex">
-                <div class="card shadow-sm h-100 w-100">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Secure Transactions</h5>
-                        <p class="card-text text-muted flex-grow-1">
-                            Safe and transparent payment processing.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex">
-                <div class="card shadow-sm h-100 w-100">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">24/7 Support</h5>
-                        <p class="card-text text-muted flex-grow-1">
-                            Our team is here to assist you at any time.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+@include('features')
 
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-3 text-center">
-        <p class="mb-0">&copy; 2025 Eksperto. All rights reserved.</p>
-    </footer>
+    @include('footer')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
