@@ -19,7 +19,8 @@
                 </a>
             </li>
             <li>
-                <a class="text-decoration-none text-muted {{ request()->routeIs('') ? 'custom-active' : ''  }}" href="">
+                <a class="text-decoration-none text-muted {{ request()->routeIs('expert.work-experience.index') ? 'custom-active' : ''  }}"
+                    href="{{ route('expert.work-experience.index') }}">
                     <i class="fa fa-briefcase" aria-hidden="true" style="width: 20px"></i> Work Experience
                 </a>
             </li>

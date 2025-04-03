@@ -106,4 +106,9 @@ class User extends Authenticatable
         return $this->hasMany(EducationalBackground::class);
     }
 
+    public function workExperiences()
+    {
+        return $this->hasMany(WorkExperience::class);
+    }
+
 }

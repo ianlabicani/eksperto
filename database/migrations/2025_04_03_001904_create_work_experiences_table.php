@@ -10,14 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('educational_backgrounds', function (Blueprint $table) {
+        Schema::create('work_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('level');
-            $table->string('university');
-            $table->string('course');
-            $table->string('year');
-            $table->string('award')->nullable();
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->string('company_name');
+            $table->string('job_title');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('educational_backgrounds');
+        Schema::dropIfExists('work_experiences');
     }
 };

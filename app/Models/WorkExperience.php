@@ -2,21 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
-class EducationalBackground extends Model
+class WorkExperience extends Model
 {
-
     use HasUuids;
 
     protected $fillable = [
         'user_id',
-        'level',
-        'university',
-        'course',
-        'year',
-        'award',
+        'company_name',
+        'job_title',
+        'start_date',
+        'end_date',
+        'description',
     ];
 
     protected $keyType = 'string';
