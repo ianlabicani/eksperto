@@ -31,7 +31,7 @@
         </button>
 
         <!-- Modal: Add Work Experience -->
-        @include('expert.work-experiences.ui.modal-create-work-experience')
+        @include('expert.work-experiences._ui.modal-create-work-experience')
 
     </div>
 </div>

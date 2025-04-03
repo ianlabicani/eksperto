@@ -17,7 +17,7 @@
 <body>
 
     <!-- Page Content -->
-    @include('peso.ui.navbar')
+    @include('peso._ui.navbar')
     <main class="flex-grow-1">
         @yield('content')
     </main>

@@ -63,7 +63,7 @@
             UPDATE PROFILE
         </button>
         <!-- Modal -->
-        @include('expert.profile.ui.modal-edit-personal')
+        @include('expert.profile._ui.modal-edit-personal')
 
     </div>
     <!-- address -->
@@ -119,6 +119,6 @@
             UPDATE ADDRESS
         </button>
 
-        @include('expert.profile.ui.modal-edit-address')
+        @include('expert.profile._ui.modal-edit-address')
     </div>
 </div>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Expert\AddressController;
 use App\Http\Controllers\Expert\ContractNegotiationController;
 use App\Http\Controllers\Expert\DashboardController;
 use App\Http\Controllers\Expert\EducationalBackgroundController;
+use App\Http\Controllers\Expert\ExpertiseController;
 use App\Http\Controllers\Expert\JobApplicationController;
 use App\Http\Controllers\Expert\JobContractController;
 use App\Http\Controllers\Expert\JobListingController;
@@ -24,6 +25,7 @@ Route::prefix('expert')->name('expert.')->middleware(['auth', 'profile.complete'
     Route::patch('address', [AddressController::class, 'update'])->name('address.update');
 
     Route::resource('work-experience', WorkExperienceController::class)->except(['show']);
+    Route::resource('expertise', ExpertiseController::class)->except(['show']);
 
     // Route::get('work-experiences', [WorkExperienceController::class, 'get'])->name('work-experience.index');
     // Route::post('work-experiences', [WorkExperienceController::class, 'store'])->name('work-experience.store');

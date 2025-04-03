@@ -32,7 +32,7 @@
         </h4>
         <div class="row">
             @forelse ($pendingApplications as $jobApplication)
-                @include('client.job-applications.ui.job-application-card', ['jobApplication' => $jobApplication])
+                @include('client.job-applications._ui.job-application-card', ['jobApplication' => $jobApplication])
             @empty
                 <div class="alert alert-warning" role="alert">
                     No pending applications.
@@ -47,7 +47,7 @@
         </h4>
         <div class="row">
             @forelse ($acceptedApplications as $jobApplication)
-                @include('client.job-applications.ui.job-application-card', ['jobApplication' => $jobApplication])
+                @include('client.job-applications._ui.job-application-card', ['jobApplication' => $jobApplication])
             @empty
                 <div class="alert alert-success" role="alert">
                     No accepted applications.
@@ -62,7 +62,7 @@
         </h4>
         <div class="row">
             @forelse ($rejectedApplications as $jobApplication)
-                @include('client.job-applications.ui.job-application-card', ['jobApplication' => $jobApplication])
+                @include('client.job-applications._ui.job-application-card', ['jobApplication' => $jobApplication])
             @empty
                 <div class="alert alert-danger" role="alert">
                     No rejected applications.

@@ -19,9 +19,9 @@
 
         <div class="row">
             <div class="col-10 mx-auto">
-                @include('expert.profile.ui.card-user')
-                @include('expert.profile.ui.card-profile-setting')
-                @include('expert.profile.ui.card-personal')
+                @include('expert.profile._ui.card-user')
+                @include('expert.profile._ui.card-profile-setting')
+                @include('expert.profile._ui.card-personal')
             </div>
         </div>
 @endsection

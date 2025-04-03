@@ -38,4 +38,4 @@
     </div>
 </div>
 
-@include('client.job-listings.ui.destroy-modal')
+@include('client.job-listings._ui.destroy-modal')

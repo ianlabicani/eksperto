@@ -25,7 +25,8 @@
                 </a>
             </li>
             <li>
-                <a class="text-decoration-none text-muted {{ request()->routeIs('') ? 'custom-active' : ''  }}" href="">
+                <a class="text-decoration-none text-muted {{ request()->routeIs('expert.expertise.index') ? 'custom-active' : ''  }}"
+                    href="{{ route('expert.expertise.index') }}">
                     <i class="fa fa-wrench" aria-hidden="true" style="width: 20px"></i> Expertise
                 </a>
             </li>

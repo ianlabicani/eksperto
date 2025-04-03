@@ -54,11 +54,11 @@
             <div class="row">
                 @foreach ($jobListings as $jobListing)
                     <div class="col-md-5 col-lg-3 mb-4">
-                        @include('expert.job-listings.ui.job-listing-card', ['jobListing' => $jobListing])
+                        @include('expert.job-listings._ui.job-listing-card', ['jobListing' => $jobListing])
                     </div>
 
                     <!-- Include Modal File -->
-                    @include('expert.job-listings.ui.show-modal', ['jobListing' => $jobListing])
+                    @include('expert.job-listings._ui.show-modal', ['jobListing' => $jobListing])
                 @endforeach
             </div>
             <!-- Pagination -->

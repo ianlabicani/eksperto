@@ -32,7 +32,7 @@
         </button>
 
         <!-- Modal: Add Educational Background -->
-        @include('expert.educational-background.ui.modal-create-educational-background')
+        @include('expert.educational-background._ui.modal-create-educational-background')
 
     </div>
 </div>

@@ -6,7 +6,7 @@
             <div class="col-10 mx-auto">
                 @include('expert.profile._ui.card-user')
                 @include('expert.profile._ui.card-profile-setting')
-                @include('expert.work-experiences._ui.card-work-experience')
+                @include('expert.expertise._ui.card-expertise')
             </div>
         </div>
 @endsection

@@ -111,4 +111,9 @@ class User extends Authenticatable
         return $this->hasMany(WorkExperience::class);
     }
 
+    public function expertises()
+    {
+        return $this->hasMany(Expertise::class);
+    }
+
 }

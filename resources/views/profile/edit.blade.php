@@ -27,7 +27,7 @@
             <div class="col-md-8">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        @include('profile.ui.update-profile-information-form')
+                        @include('profile._ui.update-profile-information-form')
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
             <div class="col-md-8">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        @include('profile.ui.update-address-form')
+                        @include('profile._ui.update-address-form')
                     </div>
                 </div>
             </div>
@@ -46,17 +46,7 @@
             <div class="col-md-8">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        @include('profile.ui.update-contacts-form')
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col-md-8">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        @include('profile.ui.update-password-form')
+                        @include('profile._ui.update-contacts-form')
                     </div>
                 </div>
             </div>
@@ -66,7 +56,17 @@
             <div class="col-md-8">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        @include('profile.ui.delete-user-form')
+                        @include('profile._ui.update-password-form')
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        @include('profile._ui.delete-user-form')
                     </div>
                 </div>
             </div>
