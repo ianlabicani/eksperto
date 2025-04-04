@@ -14,6 +14,11 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-12">
+                @if (url()->previous() !== url()->current())
+                    <a href="{{ url()->previous() }}" class="btn btn-secondary mb-3">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                @endif
                 <h2 class="fw-semibold text-dark">
                     <i class="fas fa-user-circle"></i> Public Profile
                 </h2>

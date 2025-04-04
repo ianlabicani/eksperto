@@ -4,9 +4,7 @@
     <div class="container mt-4">
         <h2 class="fw-bold"><i class="fas fa-file-contract"></i> Job Contract Details</h2>
 
-        <a href="{{ route('client.job-contracts.index') }}" class="btn btn-secondary mb-3">
-            <i class="fas fa-arrow-left"></i> Back to Contracts
-        </a>
+        @include('_ui.button-back')
 
         <div class="card shadow-sm">
             <div class="card-body">

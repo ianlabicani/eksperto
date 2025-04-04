@@ -17,7 +17,6 @@
 
 <body>
     <div class="bg-light min-vh-100 d-flex flex-column">
-
         <!-- Page Content -->
         <main class="flex-grow-1">
             <div class="container py-4">

@@ -20,7 +20,7 @@
 
     <!-- Page Content -->
     @include('client._ui.navbar')
-    <main class="flex-grow-1">
+    <main>
         @yield('content')
     </main>
 

@@ -51,16 +51,28 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    public function show(Request $request, $id): View
+
+    public function show(Request $request, Profile $profile)
     {
-        $user = User::findOrFail($id);
-        $profile = $user->profile ?? new Profile();
-        $contacts = $user->contacts ?? [];
-        $address = $user->address ?? new Address();
+        $user = $request->user();
 
-        return view('profile.show', compact('user', 'profile', 'contacts', 'address'));
+        // Eager load related data to avoid N+1 queries
+        $profile->load('user.address', 'user.contacts', 'user.educationalBackgrounds');
+
+        // Simplified shell determination using match (PHP 8.0+)
+        $shell = match (true) {
+            $user->isClient() => 'client.shell',
+            $user->isExpert() => 'expert.shell',
+            $user->isPeso() => 'peso.shell',
+            default => 'default.shell',
+        };
+
+        $address = $profile->user->address;
+        $contacts = $profile->user->contacts;
+        $educationalBackgrounds = $profile->user->educationalBackgrounds;
+
+        return view('profile.show', compact('profile', 'shell', 'user', 'address', 'contacts', 'educationalBackgrounds'));
     }
-
 
 
     /**

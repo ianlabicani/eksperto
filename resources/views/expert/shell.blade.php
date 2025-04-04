@@ -19,7 +19,7 @@
 
     <!-- Page Content -->
     @include('expert._ui.navbar')
-    <main class="flex-grow-1">
+    <main>
         @yield('content')
     </main>
     <footer class="footer mt-4 bg-dark-subtle">
