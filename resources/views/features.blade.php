@@ -4,7 +4,7 @@
         <p class="text-muted">A trusted platform for clients and professionals.</p>
     </div>
 
-    <div class="row text-center gap-4">
+    <div class="row text-center">
         <div class="col-md-4 d-flex">
             <div class="card shadow-sm h-100 w-100">
                 <div class="card-body d-flex flex-column">

@@ -16,7 +16,9 @@ class WelcomeController extends Controller
             ->take(6)
             ->get();
 
+        $user = $request->user();
 
-        return view('welcome', compact('jobListings'));
+
+        return view('welcome', compact('jobListings', 'user'));
     }
 }
