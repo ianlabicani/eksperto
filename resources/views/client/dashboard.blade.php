@@ -8,7 +8,7 @@
             </div>
 
             <div class="col-md-12 mt-3">
-                <p>Welcome to your dashboard, {{ Auth::user()->name }}!</p>
+                <p>Welcome to client dashboard, {{ Auth::user()->name }}!</p>
             </div>
         </div>
     </div>
