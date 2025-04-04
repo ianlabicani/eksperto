@@ -32,8 +32,8 @@
                         <i class="fas fa-user"></i> Profile
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ url('profile.edit', Auth::user()->id) }}">
-                                <i class="fas fa-user-edit"></i> Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ route('client.profile.index') }}">
+                                <i class="fas fa-user-edit"></i> Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

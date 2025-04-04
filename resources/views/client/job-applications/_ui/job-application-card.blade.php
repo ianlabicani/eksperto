@@ -28,9 +28,8 @@
             </p>
 
             <div class="d-flex gap-2 flex-column">
-                <a href="{{ route('profile.show', $jobApplication->expert->id) }}"
-                    class="btn btn-success btn-sm w-100">View
-                    Expert Profile</a>
+                <a href="{{ route('client.profile.index') }}" class="btn btn-success btn-sm w-100">View
+                    Client Profile</a>
                 @if ($jobApplication->status === 'accepted')
                     <a href="{{ route('client.job-contracts.show', $jobApplication->jobContract) }}"
                         class="btn btn-outline-primary btn-sm w-100">Review Contract</a>
