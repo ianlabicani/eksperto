@@ -31,12 +31,12 @@
 
         <!-- Preferred/Not Preferred Filter -->
         <div class="col-md-2 d-flex align-items-center">
-            <label class="form-check-label" for="preferred_only">
+            <label class="form-check-label" for="preferred_only" data-bs-toggle="tooltip" data-bs-placement="top"
+                title="Filter only preferred jobs based from expertise">
                 Preferred Jobs
             </label>
             <input type="checkbox" name="preferred_only" id="preferred_only" class="form-check-input" value="1" {{ request('preferred_only') == '1' ? 'checked' : '' }}>
         </div>
-
 
         <!-- Filter & Reset Buttons -->
         <div class="col-md-2 d-flex align-items-center gap-2">
@@ -47,3 +47,13 @@
         </div>
     </div>
 </form>
+
+@push('scripts')
+    <script>
+        // Initialize Bootstrap tooltip
+        var tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return window.bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+@endpush
