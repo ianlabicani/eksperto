@@ -32,15 +32,16 @@
                     $application = $jobListing->jobApplications->firstWhere('expert_id', auth()->user()->id);
                 @endphp
 
-                @if ($application)
-                    <a href="{{ route('expert.job-applications.show', $application) }}" class="btn btn-primary">
-                        <i class="fas fa-eye"></i> View Application
-                    </a>
-                @endif
-                @if($jobListing->status === 'open' && !$application)
+
+                @if (!$jobListing->has_applied)
                     <a href="{{ route('expert.job-applications.create', ['job_listing_id' => $jobListing->id]) }}"
                         class="btn btn-primary">
                         <i class="fas fa-paper-plane"></i> Apply
+                    </a>
+
+                @else
+                    <a href="{{ route('expert.job-applications.show', $application) }}" class="btn btn-primary">
+                        <i class="fas fa-eye"></i> View Application
                     </a>
                 @endif
             </div>

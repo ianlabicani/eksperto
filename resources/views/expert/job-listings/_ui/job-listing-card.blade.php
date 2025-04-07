@@ -1,5 +1,4 @@
-<div class="card shadow-lg border-0 job-card {{ $jobListing->status === 'closed' ? 'bg-dark-subtle' : '' }}"
-    data-bs-toggle="modal" data-bs-target="#viewJobModal{{ $jobListing->id }}">
+<div class="card shadow-lg border-0 job-card {{ $jobListing->status === 'closed' ? 'bg-dark-subtle' : '' }}">
     <div class="card-body">
         <h5 class="card-title fw-bold">{{ $jobListing->title }}</h5>
         <p class="card-text text-muted mb-1">{{ $jobListing->category }}</p>
@@ -59,11 +58,12 @@
         @endphp
 
         @if ($jobListing->has_applied)
-            <a href="{{ route('expert.job-applications.show', $application) }}" class="btn btn-primary">
+            <a href="{{ route('expert.job-applications.show', $application) }}" class="btn btn-warning w-100">
                 <i class="fas fa-eye"></i> View Application
             </a>
-        @else
-            <button class="btn btn-primary btn-small w-100">Apply</button>
         @endif
+
+        <button class="btn btn-info btn-sm w-100 mt-2" data-bs-toggle="modal"
+            data-bs-target="#viewJobModal{{ $jobListing->id }}">Show More</button>
     </div>
 </div>
