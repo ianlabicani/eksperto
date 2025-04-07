@@ -33,8 +33,22 @@ class JobListingController extends Controller
             $query->whereBetween('created_at', [$request->start_date, $endDate]);
         }
 
+        $user = $request->user();
+
         // Get filtered job listings with pagination
         $jobListings = $query->latest()->paginate(10);
+
+        // Get job IDs the user has applied to (in one query)
+        $appliedJobIds = $user->jobApplications()
+            ->whereIn('job_listing_id', $jobListings->pluck('id'))
+            ->pluck('job_listing_id')
+            ->toArray();
+
+        // Append 'has_applied' to each job listing efficiently
+        $jobListings->getCollection()->transform(function ($jobListing) use ($appliedJobIds) {
+            $jobListing->has_applied = in_array($jobListing->id, $appliedJobIds);
+            return $jobListing;
+        });
 
         return view('expert.job-listings.index', compact('jobListings'));
     }

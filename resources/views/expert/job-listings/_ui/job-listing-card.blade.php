@@ -53,19 +53,17 @@
                 <span class="badge bg-success"><i class="fas fa-check"></i> Open</span>
             @endif
         </p>
+
+        @php
+            $application = $jobListing->jobApplications->firstWhere('expert_id', auth()->user()->id);
+        @endphp
+
+        @if ($jobListing->has_applied)
+            <a href="{{ route('expert.job-applications.show', $application) }}" class="btn btn-primary">
+                <i class="fas fa-eye"></i> View Application
+            </a>
+        @else
+            <button class="btn btn-primary btn-small w-100">Apply</button>
+        @endif
     </div>
 </div>
-
-@push('styles')
-    <style>
-        .job-card {
-            transition: transform 0.3s ease-in-out;
-            cursor: pointer;
-        }
-
-        .job-card:hover {
-            transform: scale(1.08);
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
-        }
-    </style>
-@endpush
