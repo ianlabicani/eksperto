@@ -12,9 +12,15 @@
 
                     <!-- Expertise Name -->
                     <div class="mb-3">
-                        <label for="name" class="form-label">Field of Expertise</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <label for="expertise_category_id" class="form-label">Field of Expertise</label>
+                        <select class="form-select" id="expertise_category_id" name="expertise_category_id" required>
+                            <option value="" disabled selected>Select a field...</option>
+                            @foreach($expertiseCategories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
+
 
                     <!-- Description -->
                     <div class="mb-3">

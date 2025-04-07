@@ -29,6 +29,14 @@
             <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
         </div>
 
+        <!-- Preferred/Not Preferred Filter -->
+        <div class="col-md-2 d-flex align-items-center">
+            <label class="form-check-label" for="preferred_only">
+                Preferred Jobs
+            </label>
+            <input type="checkbox" name="preferred_only" id="preferred_only" class="form-check-input" value="1" {{ request('preferred_only') == '1' ? 'checked' : '' }}>
+        </div>
+
 
         <!-- Filter & Reset Buttons -->
         <div class="col-md-2 d-flex align-items-center gap-2">

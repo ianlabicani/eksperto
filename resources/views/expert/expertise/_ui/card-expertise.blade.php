@@ -1,8 +1,3 @@
-@php
-    $user = Auth::user();
-    $expertises = $user->expertises;
-@endphp
-
 <div class="card">
     <div class="card-header">
         <h3>Expertise</h3>

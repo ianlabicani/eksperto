@@ -14,6 +14,7 @@ class JobListingController extends Controller
     public function index(Request $request)
     {
         $query = JobListing::query();
+
         // Filter by status (if provided)
         if ($request->query('status')) {
             $query->where('status', $request->status);
@@ -35,6 +36,22 @@ class JobListingController extends Controller
 
         $user = $request->user();
 
+        // 🔥 Filter job listings by user's expertise categories
+        $preferredCategories = $user->expertises()
+            ->with('expertiseCategory') // assuming relationship `category()` in Expertise model
+            ->get()
+            ->pluck('expertiseCategory.name') // use `->pluck('category_id')` if matching by ID
+            ->unique()
+            ->toArray();
+
+        // Check if the user wants to filter by preferred jobs only
+        $filterPreferred = $request->query('preferred_only', false);
+
+        if ($filterPreferred == '1' && !empty($preferredCategories)) {
+            // Filter by preferred categories only
+            $query->whereIn('category', $preferredCategories);
+        }
+
         // Get filtered job listings with pagination
         $jobListings = $query->latest()->paginate(10);
 
@@ -44,14 +61,39 @@ class JobListingController extends Controller
             ->pluck('job_listing_id')
             ->toArray();
 
-        // Append 'has_applied' to each job listing efficiently
-        $jobListings->getCollection()->transform(function ($jobListing) use ($appliedJobIds) {
+        // Append 'has_applied' to each job listing efficiently using map()
+        $jobListings->transform(function ($jobListing) use ($appliedJobIds) {
             $jobListing->has_applied = in_array($jobListing->id, $appliedJobIds);
             return $jobListing;
         });
 
         return view('expert.job-listings.index', compact('jobListings'));
     }
+
+
+    private function applyJobFilters($query, $request)
+    {
+        // Filter by status (if provided)
+        if ($request->query('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Search by title or category
+        if ($request->query('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('category', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Filter by date range
+        if ($request->query('start_date') && $request->query('end_date')) {
+            $endDate = date('Y-m-d', strtotime($request->end_date . ' +1 day'));
+            $query->whereBetween('created_at', [$request->start_date, $endDate]);
+        }
+    }
+
+
 
 
     /**

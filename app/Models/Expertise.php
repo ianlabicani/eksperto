@@ -15,6 +15,7 @@ class Expertise extends Model
         'description',
         'level',
         'years_of_experience',
+        'expertise_category_id',
     ];
 
     protected $keyType = 'string';
@@ -23,5 +24,10 @@ class Expertise extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function expertiseCategory()
+    {
+        return $this->belongsTo(ExpertiseCategory::class);
     }
 }

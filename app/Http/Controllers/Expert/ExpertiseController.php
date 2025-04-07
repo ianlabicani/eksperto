@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Expert;
 
 use App\Http\Controllers\Controller;
 use App\Models\Expertise;
+use App\Models\ExpertiseCategory;
 use Illuminate\Http\Request;
 
 class ExpertiseController extends Controller
@@ -11,9 +12,13 @@ class ExpertiseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('expert.expertise.index');
+        $expertiseCategories = ExpertiseCategory::orderBy('name')->get();
+        $experties = $expertises = $request->user()->expertises;
+
+
+        return view('expert.expertise.index', compact('expertiseCategories', 'expertises'));
     }
 
     /**
@@ -32,21 +37,23 @@ class ExpertiseController extends Controller
         $user = $request->user();
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'expertise_category_id' => 'required|exists:expertise_categories,id',
             'description' => 'nullable|string|max:1000',
             'level' => 'nullable|string|max:255',
             'years_of_experience' => 'nullable|integer|min:0',
         ]);
 
+        $category = ExpertiseCategory::find($request->expertise_category_id);
+
         $expertise = $user->expertises()->create([
-            'name' => $request->name,
+            'expertise_category_id' => $category->id,
+            'name' => $category->name, // Auto-fill name from category
             'description' => $request->description,
             'level' => $request->level,
             'years_of_experience' => $request->years_of_experience,
         ]);
 
         return redirect()->route('expert.expertise.index')->with('success', 'Expertise created successfully.');
-
     }
 
     /**
