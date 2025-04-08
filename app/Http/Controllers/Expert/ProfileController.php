@@ -57,29 +57,36 @@ class ProfileController extends Controller
 
     public function uploadPhoto(Request $request)
     {
-
         $request->validate([
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Store the image
-        $path = $request->file('photo')->store('uploads', 'public');
+        $disk = env('FILESYSTEM_DISK', 's3');
 
-        // Get the authenticated user's profile
+        // Store new photo in S3
+        $path = $request->file('photo')->store('uploads', $disk);
+
         $user = $request->user();
         $profile = $user->profile;
 
-        // Optional: Delete old image if exists
+        // Delete old image if exists
         if ($profile->url) {
-            $oldPath = str_replace('/storage/', '', $profile->url);
-            Storage::disk('public')->delete($oldPath);
+            // Example stored URL:
+            // https://eksperto-bucket.s3.ap-southeast-2.amazonaws.com/uploads/oldphoto.jpg
+
+            $parsed = parse_url($profile->url);
+            $oldKey = ltrim($parsed['path'], '/'); // removes the leading slash
+
+            Storage::disk($disk)->delete($oldKey);
         }
 
-        // Save the new photo URL to the profile
-        $profile->url = asset('storage/' . $path);
+        // Save new URL
+        $profile->url = Storage::disk($disk)->url($path);
         $profile->save();
 
         return Redirect::route('expert.profile.index')->with('status', 'Profile photo updated');
     }
+
+
 
 }
