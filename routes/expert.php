@@ -20,6 +20,7 @@ Route::prefix('expert')->name('expert.')->middleware(['auth', 'profile.complete'
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('upload-profile-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload-photo');
 
     Route::put('address', [AddressController::class, 'update'])->name('address.update');
     Route::patch('address', [AddressController::class, 'update'])->name('address.update');

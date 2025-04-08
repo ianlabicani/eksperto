@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -53,4 +54,32 @@ class ProfileController extends Controller
     {
         //
     }
+
+    public function uploadPhoto(Request $request)
+    {
+
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Store the image
+        $path = $request->file('photo')->store('uploads', 'public');
+
+        // Get the authenticated user's profile
+        $user = $request->user();
+        $profile = $user->profile;
+
+        // Optional: Delete old image if exists
+        if ($profile->url) {
+            $oldPath = str_replace('/storage/', '', $profile->url);
+            Storage::disk('public')->delete($oldPath);
+        }
+
+        // Save the new photo URL to the profile
+        $profile->url = asset('storage/' . $path);
+        $profile->save();
+
+        return Redirect::route('expert.profile.index')->with('status', 'Profile photo updated');
+    }
+
 }

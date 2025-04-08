@@ -20,7 +20,8 @@ class Profile extends Model
         'last_name',
         'suffix',
         'date_of_birth',
-        'sex'
+        'sex',
+        'url'
     ];
 
     public function user()
