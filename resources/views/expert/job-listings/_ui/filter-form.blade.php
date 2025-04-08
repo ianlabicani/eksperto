@@ -33,7 +33,7 @@
         <div class="col-md-2 d-flex align-items-center">
             <label class="form-check-label" for="preferred_only" data-bs-toggle="tooltip" data-bs-placement="top"
                 title="Filter only preferred jobs based from expertise">
-                Preferred Jobs
+                Jobs Based on Expertise
             </label>
             <input type="checkbox" name="preferred_only" id="preferred_only" class="form-check-input" value="1" {{ request('preferred_only') == '1' ? 'checked' : '' }}>
         </div>
