@@ -4,9 +4,12 @@
     $user = Auth::user();
 
     // If URL is already absolute (e.g. starts with http or https), use it directly
-    $imageSrc = Str::startsWith($profileUrl, ['http://', 'https://'])
-        ? $profileUrl
-        : asset($profileUrl ?? 'images/default-profile.png');
+    $imageSrc = Str::startsWith($profileUrl, 'http://localhost')
+        ? str_replace('http://localhost', 'http://localhost:' . env('APP_PORT', '8000'), $profileUrl) // Add port to localhost URL
+        : (Str::startsWith($profileUrl, ['http://', 'https://'])
+            ? $profileUrl  // If it's already a full URL (like 'http://domain.com')
+            : asset($profileUrl ?? 'images/default-profile.png')); // If it's a relative path, use asset() for production
+
 @endphp
 
 <div class="card shadow-lg mb-3">
