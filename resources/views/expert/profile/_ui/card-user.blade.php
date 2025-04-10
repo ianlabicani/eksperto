@@ -2,13 +2,18 @@
     use Illuminate\Support\Facades\Auth;
 
     $user = Auth::user();
+
+    // If URL is already absolute (e.g. starts with http or https), use it directly
+    $imageSrc = Str::startsWith($profileUrl, ['http://', 'https://'])
+        ? $profileUrl
+        : asset($profileUrl ?? 'images/default-profile.png');
 @endphp
 
 <div class="card shadow-lg mb-3">
     <div class="card-body">
         <div class="rounded-circle mb-3" style="width: 120px; height: 120px; overflow: hidden; margin: auto;">
-            <img src="{{ $user->profile->url ?? asset('images/default-profile.png') }}" alt="Profile Photo"
-                class="img-fluid mx-auto d-block" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="{{ $imageSrc }}" alt="Profile Photo" class="img-fluid mx-auto d-block"
+                style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <h5 class="card-title text-center">{{ $user->name }}</h5>
         <p class="card-text text-center text-muted">{{ $user->email }}</p>

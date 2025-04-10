@@ -8,15 +8,19 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('expert.profile.index');
+        $user = $request->user();
+        $profileUrl = $user->profile->url;
+
+        return view('expert.profile.index', ["profileUrl" => $profileUrl]);
     }
 
     /**
@@ -61,32 +65,47 @@ class ProfileController extends Controller
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        // Get the disk to use (default to 's3' or 'public')
         $disk = env('FILESYSTEM_DISK', 's3');
 
-        // Store new photo in S3
+        // Store the new image
         $path = $request->file('photo')->store('uploads', $disk);
 
         $user = $request->user();
         $profile = $user->profile;
 
-        // Delete old image if exists
+        // Delete old photo if exists
         if ($profile->url) {
-            // Example stored URL:
-            // https://eksperto-bucket.s3.ap-southeast-2.amazonaws.com/uploads/oldphoto.jpg
+            $oldKey = null;
 
-            $parsed = parse_url($profile->url);
-            $oldKey = ltrim($parsed['path'], '/'); // removes the leading slash
+            if ($disk === 's3') {
+                // S3 URL: extract the key from the full URL
+                $parsed = parse_url($profile->url);
+                $oldKey = ltrim($parsed['path'], '/');
+            } else {
+                // Local/public storage: remove storage URL prefix
+                $baseUrl = Storage::disk($disk)->url('/');
+                $oldKey = Str::after($profile->url, $baseUrl);
+            }
 
-            Storage::disk($disk)->delete($oldKey);
+            // Delete the old file from disk (if exists)
+            if ($oldKey) {
+                Storage::disk($disk)->delete($oldKey);
+            }
         }
 
-        // Save new URL
-        $profile->url = Storage::disk($disk)->url($path);
+        // Save the new photo URL or relative path
+        if ($disk === 's3') {
+            // For S3, save the full URL
+            $profile->url = Storage::disk($disk)->url($path);
+        } else {
+            // For local storage, store the relative path (e.g., 'storage/uploads/filename.jpg')
+            $profile->url = 'storage/' . $path;
+        }
+
         $profile->save();
 
         return Redirect::route('expert.profile.index')->with('status', 'Profile photo updated');
     }
-
-
 
 }
