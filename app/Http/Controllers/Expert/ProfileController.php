@@ -63,7 +63,7 @@ class ProfileController extends Controller
         ]);
 
         // Get the disk to use (default to 's3' or 'public')
-        $disk = env('FILESYSTEM_DISK', 's3');
+        $disk = env('FILESYSTEM_DISK', 'public');
 
         // Store the new image
         $path = $request->file('photo')->store('uploads', $disk);
