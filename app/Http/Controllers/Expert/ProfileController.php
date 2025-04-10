@@ -17,10 +17,7 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
-        $profileUrl = $user->profile->url;
-
-        return view('expert.profile.index', ["profileUrl" => $profileUrl]);
+        return view('expert.profile.index');
     }
 
     /**
