@@ -40,6 +40,16 @@
                             value="{{ old('suffix', $profile->suffix) }}">
                     </div>
 
+                    <!-- Date of Birth -->
+
+                    @if (!$user->profile)
+                        <div class="mb-3">
+                            <label for="date_of_birth" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
+                                value="{{ old('date_of_birth', $profile->date_of_birth) }}">
+                        </div>
+                    @endif
+
                     <!-- Sex -->
                     <div class="mb-3">
                         <label for="sex" class="form-label">Sex</label>

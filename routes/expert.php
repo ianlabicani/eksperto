@@ -13,7 +13,7 @@ use App\Http\Controllers\Expert\WorkExperienceController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('expert')->name('expert.')->middleware(['auth', 'profile.complete', 'role:expert'])->group(function () {
+Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -39,7 +39,7 @@ Route::prefix('expert')->name('expert.')->middleware(['auth', 'profile.complete'
     Route::put('educational-background', [EducationalBackgroundController::class, 'update'])->name('educational-background.update');
     Route::patch('educational-background', [EducationalBackgroundController::class, 'update'])->name('educational-background.update');
 
-    Route::resource('job-listings', JobListingController::class);
+    Route::resource('job-listings', JobListingController::class)->middleware('profile.complete');
 
     Route::resource('job-applications', JobApplicationController::class);
 

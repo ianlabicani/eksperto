@@ -16,8 +16,15 @@ class EnsureProfileIsComplete
 
         // Check if the profile is incomplete
         if ($user && !$this->isProfileComplete($user)) {
-            return redirect()->route('profile.edit')->with('warning', 'Please complete your profile before proceeding.');
+
+            if ($user->roles()->first()->name === 'expert') {
+                return redirect()->route('expert.profile.index')->with('warning', 'Please complete your profile before proceeding.');
+            }
+
+
+            return redirect()->route('welcome')->with('warning', 'Please complete your profile before proceeding.');
         }
+        dd($user->roles()->first()->name);
 
         return $next($request);
     }
