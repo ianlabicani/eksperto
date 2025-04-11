@@ -1,9 +1,6 @@
 <form method="POST" action="{{ route('expert.contact.update') }}">
     @csrf
     @method('PATCH')
-
-    <h5 class="fw-bold">Contact Information</h5>
-
     <div id="contacts-container">
         @forelse ($user->contacts as $index => $contact)
             <div class="contact-group">
@@ -32,7 +29,6 @@
                 </div>
             </div>
         @empty
-            {{-- Default empty contact field if no existing contacts --}}
             <div class="contact-group">
                 <div class="row">
                     <div class="col-md-5">
@@ -63,7 +59,7 @@
     </button>
 
     <br><br>
-    <button type="submit" class="btn btn-primary">Save Profile</button>
+    <button type="submit" class="btn btn-warning btn-sm d-block ms-auto">UPDATE CONTACT</button>
 </form>
 
 <script>

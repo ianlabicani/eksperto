@@ -24,7 +24,6 @@ class EnsureProfileIsComplete
 
             return redirect()->route('welcome')->with('warning', 'Please complete your profile before proceeding.');
         }
-        dd($user->roles()->first()->name);
 
         return $next($request);
     }

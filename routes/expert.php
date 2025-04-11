@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Expert\AddressController;
+use App\Http\Controllers\Expert\ContactController;
 use App\Http\Controllers\Expert\ContractNegotiationController;
 use App\Http\Controllers\Expert\DashboardController;
 use App\Http\Controllers\Expert\EducationalBackgroundController;
@@ -24,6 +25,9 @@ Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert'])->g
 
     Route::put('address', [AddressController::class, 'update'])->name('address.update');
     Route::patch('address', [AddressController::class, 'update'])->name('address.update');
+
+    Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
+    Route::patch('contact', [ContactController::class, 'update'])->name('contact.update');
 
     Route::resource('work-experience', WorkExperienceController::class)->except(['show']);
     Route::resource('expertise', ExpertiseController::class)->except(['show']);

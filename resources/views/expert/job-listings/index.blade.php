@@ -7,6 +7,10 @@
         <!-- Filter Form -->
         @include('expert.job-listings._ui.filter-form')
 
+        @if ($noExpertiseCategories)
+            <div class="alert alert-warning text-center">Update your expertise to see better recommendations.</div>
+        @endif
+
         @if ($jobListings->isEmpty())
             <div class="alert alert-info text-center">No job listings available.</div>
         @else

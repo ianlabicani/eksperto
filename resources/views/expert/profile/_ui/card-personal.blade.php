@@ -76,43 +76,42 @@
         <!-- House Number -->
         <div class="mb-3">
             <label for="house_number" class="form-label">House Number</label>
-            <input type="text" class="form-control" id="house_number" Number"
+            <input type="text" class="form-control" id="house_number"
                 value="{{ old('house_number', $address->house_number) }}" disabled>
         </div>
 
         <!-- Street -->
         <div class="mb-3">
             <label for="street" class="form-label">Street</label>
-            <input type="text" class="form-control" id="street" Name" value="{{ old('street', $address->street) }}"
-                disabled>
+            <input type="text" class="form-control" id="street" value="{{ old('street', $address->street) }}" disabled>
         </div>
 
         <!-- Barangay -->
         <div class="mb-3">
             <label for="barangay" class="form-label">Barangay</label>
-            <input type="text" class="form-control" id="barangay" Name"
-                value="{{ old('barangay', $address->barangay) }}" disabled>
+            <input type="text" class="form-control" id="barangay" value="{{ old('barangay', $address->barangay) }}"
+                disabled>
         </div>
 
         <!-- Municipality -->
         <div class="mb-3">
             <label for="municipality" class="form-label">Municipality</label>
-            <input type="text" class="form-control" id="municipality" Name"
+            <input type="text" class="form-control" id="municipality"
                 value="{{ old('municipality', $address->municipality) }}" disabled>
         </div>
 
         <!-- Province -->
         <div class="mb-3">
             <label for="province" class="form-label">Province</label>
-            <input type="text" class="form-control" id="province" Name"
-                value="{{ old('province', $address->province) }}" disabled>
+            <input type="text" class="form-control" id="province" value="{{ old('province', $address->province) }}"
+                disabled>
         </div>
 
         <!-- Zip Code -->
         <div class="mb-3">
             <label for="zip_code" class="form-label">Zip Code</label>
-            <input type="text" class="form-control" id="zip_code" Code"
-                value="{{ old('zip_code', $address->zip_code) }}" disabled>
+            <input type="text" class="form-control" id="zip_code" value="{{ old('zip_code', $address->zip_code) }}"
+                disabled>
         </div>
 
         <!-- Update Address Button -->
@@ -122,5 +121,15 @@
         </button>
 
         @include('expert.profile._ui.modal-edit-address')
+    </div>
+
+    <!-- address -->
+    <div class="card-header">
+        <h3>Contact Information</h3>
+    </div>
+
+    <div class="card-body">
+        <!-- Zip Code -->
+        @include('expert.profile._ui.contact.index')
     </div>
 </div>

@@ -47,8 +47,15 @@ class JobListingController extends Controller
         // Check if the user wants to filter by preferred jobs only
         $filterPreferred = $request->query('preferred_only', false);
 
-        if ($filterPreferred == '1' && !empty($preferredCategories)) {
+        $noExpertiseCategories = false;
+
+        if ($filterPreferred == '1') {
             // Filter by preferred categories only
+
+            if (empty($preferredCategories)) {
+                $noExpertiseCategories = true;
+            }
+
             $query->whereIn('category', $preferredCategories);
         }
 
@@ -67,7 +74,7 @@ class JobListingController extends Controller
             return $jobListing;
         });
 
-        return view('expert.job-listings.index', compact('jobListings'));
+        return view('expert.job-listings.index', ['jobListings' => $jobListings, "noExpertiseCategories" => $noExpertiseCategories]);
     }
 
 
