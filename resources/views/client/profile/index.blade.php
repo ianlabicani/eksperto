@@ -1,6 +1,6 @@
-@extends('client.shell')
+@extends('client.profile.shell')
 
-@section('content')
+@section('profile-content')
     <div class="container">
 
         @if (!$user->profile || !$user->contacts || !$user->address)
@@ -19,4 +19,5 @@
                 @include('client.profile._ui.card-personal')
             </div>
         </div>
+    </div>
 @endsection

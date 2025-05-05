@@ -1,6 +1,6 @@
 @extends('client.shell')
 
-@section('content')
+@section('client-content')
     <div class="container my-4">
         <h2 class="mb-4">Edit Job Listing</h2>
         <form action="{{ route('client.job-listings.update', $jobListing->id) }}" method="POST">

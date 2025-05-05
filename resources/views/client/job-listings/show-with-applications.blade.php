@@ -1,6 +1,6 @@
 @extends('client.shell')
 
-@section('content')
+@section('client-content')
     <div class="container mt-4">
         <h2 class="fw-bold">Job Applications</h2>
 

@@ -1,6 +1,6 @@
 @extends('client.shell')
 
-@section('content')
+@section('client-content')
     <div class="container mt-4">
         <h2 class="fw-bold"><i class="fas fa-file-contract"></i> Job Contract Details</h2>
 

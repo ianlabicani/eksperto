@@ -14,21 +14,28 @@ class JobApplicationController extends Controller
      */
     public function index(Request $request)
     {
-        // Get the authenticated expert
         $client = $request->user();
 
-        // Retrieve all job applications of the client
-        $jobApplications = $client->jobApplicants()->get();
+        // Eager load jobListing and expert to prevent lazy loading in Blade
+        $jobApplications = $client->jobApplicants()
+            ->with(['jobListing', 'expert']) // 👈 eager loading both
+            ->get();
 
         return view('client.job-applications.index', compact('jobApplications'));
     }
+
+
 
     /**
      * Display the specified resource.
      */
     public function show(JobApplication $jobApplication)
     {
-        return view('client.job-applications.show', compact('jobApplication'));
+        $jobApplication->load(['jobListing', 'expert']); // ✅ Eager loading related models
+
+        return view('client.job-applications.show', [
+            'jobApplication' => $jobApplication,
+        ]);
     }
 
     /**

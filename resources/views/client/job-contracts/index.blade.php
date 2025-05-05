@@ -1,6 +1,6 @@
 @extends('client.shell')
 
-@section('content')
+@section('client-content')
     <div class="container my-4">
         <a href="{{ route('client.job-contracts.create') }}" class="btn btn-primary mb-3">
             <i class="fas fa-plus"></i> Create New Contract

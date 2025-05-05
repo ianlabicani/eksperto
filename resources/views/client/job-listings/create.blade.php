@@ -1,6 +1,6 @@
 @extends('client.shell')
 
-@section('content')
+@section('client-content')
     <div class="container my-4">
         <a href="{{ route('client.job-listings.index') }}" class="btn btn-secondary mb-3">
             <i class="fas fa-arrow-left"></i> Jobs</a>
