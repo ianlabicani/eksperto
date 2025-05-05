@@ -1,6 +1,6 @@
 @extends('expert.shell')
 
-@section('content')
+@section('expert-content')
     <div class="container mt-4">
         <h2 class="fw-bold">Job Listings</h2>
 

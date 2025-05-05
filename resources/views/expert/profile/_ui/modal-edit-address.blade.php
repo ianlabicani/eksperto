@@ -26,25 +26,36 @@
                             value="{{ old('street', $address->street) }}">
                     </div>
 
-                    <!-- Barangay -->
+                    <!-- Region -->
                     <div class="mb-3">
-                        <label for="barangay" class="form-label">Barangay</label>
-                        <input type="text" class="form-control" id="barangay" name="barangay"
-                            value="{{ old('barangay', $address->barangay) }}">
-                    </div>
-
-                    <!-- Municipality -->
-                    <div class="mb-3">
-                        <label for="municipality" class="form-label">Municipality</label>
-                        <input type="text" class="form-control" id="municipality" name="municipality"
-                            value="{{ old('municipality', $address->municipality) }}">
+                        <label for="region" class="form-label">Region</label>
+                        <select class="form-select" id="region" name="region">
+                            <option value="" disabled selected>Select a region</option>
+                        </select>
                     </div>
 
                     <!-- Province -->
                     <div class="mb-3">
                         <label for="province" class="form-label">Province</label>
-                        <input type="text" class="form-control" id="province" name="province"
-                            value="{{ old('province', $address->province) }}">
+                        <select class="form-select" id="province" name="province">
+                            <option value="" disabled selected>Select a province</option>
+                        </select>
+                    </div>
+
+                    <!-- Municipality / City -->
+                    <div class="mb-3">
+                        <label for="municipality" class="form-label">Municipality</label>
+                        <select class="form-select" id="municipality" name="municipality">
+                            <option value="" disabled selected>Select a municipality</option>
+                        </select>
+                    </div>
+
+                    <!-- Barangay -->
+                    <div class="mb-3">
+                        <label for="barangay" class="form-label">Barangay</label>
+                        <select class="form-select" id="barangay" name="barangay">
+                            <option value="" disabled selected>Select a barangay</option>
+                        </select>
                     </div>
 
                     <!-- Zip Code -->
@@ -64,3 +75,66 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const { regions, getProvincesByRegion, getCityMunByProvince, getBarangayByMun } = phil;
+
+            const regionSelect = document.getElementById('region');
+            const provinceSelect = document.getElementById('province');
+            const cityMunSelect = document.getElementById('municipality');
+            const barangaySelect = document.getElementById('barangay');
+
+            // Populate Region dropdown
+            regions.forEach(region => {
+                const option = document.createElement('option');
+                option.value = region.reg_code;
+                option.textContent = region.name;
+                regionSelect.appendChild(option);
+            });
+
+            // Province based on selected Region
+            regionSelect.addEventListener('change', () => {
+                provinceSelect.innerHTML = '<option disabled selected>Select a province</option>';
+                cityMunSelect.innerHTML = '<option disabled selected>Select a municipality</option>';
+                barangaySelect.innerHTML = '<option disabled selected>Select a barangay</option>';
+
+                const provinces = getProvincesByRegion(regionSelect.value);
+                provinces.forEach(province => {
+                    const option = document.createElement('option');
+                    option.value = province.prov_code;
+                    option.textContent = province.name;
+                    provinceSelect.appendChild(option);
+                });
+            });
+
+            // City/Municipality based on selected Province
+            provinceSelect.addEventListener('change', () => {
+                cityMunSelect.innerHTML = '<option disabled selected>Select a municipality</option>';
+                barangaySelect.innerHTML = '<option disabled selected>Select a barangay</option>';
+
+                const cities = getCityMunByProvince(provinceSelect.value);
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.mun_code;
+                    option.textContent = city.name;
+                    cityMunSelect.appendChild(option);
+                });
+            });
+
+            // Barangays based on selected City/Municipality
+            cityMunSelect.addEventListener('change', () => {
+                barangaySelect.innerHTML = '<option disabled selected>Select a barangay</option>';
+
+                const barangays = getBarangayByMun(cityMunSelect.value);
+                barangays.forEach(barangay => {
+                    const option = document.createElement('option');
+                    option.value = barangay.name;
+                    option.textContent = barangay.name;
+                    barangaySelect.appendChild(option);
+                });
+            });
+        });
+    </script>
+@endpush

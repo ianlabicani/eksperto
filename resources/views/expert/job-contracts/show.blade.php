@@ -1,6 +1,6 @@
 @extends('expert.shell')
 
-@section('content')
+@section('expert-content')
     <div class="container mt-4">
         <h2 class="fw-bold"><i class="fas fa-file-contract"></i> Job Contract Details</h2>
 
@@ -21,14 +21,14 @@
                 <p class="mt-2">
                     <strong><i class="fas fa-info-circle"></i> Status:</strong>
                     @php
-                        $status = $jobContract->status;
-                        $statusBadge = match ($status) {
-                            'pending' => 'warning',
-                            'active' => 'success',
-                            'rejected' => 'danger',
-                            'cancelled' => 'secondary',
-                            default => 'dark',
-                        };
+$status = $jobContract->status;
+$statusBadge = match ($status) {
+    'pending' => 'warning',
+    'active' => 'success',
+    'rejected' => 'danger',
+    'cancelled' => 'secondary',
+    default => 'dark',
+};
                     @endphp
                     <span class="badge bg-{{ $statusBadge }}">
                         {{ ucfirst($jobContract->status) }}
@@ -79,14 +79,14 @@
                         <strong><i class="fas fa-info-circle"></i> Status:</strong>
 
                         @php
-                            $status = $jobContract->contractNegotiation->status;
-                            $statusBadge = match ($status) {
-                                'pending' => 'warning',
-                                'accepted' => 'success',
-                                'rejected' => 'danger',
-                                'cancelled' => 'secondary',
-                                default => 'dark',
-                            };
+    $status = $jobContract->contractNegotiation->status;
+    $statusBadge = match ($status) {
+        'pending' => 'warning',
+        'accepted' => 'success',
+        'rejected' => 'danger',
+        'cancelled' => 'secondary',
+        default => 'dark',
+    };
                         @endphp
 
                         <span class="badge bg-{{ $statusBadge }}">

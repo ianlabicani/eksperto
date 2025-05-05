@@ -4,7 +4,7 @@
 
 @extends('expert.shell')
 
-@section('content')
+@section('expert-content')
     <div class="container">
 
         @if (!$user->profile || !$user->contacts || !$user->address)
@@ -22,6 +22,7 @@
                 @include('expert.profile._ui.card-user')
                 @include('expert.profile._ui.card-profile-setting')
                 @include('expert.profile._ui.card-personal')
+                @yield('profile.content')
             </div>
         </div>
 @endsection

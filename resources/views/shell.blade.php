@@ -16,15 +16,7 @@
 </head>
 
 <body>
-    <div class="bg-light min-vh-100 d-flex flex-column">
-        <!-- Page Content -->
-        <main class="flex-grow-1">
-            <div class="container py-4">
-                @yield('content')
-            </div>
-        </main>
-    </div>
-
+    @yield('content')
     @stack('scripts') <!-- This will be replaced by pushed scripts -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

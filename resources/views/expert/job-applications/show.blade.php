@@ -1,6 +1,6 @@
 @extends('expert.shell')
 
-@section('content')
+@section('expert-content')
     <div class="container mt-4">
         <h2 class="fw-bold"><i class="fas fa-file-alt"></i> Job Application Details</h2>
         <a href="{{ route('expert.job-applications.index') }}" class="btn btn-secondary">

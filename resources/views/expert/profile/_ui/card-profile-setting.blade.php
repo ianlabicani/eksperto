@@ -35,6 +35,13 @@
                     <i class="fa fa-upload" aria-hidden="true" style="width: 20px"></i> Upload Certificate(s)
                 </a>
             </li>
+            <hr>
+            <li>
+                <a class="text-decoration-none text-muted {{ request()->routeIs('password') ? 'custom-active' : ''  }}"
+                    href="{{ route('expert.change-password.show') }}">
+                    <i class="fa fa-upload" aria-hidden="true" style="width: 20px"></i> Change Password
+                </a>
+            </li>
         </ul>
     </div>
 </div>

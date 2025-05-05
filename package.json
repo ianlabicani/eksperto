@@ -15,7 +15,8 @@
     "dependencies": {
         "bootstrap": "^5.3.3",
         "concurrently": "^9.0.1",
-        "laravel-vite-plugin": "^1.2.0"
+        "laravel-vite-plugin": "^1.2.0",
+        "philippine-location-json-for-geer": "^1.1.11"
     },
     "engines": {
         "node": "22.11.0"

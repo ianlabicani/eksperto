@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Expert\AddressController;
+use App\Http\Controllers\Expert\ChangePasswordController;
 use App\Http\Controllers\Expert\ContactController;
 use App\Http\Controllers\Expert\ContractNegotiationController;
 use App\Http\Controllers\Expert\DashboardController;
@@ -14,7 +15,7 @@ use App\Http\Controllers\Expert\WorkExperienceController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert'])->group(function () {
+Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert', 'verified'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -29,14 +30,10 @@ Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert'])->g
     Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
     Route::patch('contact', [ContactController::class, 'update'])->name('contact.update');
 
+    Route::get('change-password', [ChangePasswordController::class, 'show'])->name('change-password.show');
+
     Route::resource('work-experience', WorkExperienceController::class)->except(['show']);
     Route::resource('expertise', ExpertiseController::class)->except(['show']);
-
-    // Route::get('work-experiences', [WorkExperienceController::class, 'get'])->name('work-experience.index');
-    // Route::post('work-experiences', [WorkExperienceController::class, 'store'])->name('work-experience.store');
-    // Route::put('work-experiences', [WorkExperienceController::class, 'update'])->name('work-experience.update');
-    // Route::patch('work-experiences', [WorkExperienceController::class, 'update'])->name('work-experience.update');
-    // Route::delete('work-experiences/{workExperience}', [WorkExperienceController::class, 'destroy'])->name('work-experience.destroy');
 
     Route::get('educational-background', [EducationalBackgroundController::class, 'index'])->name('educational-background.index');
     Route::post('educational-background', [EducationalBackgroundController::class, 'store'])->name('educational-background.store');
