@@ -8,25 +8,23 @@ use Illuminate\Http\Request;
 
 class WorkExperienceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('expert.work-experiences.index');
+        $user = $request->user()->load([
+            'workExperiences' => function ($query) {
+                $query->orderBy('end_date', 'desc');
+            }
+        ]);
+
+        $workExperiences = $user->workExperiences;
+
+        return view('expert.profile.work-experience.index', [
+            "user" => $user,
+            "workExperiences" => $workExperiences,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -48,37 +46,5 @@ class WorkExperienceController extends Controller
         ]);
 
         return redirect()->route('expert.work-experience.index')->with('success', 'Work experience added successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(WorkExperience $workExperience)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(WorkExperience $workExperience)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, WorkExperience $workExperience)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(WorkExperience $workExperience)
-    {
-        //
     }
 }

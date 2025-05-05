@@ -3,35 +3,31 @@
 namespace App\Http\Controllers\Expert;
 
 use App\Http\Controllers\Controller;
-use App\Models\Expertise;
 use App\Models\ExpertiseCategory;
 use Illuminate\Http\Request;
 
 class ExpertiseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
+
         $expertiseCategories = ExpertiseCategory::orderBy('name')->get();
-        $experties = $expertises = $request->user()->expertises;
 
+        $user = $request->user()->load([
+            'expertises' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            }
+        ]);
 
-        return view('expert.expertise.index', compact('expertiseCategories', 'expertises'));
+        $expertises = $user->expertises;
+
+        return view('expert.profile.expertise.index', [
+            "user" => $user,
+            "expertises" => $expertises,
+            "expertiseCategories" => $expertiseCategories,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $user = $request->user();
@@ -54,37 +50,5 @@ class ExpertiseController extends Controller
         ]);
 
         return redirect()->route('expert.expertise.index')->with('success', 'Expertise created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Expertise $expertise)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Expertise $expertise)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Expertise $expertise)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Expertise $expertise)
-    {
-        //
     }
 }

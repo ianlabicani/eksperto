@@ -1,17 +1,14 @@
 @php
-    use Illuminate\Support\Facades\Auth;
-
-    $user = Auth::user();
     $imageSrc = asset('images/default-profile.png');
 
     if ($user->profile) {
         $imageSrc = Str::startsWith($user->profile->url, 'http://localhost')
-            ? str_replace('http://localhost', 'http://localhost:' . env('APP_PORT', '8000'), $user->profile->url) // Add port to localhost URL
+            ? str_replace('http://localhost', 'http://localhost:' . env('APP_PORT', '8000'), $user->profile->url)
             : (Str::startsWith($user->profile->url, ['http://', 'https://'])
-                ? $user->profile->url  // If it's already a full URL (like 'http://domain.com')
-                : asset($user->profile->url ?? 'images/default-profile.png')); // If it's a relative path, use asset() for production
+                ? $user->profile->url
+                : asset($user->profile->url ?? 'images/default-profile.png'));
     } else {
-        $imageSrc = asset('images/default-profile.png'); // Default image if no profile
+        $imageSrc = asset('images/default-profile.png');
     }
 
 @endphp

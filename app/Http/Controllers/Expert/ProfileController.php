@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Expert;
 
 use App\Http\Controllers\Controller;
-use App\Models\Address;
+use App\Models\ExpertiseCategory;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -17,8 +17,13 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        return view('expert.profile.index');
+        $user = $request->user()->load(['profile', 'contacts', 'address']);
+
+        return view('expert.profile.personal.index', [
+            "user" => $user,
+        ]);
     }
+
 
     /**
      * Store a newly created resource in storage.

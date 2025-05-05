@@ -24,6 +24,7 @@ Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert', 've
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('upload-profile-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload-photo');
 
+
     Route::put('address', [AddressController::class, 'update'])->name('address.update');
     Route::patch('address', [AddressController::class, 'update'])->name('address.update');
 
@@ -33,7 +34,7 @@ Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert', 've
     Route::get('change-password', [ChangePasswordController::class, 'show'])->name('change-password.show');
 
     Route::resource('work-experience', WorkExperienceController::class)->except(['show']);
-    Route::resource('expertise', ExpertiseController::class)->except(['show']);
+    Route::resource('expertise', ExpertiseController::class);
 
     Route::get('educational-background', [EducationalBackgroundController::class, 'index'])->name('educational-background.index');
     Route::post('educational-background', [EducationalBackgroundController::class, 'store'])->name('educational-background.store');

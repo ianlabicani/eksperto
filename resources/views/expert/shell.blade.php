@@ -2,5 +2,7 @@
 
 @section('content')
     @include('expert._ui.navbar')
-    @yield('expert-content')
+    <div class="container">
+        @yield('expert-content')
+    </div>
 @endsection
