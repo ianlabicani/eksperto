@@ -54,7 +54,7 @@
         </p>
 
         @php
-            $application = $jobListing->jobApplications->firstWhere('expert_id', auth()->user()->id);
+            $application = $jobListing->jobApplications->first();
         @endphp
 
         @if ($jobListing->has_applied)

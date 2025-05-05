@@ -60,7 +60,14 @@ class JobListingController extends Controller
         }
 
         // Get filtered job listings with pagination
-        $jobListings = $query->latest()->paginate(10);
+        $jobListings = $query
+            ->with([
+                'jobApplications' => function ($q) use ($user) {
+                    $q->where('expert_id', $user->id);
+                }
+            ])
+            ->latest()
+            ->paginate(10);
 
         // Get job IDs the user has applied to (in one query)
         $appliedJobIds = $user->jobApplications()

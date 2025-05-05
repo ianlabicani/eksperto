@@ -25,7 +25,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('expert.job-applications.index') ? 'active' : '' }}"
                         href="{{ route('expert.job-applications.index') }}">
-                        <i class="fas fa-file-alt"></i> Applicants
+                        <i class="fas fa-file-alt"></i> Applications
                     </a>
                 </li>
                 <li class="nav-item">
