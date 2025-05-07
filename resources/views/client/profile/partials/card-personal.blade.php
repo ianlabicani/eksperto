@@ -1,114 +1,160 @@
-<div class="card mt-3 shadow-lg">
-    <div class="card-header">
-        <h3>Personal Information</h3>
+<div class="card mt-4 border-0 shadow-sm rounded-3">
+    <div class="card-header bg-white py-3 border-0">
+        <div class="d-flex align-items-center">
+            <h3 class="mb-0 fw-bold fs-5 text-primary">Personal Information</h3>
+            <button class="btn btn-sm btn-outline-primary ms-auto rounded-pill" data-bs-toggle="modal"
+                data-bs-target="#updateProfileModal">
+                <i class="fas fa-edit me-1"></i> Edit Profile
+            </button>
+        </div>
     </div>
-    <div class="card-body">
-        <!-- First Name -->
-        <div class="mb-3">
-            <label for="firstname" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstname" placeholder="Enter First Name"
-                value="{{ old('first_name', $profile->first_name) }}" disabled>
-        </div>
+    <div class="card-body p-4">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <!-- First Name -->
+                <div class="mb-4">
+                    <label for="firstname" class="form-label small text-muted">First Name</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $profile->first_name ?: 'Not provided' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Middle Name -->
-        <div class="mb-3">
-            <label for="middlename" class="form-label">Middle Name</label>
-            <input type="text" class="form-control" id="middlename" placeholder="Enter Middle Name"
-                value="{{ old('middle_name', $profile->middle_name) }}" disabled>
-        </div>
+            <div class="col-md-6">
+                <!-- Last Name -->
+                <div class="mb-4">
+                    <label for="lastname" class="form-label small text-muted">Last Name</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $profile->last_name ?: 'Not provided' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Last Name -->
-        <div class="mb-3">
-            <label for="lastname" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name"
-                value="{{ old('last_name', $profile->last_name) }}" disabled>
-        </div>
+            <div class="col-md-6">
+                <!-- Middle Name -->
+                <div class="mb-4">
+                    <label for="middlename" class="form-label small text-muted">Middle Name</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $profile->middle_name ?: 'Not provided' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Suffix -->
-        <div class="mb-3">
-            <label for="suffix" class="form-label">Suffix</label>
-            <input type="text" class="form-control" id="suffix" placeholder="Enter Suffix"
-                value="{{ old('suffix', $profile->suffix) }}" disabled>
-        </div>
+            <div class="col-md-6">
+                <!-- Suffix -->
+                <div class="mb-4">
+                    <label for="suffix" class="form-label small text-muted">Suffix</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $profile->suffix ?: 'None' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Date of Birth -->
-        <div class="mb-3">
-            <label for="dob" class="form-label">Date of Birth</label>
-            <input type="date" class="form-control" id="dob"
-                value="{{ old('date_of_birth', $profile->date_of_birth ?? '') }}" disabled>
-        </div>
+            <div class="col-md-6">
+                <!-- Date of Birth -->
+                <div class="mb-4">
+                    <label for="dob" class="form-label small text-muted">Date of Birth</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $profile->date_of_birth ?? 'Not provided' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Sex -->
-        <div class="mb-3">
-            <label for="sex" class="form-label">Sex</label>
-            <select class="form-control" id="sex" disabled>
-                <option value="male" {{ old('sex', $profile->sex) == 'male' ? 'selected' : '' }}>Male</option>
-                <option value="female" {{ old('sex', $profile->sex) == 'female' ? 'selected' : '' }}>Female</option>
-                <option value="other" {{ old('sex', $profile->sex) == 'other' ? 'selected' : '' }}>Other</option>
-            </select>
+            <div class="col-md-6">
+                <!-- Sex -->
+                <div class="mb-4">
+                    <label for="sex" class="form-label small text-muted">Sex</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        @if($profile->sex == 'male')
+                            <i class="fas fa-mars text-primary me-1"></i> Male
+                        @elseif($profile->sex == 'female')
+                            <i class="fas fa-venus text-danger me-1"></i> Female
+                        @elseif($profile->sex == 'other')
+                            <i class="fas fa-transgender text-info me-1"></i> Other
+                        @else
+                            Not provided
+                        @endif
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <button class="btn btn-sm btn-warning  ms-auto d-block" data-bs-toggle="modal"
-            data-bs-target="#updateProfileModal">
-            UPDATE PROFILE
-        </button>
 
         <!-- Modal -->
         @include('client.profile.partials.edit-personal-modal', ['user' => $user, 'profile' => $profile])
-
     </div>
-    <!-- address -->
-    <div class="card-header">
-        <h3>Address Information</h3>
+
+    <!-- Address Information -->
+    <div class="card-header bg-white py-3 border-top border-0">
+        <div class="d-flex align-items-center">
+            <h3 class="mb-0 fw-bold fs-5 text-primary">Address Information</h3>
+            <button class="btn btn-sm btn-outline-primary ms-auto rounded-pill" data-bs-toggle="modal"
+                data-bs-target="#updateAddressModal">
+                <i class="fas fa-map-marker-alt me-1"></i> Update Address
+            </button>
+        </div>
     </div>
-    <div class="card-body">
-        <!-- House Number -->
-        <div class="mb-3">
-            <label for="house_number" class="form-label">House Number</label>
-            <input type="text" class="form-control" id="house_number" placeholder="House Number"
-                value="{{ old('house_number', $address->house_number) }}" disabled>
-        </div>
+    <div class="card-body p-4">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <!-- House Number -->
+                <div class="mb-4">
+                    <label for="house_number" class="form-label small text-muted">House Number</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $address->house_number ?: 'Not provided' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Street -->
-        <div class="mb-3">
-            <label for="street" class="form-label">Street</label>
-            <input type="text" class="form-control" id="street" placeholder="Street Name"
-                value="{{ old('street', $address->street) }}" disabled>
-        </div>
+            <div class="col-md-6">
+                <!-- Street -->
+                <div class="mb-4">
+                    <label for="street" class="form-label small text-muted">Street</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $address->street ?: 'Not provided' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Barangay -->
-        <div class="mb-3">
-            <label for="barangay" class="form-label">Barangay</label>
-            <input type="text" class="form-control" id="barangay" placeholder="Barangay Name"
-                value="{{ old('barangay', $address->barangay) }}" disabled>
-        </div>
+            <div class="col-md-6">
+                <!-- Barangay -->
+                <div class="mb-4">
+                    <label for="barangay" class="form-label small text-muted">Barangay</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $address->barangay ?: 'Not provided' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Municipality -->
-        <div class="mb-3">
-            <label for="municipality" class="form-label">Municipality</label>
-            <input type="text" class="form-control" id="municipality" placeholder="Municipality Name"
-                value="{{ old('municipality', $address->municipality) }}" disabled>
-        </div>
+            <div class="col-md-6">
+                <!-- Municipality -->
+                <div class="mb-4">
+                    <label for="municipality" class="form-label small text-muted">Municipality</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $address->municipality ?: 'Not provided' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Province -->
-        <div class="mb-3">
-            <label for="province" class="form-label">Province</label>
-            <input type="text" class="form-control" id="province" placeholder="Province Name"
-                value="{{ old('province', $address->province) }}" disabled>
-        </div>
+            <div class="col-md-6">
+                <!-- Province -->
+                <div class="mb-4">
+                    <label for="province" class="form-label small text-muted">Province</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $address->province ?: 'Not provided' }}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Zip Code -->
-        <div class="mb-3">
-            <label for="zip_code" class="form-label">Zip Code</label>
-            <input type="text" class="form-control" id="zip_code" placeholder="Zip Code"
-                value="{{ old('zip_code', $address->zip_code) }}" disabled>
+            <div class="col-md-6">
+                <!-- Zip Code -->
+                <div class="mb-4">
+                    <label for="zip_code" class="form-label small text-muted">Zip Code</label>
+                    <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                        {{ $address->zip_code ?: 'Not provided' }}
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!-- Update Address Button -->
-        <button class="btn btn-sm btn-warning ms-auto d-block" data-bs-toggle="modal"
-            data-bs-target="#updateAddressModal">
-            UPDATE ADDRESS
-        </button>
 
         @include('client.profile.partials.edit-address-modal', ['user' => $user, 'address' => $address])
     </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\AddressController;
 use App\Http\Controllers\Client\ContractNegotiationController;
 use App\Http\Controllers\Client\DashboardController;
 use App\Http\Controllers\Client\JobApplicationController;
@@ -15,6 +16,7 @@ Route::prefix('client')->name('client.')->middleware(['auth', 'role:client'])->g
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('address', [AddressController::class, 'update'])->name('address.update');
 
     // ✅ Routes WITH `profile.complete` middleware
     Route::middleware(['profile.complete'])->group(function () {
