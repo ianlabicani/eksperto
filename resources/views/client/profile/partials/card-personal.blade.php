@@ -9,6 +9,17 @@
         </div>
     </div>
     <div class="card-body p-4">
+        @if(!$profile->first_name || !$profile->last_name || !$profile->date_of_birth || !$profile->sex)
+            <div class="alert alert-warning border-0 rounded-3 mb-4 d-flex align-items-center">
+                <i class="fas fa-user-edit fs-4 me-3 text-warning"></i>
+                <div>
+                    <strong>Your personal information is incomplete.</strong>
+                    <p class="mb-0">Please complete your personal details to ensure your profile is complete. This
+                        information is required to access all features.</p>
+                </div>
+            </div>
+        @endif
+
         <div class="row g-4">
             <div class="col-md-6">
                 <!-- First Name -->
@@ -94,6 +105,17 @@
         </div>
     </div>
     <div class="card-body p-4">
+        @if(!$address->house_number || !$address->street || !$address->barangay || !$address->municipality || !$address->province || !$address->zip_code)
+            <div class="alert alert-warning border-0 rounded-3 mb-4 d-flex align-items-center">
+                <i class="fas fa-home fs-4 me-3 text-warning"></i>
+                <div>
+                    <strong>Your address information is incomplete.</strong>
+                    <p class="mb-0">Please provide your complete address details. A complete address is required to access
+                        all features of the platform.</p>
+                </div>
+            </div>
+        @endif
+
         <div class="row g-4">
             <div class="col-md-6">
                 <!-- House Number -->

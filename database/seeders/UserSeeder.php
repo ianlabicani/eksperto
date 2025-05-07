@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contact;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -32,6 +33,20 @@ class UserSeeder extends Seeder
             ]);
 
             $user->roles()->attach($role);
+
+            // Create email contact for each user
+            $user->contacts()->create([
+                'type' => 'email',
+                'value' => $userData['email']
+            ]);
+
+            // Add a sample phone number for client and expert users
+            if ($userData['role'] === 'client' || $userData['role'] === 'expert') {
+                $user->contacts()->create([
+                    'type' => 'phone_number',
+                    'value' => '09' . rand(100000000, 999999999) // Generate random PH format mobile number
+                ]);
+            }
         }
     }
 }

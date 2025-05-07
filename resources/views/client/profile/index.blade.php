@@ -7,12 +7,31 @@
                 @if (!$user->isProfileComplete())
                     <div class="alert alert-warning border-0 shadow-sm rounded-3 d-flex align-items-center mb-4">
                         <i class="fas fa-exclamation-triangle fs-4 me-3 text-warning"></i>
-                        <div>Please complete your profile to access all features.</div>
+                        <div>
+                            <h5 class="mb-1">Profile Incomplete</h5>
+                            <p class="mb-0">Please complete your profile to access all features. Check each section below for
+                                specific requirements:</p>
+                            <ul class="mb-0 mt-2">
+                                @if(!$user->profile()->exists() || !$profile->first_name || !$profile->last_name || !$profile->date_of_birth || !$profile->sex)
+                                    <li>Personal information needs to be completed</li>
+                                @endif
+                                @if(!$user->address()->exists() || !$address->house_number || !$address->street || !$address->barangay || !$address->municipality || !$address->province || !$address->zip_code)
+                                    <li>Address information needs to be completed</li>
+                                @endif
+                                @if(!$user->contacts()->exists())
+                                    <li>Contact information is missing</li>
+                                @endif
+                            </ul>
+                        </div>
                     </div>
                 @else
                     <div class="alert alert-success border-0 shadow-sm rounded-3 d-flex align-items-center mb-4">
                         <i class="fas fa-check-circle fs-4 me-3 text-success"></i>
-                        <div>Your profile is complete. You can now access all features.</div>
+                        <div>
+                            <h5 class="mb-1">Profile Complete</h5>
+                            <p class="mb-0">Great job! Your profile is complete. You now have access to all features of the
+                                platform.</p>
+                        </div>
                     </div>
                 @endif
 
@@ -63,6 +82,7 @@
                 </div>
 
                 @include('client.profile.partials.card-personal', ['user' => $user, 'profile' => $profile, 'address' => $address])
+                @include('client.profile.partials.card-contact', ['user' => $user])
             </div>
         </div>
     </div>

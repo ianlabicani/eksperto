@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Client\AddressController;
+use App\Http\Controllers\Client\ContactController;
 use App\Http\Controllers\Client\ContractNegotiationController;
 use App\Http\Controllers\Client\DashboardController;
 use App\Http\Controllers\Client\JobApplicationController;
@@ -17,6 +18,7 @@ Route::prefix('client')->name('client.')->middleware(['auth', 'role:client'])->g
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('address', [AddressController::class, 'update'])->name('address.update');
+    Route::patch('contact', [ContactController::class, 'update'])->name('contact.update');
 
     // ✅ Routes WITH `profile.complete` middleware
     Route::middleware(['profile.complete'])->group(function () {
