@@ -19,7 +19,7 @@
         </p>
         <p class="card-text text-muted small">
             <i class="fas fa-users"></i> Applications:
-            <strong>{{ $jobListing->jobApplications()->count() }}</strong>
+            <strong>{{ $jobListing->jobApplications->count() }}</strong>
         </p>
         <p class="card-text text-muted small">
             <i class="fas fa-clipboard-list"></i> Vacancies:
@@ -30,19 +30,19 @@
         <p class="card-text medium d-flex gap-2 flex-wrap">
             <span class="badge bg-warning">
                 <i class="fas fa-clock"></i> Pending:
-                {{ $jobListing->jobApplications()->where('status', 'pending')->count() }}
+                {{ $jobListing->jobApplications->where('status', 'pending')->count() }}
             </span>
             <span class="badge bg-danger">
                 <i class="fas fa-times-circle"></i> Rejected:
-                {{ $jobListing->jobApplications()->where('status', 'rejected')->count() }}
+                {{ $jobListing->jobApplications->where('status', 'rejected')->count() }}
             </span>
             <span class="badge bg-secondary">
                 <i class="fas fa-ban"></i> Cancelled:
-                {{ $jobListing->jobApplications()->where('status', 'cancelled')->count() }}
+                {{ $jobListing->jobApplications->where('status', 'cancelled')->count() }}
             </span>
             <span class="badge bg-success">
                 <i class="fas fa-check-circle"></i> Accepted:
-                {{ $jobListing->jobApplications()->where('status', 'accepted')->count() }}
+                {{ $jobListing->jobApplications->where('status', 'accepted')->count() }}
             </span>
         </p>
 

@@ -17,11 +17,20 @@ Route::prefix('client')->name('client.')->middleware(['auth', 'profile.complete'
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
 
-
-    Route::get('job-listings/{jobListing}/job-applications', [JobListingController::class, 'showWithApplications'])->name('job-listings.showWithApplications');
+    // job listings
+    Route::get('job-listings/{jobListing}/job-applications', [JobListingController::class, 'showWithApplications'])->name('job-listings.show-with-applications');
+    Route::get('job-listings/{jobListing}/job-contracts', [JobListingController::class, 'showWithContracts'])->name('job-listings.showWithContracts');
     Route::resource('job-listings', JobListingController::class);
+
+    // job applications
+    Route::patch('job-applications/{jobApplication}/accept', [JobApplicationController::class, 'accept'])->name('job-applications.accept');
+    Route::patch('job-applications/{jobApplication}/reject', [JobApplicationController::class, 'reject'])->name('job-applications.reject');
     Route::resource('job-applications', JobApplicationController::class);
+
+
+    // job contracts
     Route::resource('job-contracts', JobContractController::class);
+
     Route::put('/contract-negotiations/{id}/accept', [ContractNegotiationController::class, 'accept'])->name('contract-negotiations.accept');
     Route::put('/contract-negotiations/{id}/reject', [ContractNegotiationController::class, 'reject'])->name('contract-negotiations.reject');
     Route::resource('contract-negotiations', ContractNegotiationController::class);

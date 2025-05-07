@@ -10,6 +10,7 @@ class JobContract extends Model
     use HasUuids;
 
     protected $fillable = [
+        'job_listing_id',
         'job_application_id',
         'client_id',
         'expert_id',
@@ -24,6 +25,11 @@ class JobContract extends Model
         'end_date' => 'date',
 
     ];
+
+    public function jobListing()
+    {
+        return $this->belongsTo(JobListing::class, 'job_listing_id');
+    }
 
     public function jobApplication()
     {

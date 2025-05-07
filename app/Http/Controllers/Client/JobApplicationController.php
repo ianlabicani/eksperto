@@ -4,51 +4,42 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobApplication;
-use App\Models\JobListing;
 use Illuminate\Http\Request;
 
 class JobApplicationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $client = $request->user();
 
-        // Eager load jobListing and expert to prevent lazy loading in Blade
         $jobApplications = $client->jobApplicants()
-            ->with(['jobListing', 'expert']) // 👈 eager loading both
+            ->with(['expert', 'jobListing'])
             ->get();
 
-        return view('client.job-applications.index', compact('jobApplications'));
+        // Group applications by status
+        $pendingApplications = $jobApplications->where('status', 'pending');
+        $acceptedApplications = $jobApplications->where('status', 'accepted');
+        $rejectedApplications = $jobApplications->where('status', 'rejected');
+
+        return view('client.job-applications.index', compact(
+            'pendingApplications',
+            'acceptedApplications',
+            'rejectedApplications'
+        ));
     }
 
-
-
-    /**
-     * Display the specified resource.
-     */
     public function show(JobApplication $jobApplication)
     {
-        $jobApplication->load(['jobListing', 'expert']); // ✅ Eager loading related models
+        $jobApplication->load(['jobListing', 'expert.workExperiences', 'jobContract']);
 
         return view('client.job-applications.show', [
             'jobApplication' => $jobApplication,
+            'jobListing' => $jobApplication->jobListing,
+            'expert' => $jobApplication->expert,
+            'workExperiences' => $jobApplication->expert->workExperiences,
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(JobApplication $jobApplication)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, JobApplication $jobApplication)
     {
         // Validate the request to ensure 'status' is provided and valid
@@ -67,6 +58,20 @@ class JobApplicationController extends Controller
             : 'The application has been rejected.';
 
         return redirect()->back()->with('success', $message);
+    }
+
+    public function accept(JobApplication $jobApplication)
+    {
+        $jobApplication->update(['status' => 'accepted']);
+
+        return redirect()->back()->with('success', 'The application has been accepted successfully.');
+    }
+
+    public function reject(JobApplication $jobApplication)
+    {
+        $jobApplication->update(['status' => 'rejected']);
+
+        return redirect()->back()->with('success', 'The application has been rejected.');
     }
 
 }

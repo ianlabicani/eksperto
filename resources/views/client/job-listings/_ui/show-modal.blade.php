@@ -26,12 +26,20 @@
                     {!! nl2br(e($jobListing->description)) !!}</p>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('client.job-listings.showWithApplications', ['jobListing' => $jobListing->id]) }}"
+                <a href="{{ route('client.job-listings.showWithContracts', ['jobListing' => $jobListing->id]) }}"
+                    class="btn btn-outline-primary">
+                    <i class="fas fa-eye"></i> View Contracts
+                </a>
+
+                <a href="{{ route('client.job-listings.show-with-applications', ['jobListing' => $jobListing->id]) }}"
                     class="btn btn-outline-primary">
                     <i class="fas fa-eye"></i> View Applications
                 </a>
                 <a href="{{ route('client.job-listings.edit', $jobListing->id) }}" class="btn btn-outline-warning">
                     <i class="fas fa-edit"></i> Edit Job
+                </a>
+                <a href="{{ route('client.job-listings.show', $jobListing->id) }}" class="btn btn-outline-info">
+                    <i class="fas fa-info-circle"></i> View More
                 </a>
             </div>
         </div>

@@ -39,4 +39,9 @@ class JobListing extends Model
 
         return $query;
     }
+
+    public function jobContracts()
+    {
+        return $this->hasMany(JobContract::class);
+    }
 }

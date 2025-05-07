@@ -28,26 +28,28 @@ class JobListingController extends Controller
         'IT & Networking',
         'Other'
     ];
-    /**
-     * Display a listing of the resource.
-     */
+
+
     public function index(Request $request)
     {
-        $jobListings = JobListing::where('client_id', $request->user()->id)->latest()->get();
-        return view('client.job-listings.index')->with('jobListings', $jobListings);
+        $jobListings = JobListing::where('client_id', $request->user()->id)
+            ->with('jobApplications')
+            ->latest()
+            ->get();
+        return view(
+            'client.job-listings.index',
+            compact('jobListings')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         return view('client.job-listings.create')->with('categories', $this->categories);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+
     public function store(Request $request)
     {
         try {
@@ -89,9 +91,7 @@ class JobListingController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(JobListing $jobListing)
     {
 
@@ -101,9 +101,8 @@ class JobListingController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
+
     public function destroy(JobListing $jobListing)
     {
 
@@ -117,6 +116,29 @@ class JobListingController extends Controller
         $pendingApplications = $jobApplications->where('status', 'pending');
         $acceptedApplications = $jobApplications->where('status', 'accepted');
         $rejectedApplications = $jobApplications->where('status', 'rejected');
-        return view('client.job-applications.show', compact('jobListing', 'pendingApplications', 'acceptedApplications', 'rejectedApplications'));
+        return view('client.job-listings.show-with-applications', compact('jobListing', 'pendingApplications', 'acceptedApplications', 'rejectedApplications'));
+    }
+
+    public function showWithContracts(JobListing $jobListing)
+    {
+        $jobContracts = $jobListing->jobContracts()
+            ->with(['expert', 'jobApplication'])
+            ->get();
+
+        $activeContracts = $jobContracts->where('status', 'active');
+        $pendingContracts = $jobContracts->where('status', 'pending');
+        $completedContracts = $jobContracts->whereIn('status', ['completed', 'cancelled']);
+
+        return view('client.job-listings.show-with-contracts', compact(
+            'jobListing',
+            'activeContracts',
+            'pendingContracts',
+            'completedContracts'
+        ));
+    }
+
+    public function show(JobListing $jobListing)
+    {
+        return view('client.job-listings.show', compact('jobListing'));
     }
 }
