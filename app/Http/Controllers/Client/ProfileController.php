@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -14,9 +15,11 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
+        $user = $request->user()->load('profile', 'address');
+        $profile = $user->profile ?? new Profile();
+        $address = $user->address ?? new Address();
 
-        return view('client.profile.index', compact('user'));
+        return view('client.profile.index', compact('user', 'profile', 'address'));
     }
 
     /**
@@ -25,12 +28,12 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = $request->user();
-
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'suffix' => ['nullable', 'string', 'max:50'],
+            'date_of_birth' => ['required', 'date'],
             'sex' => ['required', 'string']
         ]);
 

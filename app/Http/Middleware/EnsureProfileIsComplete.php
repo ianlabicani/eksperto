@@ -12,13 +12,17 @@ class EnsureProfileIsComplete
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
+        $user = $request->user();
 
         // Check if the profile is incomplete
-        if ($user && !$this->isProfileComplete($user)) {
+        if ($user && !$user->isProfileComplete()) {
 
             if ($user->roles()->first()->name === 'expert') {
                 return redirect()->route('expert.profile.index')->with('warning', 'Please complete your profile before proceeding.');
+            }
+
+            if ($user->roles()->first()->name === 'client') {
+                return redirect()->route('client.profile.index')->with('warning', 'Please complete your profile before proceeding.');
             }
 
 
@@ -28,12 +32,5 @@ class EnsureProfileIsComplete
         return $next($request);
     }
 
-    /**
-     * Determine if the user's profile is complete.
-     */
-    private function isProfileComplete($user)
-    {
-        return $user->profile()->exists() && $user->contacts()->exists() && $user->address()->exists();
-    }
 }
 

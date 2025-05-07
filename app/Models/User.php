@@ -117,4 +117,21 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Expertise::class);
     }
 
+    public function isProfileComplete()
+    {
+        if (!$this->profile()->exists()) {
+            return false;
+        }
+
+        if (!$this->contacts()->exists()) {
+            return false;
+        }
+
+        if (!$this->address()->exists()) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

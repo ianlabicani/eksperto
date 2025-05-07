@@ -1,4 +1,3 @@
-<!-- Modal: Update Address -->
 <div class="modal fade" id="updateAddressModal" tabindex="-1" aria-labelledby="updateAddressModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">

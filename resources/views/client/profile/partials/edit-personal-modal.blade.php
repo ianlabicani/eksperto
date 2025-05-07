@@ -1,4 +1,3 @@
-<!-- Modal: Update Profile -->
 <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -8,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('expert.profile.update') }}">
+                <form method="POST" action="{{ route('client.profile.update') }}">
                     @csrf
                     @method('PUT')
 
@@ -44,12 +43,21 @@
                     <div class="mb-3">
                         <label for="sex" class="form-label">Sex</label>
                         <select class="form-control" id="sex" name="sex">
-                            <option value="male" {{ old('sex', $profile->sex) == 'male' ? 'selected' : '' }}>Male</option>
-                            <option value="female" {{ old('sex', $profile->sex) == 'female' ? 'selected' : '' }}>Female
+                            <option value="male" {{ old('sex', $profile->sex) == 'male' ? 'selected' : '' }}>Male
+                            </option>
+                            <option value="female" {{ old('sex', $profile->sex) == 'female' ? 'selected' : '' }}>
+                                Female
                             </option>
                             <option value="other" {{ old('sex', $profile->sex) == 'other' ? 'selected' : '' }}>Other
                             </option>
                         </select>
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="mb-3">
+                        <label for="date_of_birth" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
+                            value="{{ old('date_of_birth', $profile->date_of_birth ?? '') }}">
                     </div>
 
                     <!-- Submit Button -->
