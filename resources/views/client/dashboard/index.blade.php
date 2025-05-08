@@ -89,7 +89,7 @@
         <!-- Quick Actions -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="card">
+                <div class="card no-hover">
                     <div class="card-header bg-white">
                         <h5 class="card-title mb-0">Quick Actions</h5>
                     </div>
