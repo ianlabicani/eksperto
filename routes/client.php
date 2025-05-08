@@ -11,7 +11,7 @@ use App\Http\Controllers\Client\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('client')->name('client.')->middleware(['auth', 'role:client'])->group(function () {
+Route::prefix('client')->name('client.')->middleware(['auth', 'verified', 'role:client'])->group(function () {
 
     // ✅ Routes WITHOUT `profile.complete` middleware
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
@@ -28,6 +28,7 @@ Route::prefix('client')->name('client.')->middleware(['auth', 'role:client'])->g
         // job listings
         Route::get('job-listings/{jobListing}/job-applications', [JobListingController::class, 'showWithApplications'])->name('job-listings.show-with-applications');
         Route::get('job-listings/{jobListing}/job-contracts', [JobListingController::class, 'showWithContracts'])->name('job-listings.showWithContracts');
+        Route::patch('job-listings/{jobListing}/update-status', [JobListingController::class, 'updateStatus'])->name('job-listings.update-status');
         Route::resource('job-listings', JobListingController::class);
 
         // job applications

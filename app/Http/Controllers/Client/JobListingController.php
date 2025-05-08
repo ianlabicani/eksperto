@@ -141,4 +141,18 @@ class JobListingController extends Controller
     {
         return view('client.job-listings.show', compact('jobListing'));
     }
+
+    public function updateStatus(Request $request, JobListing $jobListing)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:open,filled,closed',
+        ]);
+
+        $jobListing->update([
+            'status' => $validated['status']
+        ]);
+
+        return redirect()->route('client.job-listings.show', $jobListing)
+            ->with('success', 'Job status updated successfully!');
+    }
 }

@@ -131,7 +131,7 @@
                 </div>
 
                 <!-- Actions Card -->
-                <div class="card border-0 shadow-sm">
+                <div class="card no-hover border-0 shadow-sm">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold mb-3">Actions</h5>
 
