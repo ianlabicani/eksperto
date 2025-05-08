@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ route('welcome') }}">
             <span class="fw-bold"
-                style="background: linear-gradient(45deg, #2563eb, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Eksperto</span>
+                style="background: linear-gradient(45deg, #2563eb, #3b82f6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Eksperto</span>
         </a>
 
         <button class="navbar-toggler border-0 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -13,26 +13,26 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item mx-1">
-                    <a class="nav-link px-3 py-2 rounded-pill transition-all {{ request()->routeIs('expert.dashboard') ? 'active bg-primary bg-opacity-10 fw-medium' : '' }}"
+                    <a class="nav-link px-3 py-2 rounded-pill transition-all {{ request()->routeIs('expert.dashboard') ? 'active bg-primary bg-opacity-10 fw-medium text-light' : '' }}"
                         href="{{ route('expert.dashboard') }}">
                         <i class="fas fa-table-cells me-2 opacity-75"></i>Dashboard
                     </a>
                 </li>
 
                 <li class="nav-item mx-1">
-                    <a class="nav-link px-3 py-2 rounded-pill transition-all {{ request()->routeIs('expert.job-listings.index') ? 'active bg-primary bg-opacity-10 fw-medium' : '' }}"
+                    <a class="nav-link px-3 py-2 rounded-pill transition-all {{ request()->routeIs('expert.job-listings.index') ? 'active bg-primary bg-opacity-10 fw-medium text-light' : '' }}"
                         href="{{ route('expert.job-listings.index') }}">
                         <i class="fas fa-briefcase me-2 opacity-75"></i>Jobs
                     </a>
                 </li>
                 <li class="nav-item mx-1">
-                    <a class="nav-link px-3 py-2 rounded-pill transition-all {{ request()->routeIs('expert.job-applications.index') ? 'active bg-primary bg-opacity-10 fw-medium' : '' }}"
+                    <a class="nav-link px-3 py-2 rounded-pill transition-all {{ request()->routeIs('expert.job-applications.index') ? 'active bg-primary bg-opacity-10 fw-medium text-light' : '' }}"
                         href="{{ route('expert.job-applications.index') }}">
                         <i class="fas fa-file-alt me-2 opacity-75"></i>Applications
                     </a>
                 </li>
                 <li class="nav-item mx-1">
-                    <a class="nav-link px-3 py-2 rounded-pill transition-all {{ request()->routeIs('expert.job-contracts.index') ? 'active bg-primary bg-opacity-10 fw-medium' : '' }}"
+                    <a class="nav-link px-3 py-2 rounded-pill transition-all {{ request()->routeIs('expert.job-contracts.index') ? 'active bg-primary bg-opacity-10 fw-medium text-light' : '' }}"
                         href="{{ route('expert.job-contracts.index') }}">
                         <i class="fas fa-file-contract me-2 opacity-75"></i>Contracts
                     </a>
@@ -43,7 +43,7 @@
                 @endphp
                 <!-- Profile Dropdown -->
                 <li class="nav-item dropdown ms-2">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center px-3 py-2 rounded-pill transition-all {{ request()->routeIs($profileRoutes) ? 'active bg-primary bg-opacity-10 fw-medium' : '' }}"
+                    <a class="nav-link dropdown-toggle d-flex align-items-center px-3 py-2 rounded-pill transition-all {{ request()->routeIs($profileRoutes) ? 'active bg-primary bg-opacity-10 fw-medium text-light' : '' }}"
                         href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user me-2 opacity-75"></i>Profile
                     </a>

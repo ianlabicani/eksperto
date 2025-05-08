@@ -67,12 +67,12 @@
             border: none;
         }
 
-        /* Apply hover effect only to cards that don't have the no-hover class */
-        .card:not(.no-hover) {
+        /* Cards have no hover effect by default. Add .hover class to enable hover effects */
+        .card.hover {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .card:not(.no-hover):hover {
+        .card.hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
         }

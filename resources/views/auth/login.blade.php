@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="card shadow-sm border-0 rounded-3 no-hover" style="max-width: 380px; width: 100%;">
+        <div class="card shadow-sm border-0 rounded-3" style="max-width: 380px; width: 100%;">
             <div class="p-4">
                 <!-- Eksperto Logo (Clickable) -->
                 <div class="text-center mb-4">

@@ -1,4 +1,4 @@
-<div class="card no-hover border-0 shadow-sm rounded-3 mb-4">
+<div class="card border-0 shadow-sm rounded-3 mb-4">
     <div class="card-header bg-white py-3 border-0">
         <h3 class="mb-0 fw-bold fs-5">Profile Settings</h3>
     </div>

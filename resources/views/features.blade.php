@@ -10,7 +10,7 @@
 
         <div class="row g-4">
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="card h-100 border-0 p-4">
+                <div class="card hover h-100 border-0 p-4">
                     <div class="text-center mb-3">
                         <div class="bg-primary bg-opacity-20 d-inline-flex p-3 rounded-circle">
                             <i class="fas fa-certificate fa-2x text-light"></i>
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="card h-100 border-0 p-4">
+                <div class="card hover h-100 border-0 p-4">
                     <div class="text-center mb-3">
                         <div class="bg-primary bg-opacity-20 d-inline-flex p-3 rounded-circle">
                             <i class="fas fa-lock fa-2x text-light"></i>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="card h-100 border-0 p-4">
+                <div class="card hover h-100 border-0 p-4">
                     <div class="text-center mb-3">
                         <div class="bg-primary bg-opacity-20 d-inline-flex p-3 rounded-circle">
                             <i class="fas fa-headset fa-2x text-light"></i>

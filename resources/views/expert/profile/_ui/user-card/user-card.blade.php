@@ -17,7 +17,7 @@
 
 @endphp
 
-<div class="card no-hover border-0 shadow-sm rounded-3 mb-4 overflow-hidden">
+<div class="card border-0 shadow-sm rounded-3 mb-4 overflow-hidden">
     <div class="card-body p-0">
         <div class="bg-primary text-white p-4 mb-3">
             <div class="text-center">

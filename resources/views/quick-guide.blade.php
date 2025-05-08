@@ -1,4 +1,4 @@
-<section class="quick-guide py-5">
+<section class="quick-guide py-5" style="background-color: #f8f9fc;">
     <div class="text-center mb-5" data-aos="fade-up">
         <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 mb-3" style="border-radius: 50px;">How It
             Works</span>
@@ -8,7 +8,7 @@
 
     <div class="row g-4 mb-5">
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="card border-0 h-100 p-4 position-relative">
+            <div class="card hover border-0 h-100 p-4 position-relative">
                 <div class="position-absolute top-0 start-0 mt-3 ms-3 bg-primary rounded-circle text-white d-flex align-items-center justify-content-center"
                     style="width: 48px; height: 48px; z-index: 1;">
                     <span class="fw-bold">1</span>
@@ -32,7 +32,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="card border-0 h-100 p-4 position-relative">
+            <div class="card hover border-0 h-100 p-4 position-relative">
                 <div class="position-absolute top-0 start-0 mt-3 ms-3 bg-primary rounded-circle text-white d-flex align-items-center justify-content-center"
                     style="width: 48px; height: 48px; z-index: 1;">
                     <span class="fw-bold">2</span>
@@ -56,7 +56,7 @@
         </div>
 
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="card border-0 h-100 p-4 position-relative">
+            <div class="card hover border-0 h-100 p-4 position-relative">
                 <div class="position-absolute top-0 start-0 mt-3 ms-3 bg-primary rounded-circle text-white d-flex align-items-center justify-content-center"
                     style="width: 48px; height: 48px; z-index: 1;">
                     <span class="fw-bold">3</span>
