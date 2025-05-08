@@ -21,14 +21,14 @@
                 <p class="mt-2">
                     <strong><i class="fas fa-info-circle"></i> Status:</strong>
                     @php
-$status = $jobContract->status;
-$statusBadge = match ($status) {
-    'pending' => 'warning',
-    'active' => 'success',
-    'rejected' => 'danger',
-    'cancelled' => 'secondary',
-    default => 'dark',
-};
+                        $status = $jobContract->status;
+                        $statusBadge = match ($status) {
+                            'pending' => 'warning',
+                            'active' => 'success',
+                            'rejected' => 'danger',
+                            'cancelled' => 'secondary',
+                            default => 'dark',
+                        };
                     @endphp
                     <span class="badge bg-{{ $statusBadge }}">
                         {{ ucfirst($jobContract->status) }}
@@ -61,45 +61,44 @@ $statusBadge = match ($status) {
 
         @if ($jobContract->status === 'active')
             <div class="alert alert-success mt-4">
-                <i class="fas fa-check-circle"></i> Congratulations! You have successfully accepted this contract. Wishing you
+                <i class="fas fa-check-circle"></i> Congratulations! You have successfully dealed this contract. Wishing you
                 the best in your new role!
             </div>
         @endif
+        <!-- Display Negotiation Details -->
+        <div class="card shadow-sm mt-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-comments"></i> Negotiation Request</h5>
+                <p><strong><i class="fas fa-user"></i> Expert:</strong>
+                    {{ $jobContract->contractNegotiation->expert->name }}
+                </p>
+                <p class="mt-2">
+                    <strong><i class="fas fa-info-circle"></i> Status:</strong>
 
-        <!-- Check if negotiation has already been requested -->
-        @if ($jobContract->contractNegotiation !== null)
-            <!-- Display Negotiation Details -->
-            <div class="card shadow-sm mt-3">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-comments"></i> Negotiation Request</h5>
-                    <p><strong><i class="fas fa-user"></i> Expert:</strong>
-                        {{ $jobContract->contractNegotiation->expert->name }}
-                    </p>
-                    <p class="mt-2">
-                        <strong><i class="fas fa-info-circle"></i> Status:</strong>
+                    @php
+                        $status = $jobContract->contractNegotiation->status;
+                        $statusBadge = match ($status) {
+                            'pending' => 'warning',
+                            'accepted' => 'success',
+                            'rejected' => 'danger',
+                            'cancelled' => 'secondary',
+                            default => 'dark',
+                        };
+                    @endphp
 
-                        @php
-    $status = $jobContract->contractNegotiation->status;
-    $statusBadge = match ($status) {
-        'pending' => 'warning',
-        'accepted' => 'success',
-        'rejected' => 'danger',
-        'cancelled' => 'secondary',
-        default => 'dark',
-    };
-                        @endphp
-
-                        <span class="badge bg-{{ $statusBadge }}">
-                            {{ ucfirst($jobContract->contractNegotiation->status) }}
-                        </span>
-                    </p>
-                    <p><strong><i class="fas fa-file-alt"></i> Proposed Changes:</strong></p>
-                    <div class="border p-3 bg-light rounded w-75 ms-auto">
-                        {!! nl2br(e($jobContract->contractNegotiation->negotiation_message)) !!}
-                    </div>
-
+                    <span class="badge bg-{{ $statusBadge }}">
+                        {{ ucfirst($jobContract->contractNegotiation->status) }}
+                    </span>
+                </p>
+                <p><strong><i class="fas fa-file-alt"></i> Proposed Changes:</strong></p>
+                <div class="border p-3 bg-light rounded w-75 ms-auto">
+                    {!! nl2br(e($jobContract->contractNegotiation->negotiation_message)) !!}
                 </div>
+
             </div>
+        </div>
+
+        @if ($jobContract->contractNegotiation !== null && $jobContract->status === 'pending')
 
             <div class="alert alert-warning mt-4">
                 <i class="fas fa-exclamation-triangle"></i> You have already negotiated. Awaiting client's response.

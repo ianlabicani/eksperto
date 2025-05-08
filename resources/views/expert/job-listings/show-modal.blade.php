@@ -38,7 +38,6 @@
                         class="btn btn-primary">
                         <i class="fas fa-paper-plane"></i> Apply
                     </a>
-
                 @else
                     <a href="{{ route('expert.job-applications.show', $application) }}" class="btn btn-primary">
                         <i class="fas fa-eye"></i> View Application

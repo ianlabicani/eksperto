@@ -1,4 +1,4 @@
-<div class="card shadow-lg border-0 job-card {{ $jobListing->status === 'closed' ? 'bg-dark-subtle' : '' }}"
+<div class="card hover shadow-lg border-0 job-card {{ $jobListing->status === 'closed' ? 'bg-dark-subtle' : '' }}"
     data-bs-toggle="modal" data-bs-target="#viewJobModal{{ $jobListing->id }}">
     <div class="card-body">
         <h5 class="card-title fw-bold">{{ $jobListing->title }}</h5>

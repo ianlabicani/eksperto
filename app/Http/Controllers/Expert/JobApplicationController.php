@@ -24,11 +24,22 @@ class JobApplicationController extends Controller
      */
     public function create(Request $request)
     {
+        // Since we're now using POST, explicitly validate the input
         $validated = $request->validate([
             'job_listing_id' => 'required|exists:job_listings,id',
         ]);
 
-        $jobListing = JobListing::findOrFail($validated['job_listing_id']);
+        $jobListing = JobListing::with('client')->findOrFail($request->input('job_listing_id'));
+
+        // Check if user has already applied
+        if ($jobListing->jobApplications()->where('expert_id', $request->user()->id)->exists()) {
+            return redirect()->back()->with('error', 'You have already applied for this job.');
+        }
+
+        // Check if job is still open
+        if ($jobListing->status === 'closed') {
+            return redirect()->back()->with('error', 'This job is no longer accepting applications.');
+        }
 
         return view('expert.job-applications.create', compact('jobListing'));
     }
@@ -39,20 +50,29 @@ class JobApplicationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'client_id' => 'required|exists:users,id',
             'job_listing_id' => 'required|exists:job_listings,id',
             'cover_letter' => 'nullable|string|max:500',
         ]);
 
+        // Check if user has already applied
+        if (
+            JobListing::find($validated['job_listing_id'])
+                ->jobApplications()
+                ->where('expert_id', $request->user()->id)
+                ->exists()
+        ) {
+            return redirect()->back()->with('error', 'You have already applied for this job.');
+        }
+
         $jobApplication = JobApplication::create([
             'expert_id' => $request->user()->id,
-            'client_id' => $validated['client_id'],
+            'client_id' => JobListing::find($validated['job_listing_id'])->client_id,
             'job_listing_id' => $validated['job_listing_id'],
             'cover_letter' => $validated['cover_letter'],
         ]);
 
-        // Redirect to the job application details page
-        return redirect()->route('expert.job-applications.show', $jobApplication->id);
+        return redirect()->route('expert.job-applications.show', $jobApplication->id)
+            ->with('success', 'Application submitted successfully!');
     }
 
     /**
