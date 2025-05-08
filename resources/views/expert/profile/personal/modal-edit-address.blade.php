@@ -39,7 +39,7 @@
                         <!-- Province -->
                         <div class="col-md-6">
                             <label for="province" class="form-label">Province</label>
-                            <select class="form-select" id="province" name="province">
+                            <select class="form-select" id="province" name="province" disabled>
                                 <option value="" disabled selected>Select a province</option>
                             </select>
                         </div>
@@ -47,7 +47,7 @@
                         <!-- Municipality / City -->
                         <div class="col-md-6">
                             <label for="municipality" class="form-label">Municipality</label>
-                            <select class="form-select" id="municipality" name="municipality">
+                            <select class="form-select" id="municipality" name="municipality" disabled>
                                 <option value="" disabled selected>Select a municipality</option>
                             </select>
                         </div>
@@ -55,7 +55,7 @@
                         <!-- Barangay -->
                         <div class="col-md-6">
                             <label for="barangay" class="form-label">Barangay</label>
-                            <select class="form-select" id="barangay" name="barangay">
+                            <select class="form-select" id="barangay" name="barangay" disabled>
                                 <option value="" disabled selected>Select a barangay</option>
                             </select>
                         </div>
@@ -105,51 +105,79 @@
                 // Safely set up event handlers only if functions exist
                 if (typeof getProvincesByRegion === 'function') {
                     regionSelect.addEventListener('change', () => {
+                        // Clear and reset province dropdown
                         provinceSelect.innerHTML = '<option disabled selected>Select a province</option>';
-                        cityMunSelect.innerHTML = '<option disabled selected>Select a municipality</option>';
-                        barangaySelect.innerHTML = '<option disabled selected>Select a barangay</option>';
+                        provinceSelect.disabled = false;
 
-                        const provinces = getProvincesByRegion(regionSelect.value);
-                        if (Array.isArray(provinces)) {
-                            provinces.forEach(province => {
-                                const option = document.createElement('option');
-                                option.value = province.prov_code;
-                                option.textContent = province.name;
-                                provinceSelect.appendChild(option);
-                            });
+                        // Clear and disable subsequent dropdowns
+                        cityMunSelect.innerHTML = '<option disabled selected>Select a municipality</option>';
+                        cityMunSelect.disabled = true;
+                        barangaySelect.innerHTML = '<option disabled selected>Select a barangay</option>';
+                        barangaySelect.disabled = true;
+
+                        // Only populate if a valid region is selected
+                        if (regionSelect.value) {
+                            const provinces = getProvincesByRegion(regionSelect.value);
+                            if (Array.isArray(provinces)) {
+                                provinces.forEach(province => {
+                                    const option = document.createElement('option');
+                                    option.value = province.prov_code;
+                                    option.textContent = province.name;
+                                    provinceSelect.appendChild(option);
+                                });
+                            }
+                        } else {
+                            provinceSelect.disabled = true;
                         }
                     });
                 }
 
                 if (typeof getCityMunByProvince === 'function') {
                     provinceSelect.addEventListener('change', () => {
+                        // Clear and reset municipality dropdown
                         cityMunSelect.innerHTML = '<option disabled selected>Select a municipality</option>';
-                        barangaySelect.innerHTML = '<option disabled selected>Select a barangay</option>';
+                        cityMunSelect.disabled = false;
 
-                        const cities = getCityMunByProvince(provinceSelect.value);
-                        if (Array.isArray(cities)) {
-                            cities.forEach(city => {
-                                const option = document.createElement('option');
-                                option.value = city.mun_code;
-                                option.textContent = city.name;
-                                cityMunSelect.appendChild(option);
-                            });
+                        // Clear and disable barangay dropdown
+                        barangaySelect.innerHTML = '<option disabled selected>Select a barangay</option>';
+                        barangaySelect.disabled = true;
+
+                        // Only populate if a valid province is selected
+                        if (provinceSelect.value) {
+                            const cities = getCityMunByProvince(provinceSelect.value);
+                            if (Array.isArray(cities)) {
+                                cities.forEach(city => {
+                                    const option = document.createElement('option');
+                                    option.value = city.mun_code;
+                                    option.textContent = city.name;
+                                    cityMunSelect.appendChild(option);
+                                });
+                            }
+                        } else {
+                            cityMunSelect.disabled = true;
                         }
                     });
                 }
 
                 if (typeof getBarangayByMun === 'function') {
                     cityMunSelect.addEventListener('change', () => {
+                        // Clear and reset barangay dropdown
                         barangaySelect.innerHTML = '<option disabled selected>Select a barangay</option>';
+                        barangaySelect.disabled = false;
 
-                        const barangays = getBarangayByMun(cityMunSelect.value);
-                        if (Array.isArray(barangays)) {
-                            barangays.forEach(barangay => {
-                                const option = document.createElement('option');
-                                option.value = barangay.name;
-                                option.textContent = barangay.name;
-                                barangaySelect.appendChild(option);
-                            });
+                        // Only populate if a valid municipality is selected
+                        if (cityMunSelect.value) {
+                            const barangays = getBarangayByMun(cityMunSelect.value);
+                            if (Array.isArray(barangays)) {
+                                barangays.forEach(barangay => {
+                                    const option = document.createElement('option');
+                                    option.value = barangay.name;
+                                    option.textContent = barangay.name;
+                                    barangaySelect.appendChild(option);
+                                });
+                            }
+                        } else {
+                            barangaySelect.disabled = true;
                         }
                     });
                 }

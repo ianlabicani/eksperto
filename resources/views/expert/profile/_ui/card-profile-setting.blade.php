@@ -7,7 +7,7 @@
         <div class="list-group list-group-flush">
             <a href="{{ route('expert.profile.index') }}"
                 class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center {{ request()->routeIs('expert.profile.index') ? 'active' : '' }}">
-                <i class="fas fa-user me-3 text-primary"></i>
+                <i class="fas fa-user me-3 text-light"></i>
                 <span>Personal Information</span>
             </a>
             <a href="{{ route('expert.educational-background.index') }}"
