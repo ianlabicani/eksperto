@@ -1,48 +1,44 @@
-<div class="card mb-3 shadow-lg">
-    <div class="card-header">
-        <h2>Profile Settings</h2>
+<div class="card border-0 shadow-sm rounded-3 mb-4">
+    <div class="card-header bg-white py-3 border-0">
+        <h3 class="mb-0 fw-bold fs-5 text-primary">Profile Settings</h3>
     </div>
 
-    <div class="card-body pt-0">
+    <div class="card-body p-0">
+        <div class="list-group list-group-flush">
+            <a href="{{ route('expert.profile.index') }}"
+                class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center {{ request()->routeIs('expert.profile.index') ? 'active' : '' }}">
+                <i class="fas fa-user me-3 text-primary"></i>
+                <span>Personal Information</span>
+            </a>
+            <a href="{{ route('expert.educational-background.index') }}"
+                class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center {{ request()->routeIs('expert.educational-background.index') ? 'active' : '' }}">
+                <i class="fas fa-graduation-cap me-3 text-primary"></i>
+                <span>Educational Background</span>
+            </a>
+            <a href="{{ route('expert.work-experience.index') }}"
+                class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center {{ request()->routeIs('expert.work-experience.index') ? 'active' : '' }}">
+                <i class="fas fa-briefcase me-3 text-primary"></i>
+                <span>Work Experience</span>
+            </a>
+            <a href="{{ route('expert.expertise.index') }}"
+                class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center {{ request()->routeIs('expert.expertise.index') ? 'active' : '' }}">
+                <i class="fas fa-tools me-3 text-primary"></i>
+                <span>Expertise</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center">
+                <i class="fas fa-certificate me-3 text-primary"></i>
+                <span>Upload Certificates</span>
+                <span class="badge bg-primary bg-opacity-10 text-primary ms-auto">Coming Soon</span>
+            </a>
 
-        <ul class="list-unstyled d-flex flex-column gap-2">
-            <li>
-                <a class="text-decoration-none text-muted {{ request()->routeIs('expert.profile.index') ? 'custom-active' : ''  }}"
-                    href="{{ route('expert.profile.index') }}">
-                    <i class="fa fa-user" aria-hidden="true" style="width: 20px"></i> Personal
-                </a>
-            </li>
-            <li>
-                <a class="text-decoration-none text-muted {{ request()->routeIs('expert.educational-background.index') ? 'custom-active' : ''  }}"
-                    href="{{ route('expert.educational-background.index') }}">
-                    <i class="fa fa-graduation-cap" style="width: 20px"></i> Educational Background
-                </a>
-            </li>
-            <li>
-                <a class="text-decoration-none text-muted {{ request()->routeIs('expert.work-experience.index') ? 'custom-active' : ''  }}"
-                    href="{{ route('expert.work-experience.index') }}">
-                    <i class="fa fa-briefcase" aria-hidden="true" style="width: 20px"></i> Work Experience
-                </a>
-            </li>
-            <li>
-                <a class="text-decoration-none text-muted {{ request()->routeIs('expert.expertise.index') ? 'custom-active' : ''  }}"
-                    href="{{ route('expert.expertise.index') }}">
-                    <i class="fa fa-wrench" aria-hidden="true" style="width: 20px"></i> Expertise
-                </a>
-            </li>
-            <li>
-                <a class="text-decoration-none text-muted {{ request()->routeIs('') ? 'custom-active' : ''  }}" href="">
-                    <i class="fa fa-upload" aria-hidden="true" style="width: 20px"></i> Upload Certificate(s)
-                </a>
-            </li>
-            <hr>
-            <li>
-                <a class="text-decoration-none text-muted {{ request()->routeIs('password') ? 'custom-active' : ''  }}"
-                    href="{{ route('expert.change-password.show') }}">
-                    <i class="fa fa-upload" aria-hidden="true" style="width: 20px"></i> Change Password
-                </a>
-            </li>
-        </ul>
+            <hr class="my-0">
+
+            <a href="{{ route('expert.change-password.show') }}"
+                class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center {{ request()->routeIs('password') ? 'active' : '' }}">
+                <i class="fas fa-key me-3 text-primary"></i>
+                <span>Change Password</span>
+            </a>
+        </div>
     </div>
 </div>
 

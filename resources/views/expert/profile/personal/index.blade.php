@@ -1,7 +1,6 @@
 @extends('expert.profile.shell')
 
 @section('profile-content')
-
     @php
         use Illuminate\Support\Facades\Auth;
         use App\Models\Profile;
@@ -10,146 +9,199 @@
         $user = Auth::user();
         $profile = $user->profile ?? new Profile();
         $address = $user->address ?? new Address();
-
     @endphp
 
-
-    <div class="card mt-3 shadow-lg">
-        <div class="card-header">
-            <h3>Personal Information</h3>
+    <div class="card no-hover border-0 shadow-sm rounded-3 mt-4">
+        <div class="card-header bg-white py-3 border-0">
+            <div class="d-flex align-items-center">
+                <h3 class="mb-0 fw-bold fs-5 text-primary">Personal Information</h3>
+                <button class="btn btn-sm btn-outline-primary ms-auto rounded-pill" data-bs-toggle="modal"
+                    data-bs-target="#updateProfileModal">
+                    <i class="fas fa-edit me-1"></i> Edit Profile
+                </button>
+            </div>
         </div>
-        <div class="card-body">
-            <!-- First Name -->
-            <div class="mb-3">
-                <label for="firstname" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstname" value="{{ old('first_name', $profile->first_name) }}"
-                    disabled>
+        <div class="card-body p-4">
+            @if(!$profile->first_name || !$profile->last_name || !$profile->date_of_birth || !$profile->sex)
+                <div class="alert alert-warning border-0 rounded-3 mb-4 d-flex align-items-center">
+                    <i class="fas fa-user-edit fs-4 me-3 text-warning"></i>
+                    <div>
+                        <strong>Your personal information is incomplete.</strong>
+                        <p class="mb-0">Please complete your personal details to ensure your profile is complete. This
+                            information is required to access all features.</p>
+                    </div>
+                </div>
+            @endif
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <!-- First Name -->
+                    <div class="mb-4">
+                        <label for="firstname" class="form-label small text-muted">First Name</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $profile->first_name ?: 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Last Name -->
+                    <div class="mb-4">
+                        <label for="lastname" class="form-label small text-muted">Last Name</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $profile->last_name ?: 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Middle Name -->
+                    <div class="mb-4">
+                        <label for="middlename" class="form-label small text-muted">Middle Name</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $profile->middle_name ?: 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Suffix -->
+                    <div class="mb-4">
+                        <label for="suffix" class="form-label small text-muted">Suffix</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $profile->suffix ?: 'None' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Date of Birth -->
+                    <div class="mb-4">
+                        <label for="dob" class="form-label small text-muted">Date of Birth</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $profile->date_of_birth ?? 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Sex -->
+                    <div class="mb-4">
+                        <label for="sex" class="form-label small text-muted">Sex</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            @if($profile->sex == 'male')
+                                <i class="fas fa-mars text-primary me-1"></i> Male
+                            @elseif($profile->sex == 'female')
+                                <i class="fas fa-venus text-danger me-1"></i> Female
+                            @elseif($profile->sex == 'other')
+                                <i class="fas fa-transgender text-info me-1"></i> Other
+                            @else
+                                Not provided
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Middle Name -->
-            <div class="mb-3">
-                <label for="middlename" class="form-label">Middle Name</label>
-                <input type="text" class="form-control" id="middlename"
-                    value="{{ old('middle_name', $profile->middle_name) }}" disabled>
-            </div>
-
-            <!-- Last Name -->
-            <div class="mb-3">
-                <label for="lastname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastname" value="{{ old('last_name', $profile->last_name) }}"
-                    disabled>
-            </div>
-
-            <!-- Suffix -->
-            <div class="mb-3">
-                <label for="suffix" class="form-label">Suffix</label>
-                <input type="text" class="form-control" id="suffix""
-                            value=" {{ old('suffix', $profile->suffix) }}" disabled>
-            </div>
-
-            <!-- Date of Birth -->
-            <div class="mb-3">
-                <label for="date_of_birth" class="form-label">Date of Birth</label>
-                <input type="date" class="form-control" id="date_of_birth"
-                    value="{{ old('date_of_birth', $profile->date_of_birth) }}" disabled>
-            </div>
-
-            <!-- Sex -->
-            <div class="mb-3">
-                <label for="sex" class="form-label">Sex</label>
-                <select class="form-control" id="sex" disabled>
-                    <option value="other" {{ old('sex', $profile->sex) == 'other' ? 'selected' : '' }}>Other</option>
-                    <option value="male" {{ old('sex', $profile->sex) == 'male' ? 'selected' : '' }}>Male</option>
-                    <option value="female" {{ old('sex', $profile->sex) == 'female' ? 'selected' : '' }}>Female
-                    </option>
-                </select>
-            </div>
-
-            <button class="btn btn-sm btn-warning  ms-auto d-block" data-bs-toggle="modal"
-                data-bs-target="#updateProfileModal">
-                UPDATE PROFILE
-            </button>
             <!-- Modal -->
-            @include('expert.profile._ui.modal-edit-personal')
-
-        </div>
-        <!-- address -->
-        <div class="card-header">
-            <h3>Address Information</h3>
-        </div>
-        <div class="card-body">
-            <!-- House Number -->
-            <div class="mb-3">
-                <label class="form-label">House Number</label>
-                <input type="text" class="form-control" value="{{ old('house_number', $address->house_number) }}" disabled>
-            </div>
-
-            <!-- Province -->
-            <div class="mb-3">
-                <label class="form-label">Province</label>
-                <input type="text" class="form-control" value="{{ old('province', $address->province) }}" disabled>
-            </div>
-
-            <!-- Municipality -->
-            <div class="mb-3">
-                <label class="form-label">Municipality</label>
-                <input type="text" class="form-control" value="{{ old('municipality', $address->municipality) }}" disabled>
-            </div>
-
-            <!-- Barangay -->
-            <div class="mb-3">
-                <label class="form-label">Barangay</label>
-                <input type="text" class="form-control" value="{{ old('barangay', $address->barangay) }}" disabled>
-            </div>
-
-            <!-- Street -->
-            <div class="mb-3">
-                <label class="form-label">Street</label>
-                <input type="text" class="form-control" value="{{ old('street', $address->street) }}" disabled>
-            </div>
-
-            <!-- Zip Code -->
-            <div class="mb-3">
-                <label class="form-label">Zip Code</label>
-                <input type="text" class="form-control" value="{{ old('zip_code', $address->zip_code) }}" disabled>
-            </div>
-
-            <!-- Update Address Button -->
-            <button class="btn btn-sm btn-warning ms-auto d-block" data-bs-toggle="modal"
-                data-bs-target="#updateAddressModal">
-                UPDATE ADDRESS
-            </button>
-
-            @include('expert.profile._ui.modal-edit-address')
+            @include('expert.profile.personal.modal-edit-personal')
         </div>
 
-        <!-- address -->
-        <div class="card-header">
-            <h3>Contact Information</h3>
+        <!-- Address Information -->
+        <div class="card-header bg-white py-3 border-top border-0">
+            <div class="d-flex align-items-center">
+                <h3 class="mb-0 fw-bold fs-5 text-primary">Address Information</h3>
+                <button class="btn btn-sm btn-outline-primary ms-auto rounded-pill" data-bs-toggle="modal"
+                    data-bs-target="#updateAddressModal">
+                    <i class="fas fa-map-marker-alt me-1"></i> Update Address
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            @if(!$address->house_number || !$address->street || !$address->barangay || !$address->municipality || !$address->province || !$address->zip_code)
+                <div class="alert alert-warning border-0 rounded-3 mb-4 d-flex align-items-center">
+                    <i class="fas fa-home fs-4 me-3 text-warning"></i>
+                    <div>
+                        <strong>Your address information is incomplete.</strong>
+                        <p class="mb-0">Please provide your complete address details. A complete address is required to access
+                            all features of the platform.</p>
+                    </div>
+                </div>
+            @endif
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <!-- House Number -->
+                    <div class="mb-4">
+                        <label for="house_number" class="form-label small text-muted">House Number</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $address->house_number ?: 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Street -->
+                    <div class="mb-4">
+                        <label for="street" class="form-label small text-muted">Street</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $address->street ?: 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Barangay -->
+                    <div class="mb-4">
+                        <label for="barangay" class="form-label small text-muted">Barangay</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $address->barangay ?: 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Municipality -->
+                    <div class="mb-4">
+                        <label for="municipality" class="form-label small text-muted">Municipality</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $address->municipality ?: 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Province -->
+                    <div class="mb-4">
+                        <label for="province" class="form-label small text-muted">Province</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $address->province ?: 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Zip Code -->
+                    <div class="mb-4">
+                        <label for="zip_code" class="form-label small text-muted">Zip Code</label>
+                        <div class="form-control-plaintext border-bottom pb-2 fw-medium">
+                            {{ $address->zip_code ?: 'Not provided' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @include('expert.profile.personal.modal-edit-address')
         </div>
 
-        <div class="card-body">
-            <!-- Zip Code -->
+        <!-- Contact Information -->
+        <div class="card-header bg-white py-3 border-top border-0">
+            <div class="d-flex align-items-center">
+                <h3 class="mb-0 fw-bold fs-5 text-primary">Contact Information</h3>
+            </div>
+        </div>
+        <div class="card-body p-4">
             @include('expert.profile._ui.contact.index')
         </div>
     </div>
-
-    @push('scripts')
-        <script>
-            import phil from 'philippine-location-json-for-geer';
-
-            document.addEventListener('DOMContentLoaded', () => {
-                const provinces = phil.getProvinces();
-                const provinceInput = document.getElementById('province');
-
-                // Populate provinces dropdown
-                provinces.forEach(province => {
-                    const option = document.createElement('option');
-                    option.value = province.name;
-                    option.textContent = province.name;
-                    provinceInput.appendChild(option);
-                });
-            });
-        </script>
-    @endpush
 @endsection

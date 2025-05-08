@@ -77,6 +77,12 @@ class ProfileController extends Controller
         $user = $request->user();
         $profile = $user->profile;
 
+        // Create profile if it doesn't exist
+        if (!$profile) {
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+        }
+
         // Delete old photo if exists
         if ($profile->url) {
             $oldKey = null;
@@ -87,7 +93,7 @@ class ProfileController extends Controller
                 $oldKey = ltrim($parsed['path'], '/');
             } else {
                 // Local/public storage: remove storage URL prefix
-                $baseUrl = Storage::disk($disk)->url('/');
+                $baseUrl = Storage::url('/');
                 $oldKey = Str::after($profile->url, $baseUrl);
             }
 
@@ -100,7 +106,7 @@ class ProfileController extends Controller
         // Save the new photo URL or relative path
         if ($disk === 's3') {
             // For S3, save the full URL
-            $profile->url = Storage::disk($disk)->url($path);
+            $profile->url = Storage::url($path);
         } else {
             // For local storage, store the relative path (e.g., 'storage/uploads/filename.jpg')
             $profile->url = 'storage/' . $path;
