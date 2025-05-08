@@ -22,26 +22,26 @@ Route::prefix('expert')->name('expert.')->middleware(['auth', 'role:expert', 've
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('upload-profile-photo', [ProfileController::class, 'uploadPhoto'])->name('profile.upload-photo');
+    Route::put('address', [AddressController::class, 'update'])->name('address.update');
+    Route::patch('address', [AddressController::class, 'update'])->name('address.update');
+    Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
+    Route::patch('contact', [ContactController::class, 'update'])->name('contact.update');
+    Route::resource('work-experience', WorkExperienceController::class)->except(['show']);
+    Route::resource('expertise', ExpertiseController::class);
+
+    Route::get('educational-background', [EducationalBackgroundController::class, 'index'])->name('educational-background.index');
+    Route::post('educational-background', [EducationalBackgroundController::class, 'store'])->name('educational-background.store');
+    Route::put('educational-background', [EducationalBackgroundController::class, 'update'])->name('educational-background.update');
+    Route::patch('educational-background', [EducationalBackgroundController::class, 'update'])->name('educational-background.update');
 
     Route::middleware(['profile.complete'])->group(function () {
 
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::put('address', [AddressController::class, 'update'])->name('address.update');
-        Route::patch('address', [AddressController::class, 'update'])->name('address.update');
 
-        Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
-        Route::patch('contact', [ContactController::class, 'update'])->name('contact.update');
 
         Route::get('change-password', [ChangePasswordController::class, 'show'])->name('change-password.show');
 
-        Route::resource('work-experience', WorkExperienceController::class)->except(['show']);
-        Route::resource('expertise', ExpertiseController::class);
-
-        Route::get('educational-background', [EducationalBackgroundController::class, 'index'])->name('educational-background.index');
-        Route::post('educational-background', [EducationalBackgroundController::class, 'store'])->name('educational-background.store');
-        Route::put('educational-background', [EducationalBackgroundController::class, 'update'])->name('educational-background.update');
-        Route::patch('educational-background', [EducationalBackgroundController::class, 'update'])->name('educational-background.update');
 
         Route::resource('job-listings', JobListingController::class)->middleware('profile.complete');
 

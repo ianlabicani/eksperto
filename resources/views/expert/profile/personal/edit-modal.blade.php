@@ -1,4 +1,3 @@
-<!-- Modal: Update Profile -->
 <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

@@ -15,6 +15,7 @@ class Address extends Model
         'barangay',
         'municipality',
         'province',
+        'region',
         'zip_code'
     ];
 
