@@ -12,10 +12,6 @@
         @include('guest._ui.navbar')
     @endauth
 
-
-    <!-- Navigation -->
-
-
     @include('hero')
 
     <div class="container">
