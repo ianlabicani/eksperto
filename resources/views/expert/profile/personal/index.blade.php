@@ -11,8 +11,10 @@
         $address = $user->address ?? new Address();
     @endphp
 
+
+
     <div class="card no-hover border-0 shadow-sm rounded-3 mt-4">
-        <div class="card-header bg-white py-3 border-0">
+        <div class="card-header bg-white py-3 border-0" id="personalInfo">
             <div class="d-flex align-items-center">
                 <h3 class="mb-0 fw-bold fs-5 text-primary">Personal Information</h3>
                 <button class="btn btn-sm btn-outline-primary ms-auto rounded-pill" data-bs-toggle="modal"
@@ -108,7 +110,7 @@
         </div>
 
         <!-- Address Information -->
-        <div class="card-header bg-white py-3 border-top border-0">
+        <div class="card-header bg-white py-3 border-top border-0" id="addressInfo">
             <div class="d-flex align-items-center">
                 <h3 class="mb-0 fw-bold fs-5 text-primary">Address Information</h3>
                 <button class="btn btn-sm btn-outline-primary ms-auto rounded-pill" data-bs-toggle="modal"
@@ -195,7 +197,7 @@
         </div>
 
         <!-- Contact Information -->
-        <div class="card-header bg-white py-3 border-top border-0">
+        <div class="card-header bg-white py-3 border-top border-0" id="contactInfo">
             <div class="d-flex align-items-center">
                 <h3 class="mb-0 fw-bold fs-5 text-primary">Contact Information</h3>
             </div>

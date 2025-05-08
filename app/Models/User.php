@@ -134,4 +134,58 @@ class User extends Authenticatable implements MustVerifyEmail
         return true;
     }
 
+    public function getIncompleteProfileFields()
+    {
+        $incompleteFields = [];
+
+        // Check personal information
+        if (
+            !$this->profile()->exists() ||
+            !$this->profile->first_name ||
+            !$this->profile->last_name ||
+            !$this->profile->date_of_birth ||
+            !$this->profile->sex
+        ) {
+            $incompleteFields[] = 'personal';
+        }
+
+        // Check contact information
+        if (!$this->contacts()->exists()) {
+            $incompleteFields[] = 'contact';
+        }
+
+        // Check address information
+        if (
+            !$this->address()->exists() ||
+            !$this->address->house_number ||
+            !$this->address->street ||
+            !$this->address->barangay ||
+            !$this->address->municipality ||
+            !$this->address->province ||
+            !$this->address->zip_code
+        ) {
+            $incompleteFields[] = 'address';
+        }
+
+        // For experts, check additional required fields
+        if ($this->isExpert()) {
+            // Check educational background
+            if (!$this->educationalBackgrounds()->exists()) {
+                $incompleteFields[] = 'education';
+            }
+
+            // Check work experience
+            if (!$this->workExperiences()->exists()) {
+                $incompleteFields[] = 'experience';
+            }
+
+            // Check expertise
+            if (!$this->expertises()->exists()) {
+                $incompleteFields[] = 'expertise';
+            }
+        }
+
+        return $incompleteFields;
+    }
+
 }

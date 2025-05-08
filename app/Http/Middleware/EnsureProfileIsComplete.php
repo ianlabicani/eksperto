@@ -16,6 +16,11 @@ class EnsureProfileIsComplete
 
         // Check if the profile is incomplete
         if ($user && !$user->isProfileComplete()) {
+            // Store profile incomplete status in session for display purposes
+            $request->session()->flash('profile_incomplete', true);
+
+            $incompleteFields = $user->getIncompleteProfileFields();
+            $request->session()->flash('incomplete_fields', $incompleteFields);
 
             if ($user->roles()->first()->name === 'expert') {
                 return redirect()->route('expert.profile.index')->with('warning', 'Please complete your profile before proceeding.');
@@ -24,7 +29,6 @@ class EnsureProfileIsComplete
             if ($user->roles()->first()->name === 'client') {
                 return redirect()->route('client.profile.index')->with('warning', 'Please complete your profile before proceeding.');
             }
-
 
             return redirect()->route('welcome')->with('warning', 'Please complete your profile before proceeding.');
         }
