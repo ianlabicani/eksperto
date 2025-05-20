@@ -16,7 +16,7 @@
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center mb-3">
                         <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
-                            <i class="fas fa-briefcase text-primary"></i>
+                            <i class="fas fa-briefcase text-light"></i>
                         </div>
                         <h2 class="h5 mb-0 fw-bold">Available Jobs</h2>
                     </div>
@@ -31,7 +31,7 @@
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center mb-3">
                         <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
-                            <i class="fas fa-file-alt text-primary"></i>
+                            <i class="fas fa-file-alt text-light"></i>
                         </div>
                         <h2 class="h5 mb-0 fw-bold">My Applications</h2>
                     </div>
@@ -47,7 +47,7 @@
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center mb-3">
                         <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3">
-                            <i class="fas fa-file-contract text-primary"></i>
+                            <i class="fas fa-file-contract text-light"></i>
                         </div>
                         <h2 class="h5 mb-0 fw-bold">Active Contracts</h2>
                     </div>
