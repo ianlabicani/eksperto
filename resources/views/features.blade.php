@@ -1,7 +1,7 @@
 <section id="features" class="py-5 my-5" style="background-color: #f8f9fc;">
     <div class="container py-4">
         <div class="text-center mb-5" data-aos="fade-up">
-            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 mb-3" style="border-radius: 50px;">Our
+            <span class="badge bg-primary bg-opacity-10 text-light px-3 py-2 mb-3" style="border-radius: 50px;">Our
                 Benefits</span>
             <h2 class="display-5 fw-bold">Why Choose <span class="text-primary">Eksperto</span>?</h2>
             <p class="text-muted col-lg-8 mx-auto">A trusted platform connecting clients with top-tier professionals to
