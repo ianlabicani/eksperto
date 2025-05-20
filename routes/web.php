@@ -14,3 +14,9 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/client.php';
 require __DIR__ . '/peso.php';
 require __DIR__ . '/expert.php';
+
+// Expert Change Password Routes
+Route::get('/expert/change-password', [App\Http\Controllers\Expert\ChangePasswordController::class, 'show'])
+  ->name('expert.change-password.show');
+Route::put('/expert/change-password', [App\Http\Controllers\Expert\ChangePasswordController::class, 'update'])
+  ->name('expert.change-password.update');
