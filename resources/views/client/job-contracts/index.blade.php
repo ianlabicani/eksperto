@@ -23,19 +23,6 @@
                 </a>
             </div>
         </div>
-
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show">
-                <div class="d-flex">
-                    <i class="fas fa-check-circle my-auto me-2"></i>
-                    <div>
-                        <strong>Success!</strong> {{ session('success') }}
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-
         <!-- Contract Status Summary with improved visualization -->
         <div class="row g-4 mb-4">
             <div class="col-6 col-md-6 col-lg-3">
@@ -49,7 +36,8 @@
                         <div class="ms-2 ms-sm-3">
                             <h6 class="card-subtitle text-muted mb-1 small">Active</h6>
                             <h3 class="card-title mb-0 fw-bold h4 h-sm-3">
-                                {{ $jobContracts->where('status', 'active')->count() }}</h3>
+                                {{ $jobContracts->where('status', 'active')->count() }}
+                            </h3>
                         </div>
                     </div>
                 </div>
@@ -65,7 +53,8 @@
                         <div class="ms-2 ms-sm-3">
                             <h6 class="card-subtitle text-muted mb-1 small">Pending</h6>
                             <h3 class="card-title mb-0 fw-bold h4 h-sm-3">
-                                {{ $jobContracts->where('status', 'pending')->count() }}</h3>
+                                {{ $jobContracts->where('status', 'pending')->count() }}
+                            </h3>
                         </div>
                     </div>
                 </div>
@@ -81,7 +70,8 @@
                         <div class="ms-2 ms-sm-3">
                             <h6 class="card-subtitle text-muted mb-1 small">Completed</h6>
                             <h3 class="card-title mb-0 fw-bold h4 h-sm-3">
-                                {{ $jobContracts->where('status', 'completed')->count() }}</h3>
+                                {{ $jobContracts->where('status', 'completed')->count() }}
+                            </h3>
                         </div>
                     </div>
                 </div>
@@ -97,7 +87,8 @@
                         <div class="ms-2 ms-sm-3">
                             <h6 class="card-subtitle text-muted mb-1 small">Cancelled</h6>
                             <h3 class="card-title mb-0 fw-bold h4 h-sm-3">
-                                {{ $jobContracts->where('status', 'cancelled')->count() }}</h3>
+                                {{ $jobContracts->where('status', 'cancelled')->count() }}
+                            </h3>
                         </div>
                     </div>
                 </div>
@@ -221,18 +212,30 @@
                                     </li>
                                     @if($jobContract->status == 'pending')
                                         <li>
-                                            <button type="button" class="dropdown-item py-2 text-success"
-                                                onclick="approveContract('{{ $jobContract->id }}')">
-                                                <i class="fas fa-check-circle me-2"></i> Approve Contract
-                                            </button>
+                                            <form action="{{ route('client.job-contracts.update-status', $jobContract->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status" value="active">
+                                                <button type="submit" class="dropdown-item py-2 text-success"
+                                                    onclick="return confirm('Are you sure you want to approve this contract?')">
+                                                    <i class="fas fa-check-circle me-2"></i> Approve Contract
+                                                </button>
+                                            </form>
                                         </li>
                                     @endif
                                     @if($jobContract->status == 'active')
                                         <li>
-                                            <button type="button" class="dropdown-item py-2 text-info"
-                                                onclick="markAsComplete('{{ $jobContract->id }}')">
-                                                <i class="fas fa-check-double me-2"></i> Mark as Complete
-                                            </button>
+                                            <form action="{{ route('client.job-contracts.update-status', $jobContract->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status" value="completed">
+                                                <button type="submit" class="dropdown-item py-2 text-info"
+                                                    onclick="return confirm('Are you sure you want to mark this contract as complete?')">
+                                                    <i class="fas fa-check-double me-2"></i> Mark as Complete
+                                                </button>
+                                            </form>
                                         </li>
                                     @endif
                                     @if($jobContract->status != 'cancelled' && $jobContract->status != 'completed')
@@ -240,10 +243,16 @@
                                             <hr class="dropdown-divider">
                                         </li>
                                         <li>
-                                            <button type="button" class="dropdown-item py-2 text-danger"
-                                                onclick="cancelContract('{{ $jobContract->id }}')">
-                                                <i class="fas fa-times-circle me-2"></i> Cancel Contract
-                                            </button>
+                                            <form action="{{ route('client.job-contracts.update-status', $jobContract->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status" value="cancelled">
+                                                <button type="submit" class="dropdown-item py-2 text-danger"
+                                                    onclick="return confirm('Are you sure you want to cancel this contract? This action cannot be undone.')">
+                                                    <i class="fas fa-times-circle me-2"></i> Cancel Contract
+                                                </button>
+                                            </form>
                                         </li>
                                     @endif
                                 </ul>
@@ -283,119 +292,141 @@
                             </thead>
                             <tbody>
                                 @forelse($jobContracts as $jobContract)
-                                                        <tr class="contract-row" data-status="{{ $jobContract->status }}">
-                                                            <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                                            <td class="px-4 py-3">
-                                                                <div class="fw-bold">
-                                                                    <a href="{{ route('client.job-applications.show', $jobContract->job_application_id) }}"
-                                                                        class="text-decoration-none text-primary">
-                                                                        {{ $jobContract->jobApplication->jobListing->title }}
-                                                                    </a>
-                                                                </div>
-                                                                <div class="text-muted small">
-                                                                    {{ $jobContract->jobApplication->jobListing->category }}</div>
-                                                            </td>
-                                                            <td class="px-4 py-3">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center me-2"
-                                                                        style="width: 40px; height: 40px;">
-                                                                        <i class="fas fa-user text-primary"></i>
-                                                                    </div>
-                                                                    <div>
-                                                                        <div class="fw-medium">{{ $jobContract->expert->name ?? 'N/A' }}</div>
-                                                                        <div class="text-muted small">{{ $jobContract->expert->email ?? '' }}</div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="px-4 py-3">
-                                                                @php
-                                                                    $statusBadge = match ($jobContract->status) {
-                                                                        'active' => 'success',
-                                                                        'pending' => 'warning',
-                                                                        'completed' => 'info',
-                                                                        'cancelled' => 'danger',
-                                                                        default => 'secondary'
-                                                                    };
+                                    <tr class="contract-row" data-status="{{ $jobContract->status }}">
+                                        <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                        <td class="px-4 py-3">
+                                            <div class="fw-bold">
+                                                <a href="{{ route('client.job-applications.show', $jobContract->job_application_id) }}"
+                                                    class="text-decoration-none text-primary">
+                                                    {{ $jobContract->jobApplication->jobListing->title }}
+                                                </a>
+                                            </div>
+                                            <div class="text-muted small">
+                                                {{ $jobContract->jobApplication->jobListing->category }}
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center me-2"
+                                                    style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-user text-primary"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-medium">{{ $jobContract->expert->name ?? 'N/A' }}</div>
+                                                    <div class="text-muted small">{{ $jobContract->expert->email ?? '' }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            @php
+                                                $statusBadge = match ($jobContract->status) {
+                                                    'active' => 'success',
+                                                    'pending' => 'warning',
+                                                    'completed' => 'info',
+                                                    'cancelled' => 'danger',
+                                                    default => 'secondary'
+                                                };
 
-                                                                    $statusIcon = match ($jobContract->status) {
-                                                                        'active' => 'check-circle',
-                                                                        'pending' => 'hourglass-half',
-                                                                        'completed' => 'check-double',
-                                                                        'cancelled' => 'times-circle',
-                                                                        default => 'circle'
-                                                                    };
-                                                                @endphp
+                                                $statusIcon = match ($jobContract->status) {
+                                                    'active' => 'check-circle',
+                                                    'pending' => 'hourglass-half',
+                                                    'completed' => 'check-double',
+                                                    'cancelled' => 'times-circle',
+                                                    default => 'circle'
+                                                };
+                                            @endphp
 
-                                    <span
-                                                                    class="badge bg-{{ $statusBadge }} bg-opacity-10 text-{{ $statusBadge }} py-2 px-3">
-                                                                    <i class="fas fa-{{ $statusIcon }} me-1"></i>
-                                                                    {{ ucfirst($jobContract->status) }}
-                                                                </span>
-                                                            </td>
-                                                            <td class="px-4 py-3">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="fas fa-calendar-alt text-muted me-2"></i>
-                                                                    <div>
-                                                                        <div>{{ \Carbon\Carbon::parse($jobContract->start_date)->format('M d, Y') }}
-                                                                        </div>
-                                                                        <div class="text-muted small">
-                                                                            to
-                                                                            {{ $jobContract->end_date ? \Carbon\Carbon::parse($jobContract->end_date)->format('M d, Y') : 'Ongoing' }}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td class="text-end px-4 py-3">
-                                                                <div class="d-inline-block">
-                                                                    <div class="dropdown">
-                                                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                            Actions
-                                                                        </button>
-                                                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
-                                                                            <li>
-                                                                                <a href="{{ route('client.job-contracts.show', $jobContract->id) }}"
-                                                                                    class="dropdown-item py-2">
-                                                                                    <i class="fas fa-eye text-primary me-2"></i> View Details
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="{{ route('client.job-contracts.edit', $jobContract->id) }}"
-                                                                                    class="dropdown-item py-2">
-                                                                                    <i class="fas fa-edit text-warning me-2"></i> Edit Contract
-                                                                                </a>
-                                                                            </li>
-                                                                            @if($jobContract->status == 'pending')
-                                                                                <li>
-                                                                                    <button type="button" class="dropdown-item py-2 text-success"
-                                                                                        onclick="approveContract('{{ $jobContract->id }}')">
-                                                                                        <i class="fas fa-check-circle me-2"></i> Approve Contract
-                                                                                    </button>
-                                                                                </li>
-                                                                            @endif
-                                                                            @if($jobContract->status == 'active')
-                                                                                <li>
-                                                                                    <button type="button" class="dropdown-item py-2 text-info"
-                                                                                        onclick="markAsComplete('{{ $jobContract->id }}')">
-                                                                                        <i class="fas fa-check-double me-2"></i> Mark as Complete
-                                                                                    </button>
-                                                                                </li>
-                                                                            @endif
-                                                                            @if($jobContract->status != 'cancelled' && $jobContract->status != 'completed')
-                                                                                <li>
-                                                                                    <hr class="dropdown-divider">
-                                                                                </li>
-                                                                                <li>
-                                                                                    <button type="button" class="dropdown-item py-2 text-danger"
-                                                                                        onclick="cancelContract('{{ $jobContract->id }}')">
-                                                                                        <i class="fas fa-times-circle me-2"></i> Cancel Contract
-                                                                                    </button>
-                                                                                </li>
-                                                                            @endif
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                            <span
+                                                class="badge bg-{{ $statusBadge }} bg-opacity-10 text-{{ $statusBadge }} py-2 px-3">
+                                                <i class="fas fa-{{ $statusIcon }} me-1"></i>
+                                                {{ ucfirst($jobContract->status) }}
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-calendar-alt text-muted me-2"></i>
+                                                <div>
+                                                    <div>{{ \Carbon\Carbon::parse($jobContract->start_date)->format('M d, Y') }}
+                                                    </div>
+                                                    <div class="text-muted small">
+                                                        to
+                                                        {{ $jobContract->end_date ? \Carbon\Carbon::parse($jobContract->end_date)->format('M d, Y') : 'Ongoing' }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end px-4 py-3">
+                                            <div class="d-inline-block">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                                                        <li>
+                                                            <a href="{{ route('client.job-contracts.show', $jobContract->id) }}"
+                                                                class="dropdown-item py-2">
+                                                                <i class="fas fa-eye text-primary me-2"></i> View Details
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('client.job-contracts.edit', $jobContract->id) }}"
+                                                                class="dropdown-item py-2">
+                                                                <i class="fas fa-edit text-warning me-2"></i> Edit Contract
+                                                            </a>
+                                                        </li>
+                                                        @if($jobContract->status == 'pending')
+                                                            <li>
+                                                                <form
+                                                                    action="{{ route('client.job-contracts.update-status', $jobContract->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="hidden" name="status" value="active">
+                                                                    <button type="submit" class="dropdown-item py-2 text-success"
+                                                                        onclick="return confirm('Are you sure you want to approve this contract?')">
+                                                                        <i class="fas fa-check-circle me-2"></i> Approve Contract
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        @endif
+                                                        @if($jobContract->status == 'active')
+                                                            <li>
+                                                                <form
+                                                                    action="{{ route('client.job-contracts.update-status', $jobContract->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="hidden" name="status" value="completed">
+                                                                    <button type="submit" class="dropdown-item py-2 text-info">
+                                                                        <i class="fas fa-check-double me-2"></i> Mark as Complete
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        @endif
+                                                        @if($jobContract->status != 'cancelled' && $jobContract->status != 'completed')
+                                                            <li>
+                                                                <hr class="dropdown-divider">
+                                                            </li>
+                                                            <li>
+                                                                <form
+                                                                    action="{{ route('client.job-contracts.update-status', $jobContract->id) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="hidden" name="status" value="cancelled">
+                                                                    <button type="submit" class="dropdown-item py-2 text-danger"
+                                                                        onclick="return confirm('Are you sure you want to cancel this contract? This action cannot be undone.')">
+                                                                        <i class="fas fa-times-circle me-2"></i> Cancel Contract
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @empty
                                     <tr>
                                         <td colspan="6" class="text-center py-5">
@@ -418,12 +449,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Hidden form for contract actions -->
-    <form id="contract-action-form" method="POST" style="display: none;">
-        @csrf
-        @method('PATCH')
-    </form>
 
     @push('scripts')
         <script>
@@ -467,52 +492,6 @@
                     });
                 });
             });
-
-            // Contract action functions
-            function approveContract(id) {
-                if (confirm('Are you sure you want to approve this contract?')) {
-                    const form = document.getElementById('contract-action-form');
-                    form.action = `/client/job-contracts/${id}/update-status`;
-
-                    const statusInput = document.createElement('input');
-                    statusInput.type = 'hidden';
-                    statusInput.name = 'status';
-                    statusInput.value = 'active';
-                    form.appendChild(statusInput);
-
-                    form.submit();
-                }
-            }
-
-            function markAsComplete(id) {
-                if (confirm('Are you sure you want to mark this contract as complete?')) {
-                    const form = document.getElementById('contract-action-form');
-                    form.action = `/client/job-contracts/${id}/update-status`;
-
-                    const statusInput = document.createElement('input');
-                    statusInput.type = 'hidden';
-                    statusInput.name = 'status';
-                    statusInput.value = 'completed';
-                    form.appendChild(statusInput);
-
-                    form.submit();
-                }
-            }
-
-            function cancelContract(id) {
-                if (confirm('Are you sure you want to cancel this contract? This action cannot be undone.')) {
-                    const form = document.getElementById('contract-action-form');
-                    form.action = `/client/job-contracts/${id}/update-status`;
-
-                    const statusInput = document.createElement('input');
-                    statusInput.type = 'hidden';
-                    statusInput.name = 'status';
-                    statusInput.value = 'cancelled';
-                    form.appendChild(statusInput);
-
-                    form.submit();
-                }
-            }
         </script>
     @endpush
 
@@ -521,25 +500,31 @@
             .table-responsive {
                 overflow: visible !important;
             }
+
             .dropdown-menu {
                 min-width: 200px;
                 margin-top: 0;
             }
+
             td {
                 position: relative;
             }
+
             .dropdown {
                 position: relative;
             }
+
             .dropdown-menu.show {
                 position: absolute;
                 z-index: 1000;
                 transform: none !important;
             }
+
             @media (max-width: 768px) {
                 .table-responsive {
                     overflow-x: auto !important;
                 }
+
                 .dropdown-menu {
                     position: fixed;
                     top: auto;

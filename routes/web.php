@@ -20,3 +20,8 @@ Route::get('/expert/change-password', [App\Http\Controllers\Expert\ChangePasswor
   ->name('expert.change-password.show');
 Route::put('/expert/change-password', [App\Http\Controllers\Expert\ChangePasswordController::class, 'update'])
   ->name('expert.change-password.update');
+
+// Client Job Contract Status Update Route
+Route::patch('/client/job-contracts/{jobContract}/update-status', [App\Http\Controllers\Client\JobContractController::class, 'updateStatus'])
+  ->name('client.job-contracts.update-status')
+  ->middleware(['auth', 'role:client']);

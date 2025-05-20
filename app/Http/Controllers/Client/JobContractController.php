@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\JobContract;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobContractController extends Controller
 {
 
     public function index()
     {
-        $jobContracts = JobContract::where('client_id', auth()->id())
+        $jobContracts = JobContract::where('client_id', Auth::id())
             ->with([
                 'jobApplication.jobListing',
                 'expert',
@@ -52,5 +53,52 @@ class JobContractController extends Controller
             'jobListing' => $jobContract->jobApplication->jobListing,
             'expert' => $jobContract->expert,
         ]);
+    }
+
+    /**
+     * Update the status of a job contract.
+     *
+     * @param Request $request
+     * @param JobContract $jobContract
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateStatus(Request $request, JobContract $jobContract)
+    {
+        // Validate the request
+        $validated = $request->validate([
+            'status' => 'required|in:active,pending,completed,cancelled',
+        ]);
+
+
+
+        try {
+            // Check if user owns this contract
+            if ($jobContract->client_id !== Auth::id()) {
+                return redirect()->back()->with('error', 'You are not authorized to update this contract.');
+            }
+
+            // Update the contract status
+            $jobContract->status = $validated['status'];
+
+            // If marking as completed, set the completion date
+            if ($validated['status'] === 'completed') {
+                $jobContract->end_date = now();
+            }
+
+            $jobContract->save();
+
+            // Generate appropriate success message
+            $message = match ($validated['status']) {
+                'active' => 'Contract has been activated successfully.',
+                'pending' => 'Contract has been set as pending.',
+                'completed' => 'Contract has been marked as completed.',
+                'cancelled' => 'Contract has been cancelled.',
+                default => 'Contract status has been updated.'
+            };
+
+            return back()->with('success', $message);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to update contract status: ' . $e->getMessage());
+        }
     }
 }
