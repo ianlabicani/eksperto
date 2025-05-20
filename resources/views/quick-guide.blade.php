@@ -1,7 +1,8 @@
 <section class="quick-guide py-5" style="background-color: #f8f9fc;">
     <div class="text-center mb-5" data-aos="fade-up">
-        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 mb-3" style="border-radius: 50px;">How It
-            Works</span>
+        <span class="badge bg-primary bg-opacity-10 text-light px-3 py-2 mb-3" style="border-radius: 50px;">
+            How It Works
+        </span>
         <h2 class="display-5 fw-bold">Getting Started is Easy</h2>
         <p class="text-muted col-lg-8 mx-auto">Follow these simple steps to make the most of our platform.</p>
     </div>
@@ -48,8 +49,9 @@
                     profile attracts more opportunities.
                 </p>
                 <div class="mt-auto text-center">
-                    <a href="/login" class="btn btn-outline-primary px-4" style="border-radius: 50px;">
-                        Update Profile
+                    <a href="{{ auth()->check() ? route(auth()->user()->isClient() ? 'client.profile.index' : 'expert.profile.index') : route('login') }}"
+                        class="btn btn-outline-primary px-4" style="border-radius: 50px;">
+                        {{ auth()->check() ? 'Update Profile' : 'Login to Continue' }}
                     </a>
                 </div>
             </div>
