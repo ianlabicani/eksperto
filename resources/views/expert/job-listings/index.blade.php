@@ -8,14 +8,7 @@
                 <h1 class="h3 mb-1 fw-bold">Job Opportunities</h1>
                 <p class="text-muted mb-0">Find and apply for jobs that match your expertise</p>
             </div>
-            <div class="d-flex gap-2">
-                <button type="button" class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#filterSection">
-                    <i class="fas fa-sliders-h me-2"></i>Filters
-                </button>
-                <a href="{{ route('expert.job-listings.index') }}" class="btn btn-outline-primary">
-                    <i class="fas fa-sync-alt me-2"></i>Reset
-                </a>
-            </div>
+
         </div>
 
         <!-- Filter Section -->
