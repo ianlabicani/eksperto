@@ -59,9 +59,9 @@
                 <p class="text-muted">Discover jobs tailored to your skills and experience</p>
             </div>
 
-            <div class="row g-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 @foreach ($jobListings as $jobListing)
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col d-flex align-items-stretch">
                         @include('expert.job-listings._ui.job-listing-card', ['jobListing' => $jobListing])
                     </div>
 
@@ -103,6 +103,46 @@
             .page-item.disabled .page-link {
                 background: #f3f4f6;
                 color: #9ca3af;
+            }
+
+            .job-card {
+                transition: all 0.2s ease;
+                border-radius: 0.75rem;
+                height: 100%;
+                width: 100%;
+                min-width: 280px;
+                max-width: 100%;
+            }
+
+            .job-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            .job-card .badge {
+                font-size: 0.75rem;
+                padding: 0.35em 0.65em;
+                white-space: nowrap;
+            }
+
+            .job-card .card-title {
+                min-height: 24px;
+                line-height: 1.3;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .application-stats .badge {
+                min-width: 42px;
+                justify-content: center;
+                display: inline-flex;
+                align-items: center;
+            }
+
+            @media (max-width: 767.98px) {
+                .job-card .card-info {
+                    font-size: 0.8rem;
+                }
             }
         </style>
     @endpush
