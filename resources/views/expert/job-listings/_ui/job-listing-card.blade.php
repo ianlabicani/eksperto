@@ -1,69 +1,81 @@
-<div class="card hover shadow-lg border-0 job-card {{ $jobListing->status === 'closed' ? 'bg-dark-subtle' : '' }}">
-    <div class="card-body">
-        <h5 class="card-title fw-bold">{{ $jobListing->title }}</h5>
-        <p class="card-text text-muted mb-1">{{ $jobListing->category }}</p>
-        <p class="card-text">
-            <span class="badge bg-secondary text-capitalize">{{ $jobListing->job_type }}</span>
-            <br>
-            <strong>₱{{ number_format($jobListing->salary ?? 0, 2) }}</strong>
-            @if ($jobListing->rate)
-                <span class="text-muted small">({{ ucfirst($jobListing->rate) }})</span>
-            @endif
-        </p>
-        <p class="card-text text-muted small mb-2">
-            <i class="fas fa-map-marker-alt"></i> {{ $jobListing->location }}
-        </p>
-        <p class="card-text text-muted small">
-            <i class="fas fa-calendar-alt"></i> Posted on {{ $jobListing->created_at->format('M d, Y') }}
-        </p>
-        <p class="card-text text-muted small">
-            <i class="fas fa-users"></i> Applications:
-            <strong>{{ $jobListing->jobApplications()->count() }}</strong>
-        </p>
-        <p class="card-text text-muted small">
-            <i class="fas fa-clipboard-list"></i> Vacancies:
-            <strong>{{ $jobListing->vacancies }}</strong>
-        </p>
+<div class="card h-100 shadow-sm border-0 job-card {{ $jobListing->status === 'closed' ? 'bg-dark-subtle' : '' }}">
+    <div class="card-body d-flex flex-column p-3 p-lg-4">
+        <div class="mb-auto">
+            <h5 class="card-title fw-bold text-truncate mb-2">{{ $jobListing->title }}</h5>
+            <p class="card-text text-muted mb-2 small text-truncate">{{ $jobListing->category }}</p>
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                <span class="badge bg-secondary text-capitalize">{{ $jobListing->job_type }}</span>
+                @if ($jobListing->status === 'closed')
+                    <span class="badge bg-danger"><i class="fas fa-lock me-1"></i>Closed</span>
+                @else
+                    <span class="badge bg-success"><i class="fas fa-check me-1"></i>Open</span>
+                @endif
+            </div>
+            <div class="d-flex align-items-center mb-3">
+                <strong class="me-1 text-nowrap">₱{{ number_format($jobListing->salary ?? 0, 2) }}</strong>
+                @if ($jobListing->rate)
+                    <span class="text-muted small">({{ ucfirst($jobListing->rate) }})</span>
+                @endif
+            </div>
 
-        <!-- Status-wise Count -->
-        <p class="card-text medium d-flex gap-2 flex-wrap">
-            <span class="badge bg-warning">
-                <i class="fas fa-clock"></i> Pending:
-                {{ $jobListing->jobApplications()->where('status', 'pending')->count() }}
-            </span>
-            <span class="badge bg-danger">
-                <i class="fas fa-times-circle"></i> Rejected:
-                {{ $jobListing->jobApplications()->where('status', 'rejected')->count() }}
-            </span>
-            <span class="badge bg-secondary">
-                <i class="fas fa-ban"></i> Cancelled:
-                {{ $jobListing->jobApplications()->where('status', 'cancelled')->count() }}
-            </span>
-            <span class="badge bg-success">
-                <i class="fas fa-check-circle"></i> Accepted:
-                {{ $jobListing->jobApplications()->where('status', 'accepted')->count() }}
-            </span>
-        </p>
-        <p class="card-text">
-            <strong>Status:</strong>
-            @if ($jobListing->status === 'closed')
-                <span class="badge bg-danger"><i class="fas fa-lock"></i> Closed</span>
-            @else
-                <span class="badge bg-success"><i class="fas fa-check"></i> Open</span>
-            @endif
-        </p>
+            <div class="card-info mb-3">
+                <div class="d-flex align-items-center text-muted small mb-1">
+                    <i class="fas fa-map-marker-alt me-2 text-secondary"></i>
+                    <span class="text-truncate">{{ $jobListing->location }}</span>
+                </div>
+                <div class="d-flex align-items-center text-muted small mb-1">
+                    <i class="fas fa-calendar-alt me-2 text-secondary"></i>
+                    <span class="text-nowrap">Posted {{ $jobListing->created_at->format('M d, Y') }}</span>
+                </div>
+                <div class="d-flex align-items-center text-muted small mb-1">
+                    <i class="fas fa-users me-2 text-secondary"></i>
+                    <span class="text-nowrap">Applications:
+                        <strong>{{ $jobListing->jobApplications()->count() }}</strong></span>
+                </div>
+                <div class="d-flex align-items-center text-muted small">
+                    <i class="fas fa-clipboard-list me-2 text-secondary"></i>
+                    <span class="text-nowrap">Vacancies: <strong>{{ $jobListing->vacancies }}</strong></span>
+                </div>
+            </div>
+
+            <!-- Status-wise Count -->
+            <div class="application-stats mb-3">
+                <div class="d-flex flex-wrap gap-1">
+                    <span class="badge bg-warning">
+                        <i
+                            class="fas fa-clock me-1"></i>{{ $jobListing->jobApplications()->where('status', 'pending')->count() }}
+                    </span>
+                    <span class="badge bg-danger">
+                        <i
+                            class="fas fa-times-circle me-1"></i>{{ $jobListing->jobApplications()->where('status', 'rejected')->count() }}
+                    </span>
+                    <span class="badge bg-secondary">
+                        <i
+                            class="fas fa-ban me-1"></i>{{ $jobListing->jobApplications()->where('status', 'cancelled')->count() }}
+                    </span>
+                    <span class="badge bg-success">
+                        <i
+                            class="fas fa-check-circle me-1"></i>{{ $jobListing->jobApplications()->where('status', 'accepted')->count() }}
+                    </span>
+                </div>
+            </div>
+        </div>
 
         @php
             $application = $jobListing->jobApplications->first();
         @endphp
 
-        @if ($jobListing->has_applied)
-            <a href="{{ route('expert.job-applications.show', $application) }}" class="btn btn-warning w-100">
-                <i class="fas fa-eye"></i> View Application
-            </a>
-        @endif
+        <div class="card-actions mt-auto">
+            @if ($jobListing->has_applied)
+                <a href="{{ route('expert.job-applications.show', $application) }}" class="btn btn-warning w-100 mb-2">
+                    <i class="fas fa-eye me-1"></i> View Application
+                </a>
+            @endif
 
-        <button class="btn btn-info btn-sm w-100 mt-2" data-bs-toggle="modal"
-            data-bs-target="#viewJobModal{{ $jobListing->id }}">Show More</button>
+            <button class="btn btn-info btn-sm w-100" data-bs-toggle="modal"
+                data-bs-target="#viewJobModal{{ $jobListing->id }}">
+                <i class="fas fa-info-circle me-1"></i> Show More
+            </button>
+        </div>
     </div>
 </div>
