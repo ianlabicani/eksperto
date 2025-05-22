@@ -112,23 +112,85 @@
                     </div>
                 @endif
 
-                <!-- Contract Creation Card (for Accepted Applications) -->
-                @if ($jobApplication->status === 'accepted' && !$jobApplication->jobContract)
-                    <div class="card shadow-sm border-0 rounded-4 mb-4">
-                        <div class="card-header bg-success bg-opacity-10 border-0 py-3">
-                            <h5 class="mb-0 fw-bold">
-                                <i class="fas fa-file-contract me-2 text-success"></i>Create Contract
-                            </h5>
+                <!-- Contract Section -->
+                @if ($jobApplication->status === 'accepted')
+                    @if ($jobApplication->jobContract)
+                        <!-- Existing Contract Card -->
+                        <div class="card shadow-sm border-0 rounded-4 mb-4">
+                            <div class="card-header bg-success bg-opacity-10 border-0 py-3">
+                                <h5 class="mb-0 fw-bold">
+                                    <i class="fas fa-file-contract me-2 text-success"></i>Contract Details
+                                </h5>
+                            </div>
+                            <div class="card-body p-4">
+                                @php
+                                    $contract = $jobApplication->jobContract;
+                                    $contractStatus = $contract->status;
+                                    $contractBadge = match ($contractStatus) {
+                                        'pending' => 'warning',
+                                        'accepted' => 'success',
+                                        'rejected' => 'danger',
+                                        'cancelled' => 'secondary',
+                                        default => 'dark',
+                                    };
+                                    $contractIcon = match ($contractStatus) {
+                                        'pending' => 'clock',
+                                        'accepted' => 'check-circle',
+                                        'rejected' => 'times-circle',
+                                        'cancelled' => 'ban',
+                                        default => 'info-circle',
+                                    };
+                                @endphp
+
+                                <span class="badge bg-{{ $contractBadge }} mb-4 px-3 py-2 rounded-pill d-block text-center">
+                                    <i class="fas fa-{{ $contractIcon }} me-1"></i> {{ ucfirst($contractStatus) }}
+                                </span>
+
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-light rounded-circle p-2 me-2">
+                                            <i class="fas fa-calendar-alt text-success"></i>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted d-block">Start Date</small>
+                                            <strong>{{ \Carbon\Carbon::parse($contract->start_date)->format('M d, Y') }}</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-light rounded-circle p-2 me-2">
+                                            <i class="fas fa-calendar-check text-success"></i>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted d-block">End Date</small>
+                                            <strong>{{ $contract->end_date ? \Carbon\Carbon::parse($contract->end_date)->format('M d, Y') : 'Ongoing' }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <a href="{{ route('client.job-contracts.show', $contract->id) }}" class="btn btn-primary w-100">
+                                    <i class="fas fa-eye me-2"></i>View Full Contract
+                                </a>
+                            </div>
                         </div>
-                        <div class="card-body p-4">
-                            <p class="text-muted mb-3">This application has been accepted. You can now create a contract for
-                                this applicant.</p>
-                            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
-                                data-bs-target="#createContractModal">
-                                <i class="fas fa-file-signature me-2"></i>Create Contract
-                            </button>
+                    @else
+                        <!-- Create Contract Card -->
+                        <div class="card shadow-sm border-0 rounded-4 mb-4">
+                            <div class="card-header bg-success bg-opacity-10 border-0 py-3">
+                                <h5 class="mb-0 fw-bold">
+                                    <i class="fas fa-file-contract me-2 text-success"></i>Create Contract
+                                </h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <p class="text-muted mb-3">This application has been accepted. You can now create a contract for
+                                    this applicant.</p>
+                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                                    data-bs-target="#createContractModal">
+                                    <i class="fas fa-file-signature me-2"></i>Create Contract
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endif
             </div>
 
