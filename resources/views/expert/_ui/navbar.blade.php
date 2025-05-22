@@ -43,7 +43,7 @@
                 @endphp
                 <!-- Profile Dropdown -->
                 <li class="nav-item dropdown ms-2">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center px-3 py-2 rounded-pill transition-all {{ request()->routeIs($profileRoutes) ? 'active bg-primary bg-opacity-10 fw-medium text-light' : '' }}"
+                    <a class="nav-link dropdown-toggle d-flex align-items-center px-3 py-2 rounded-pill transition-all {{ request()->routeIs($profileRoutes) ? 'active bg-primary bg-opacity-10 fw-medium text-primary' : '' }}"
                         href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user me-2 opacity-75"></i>Profile
                     </a>

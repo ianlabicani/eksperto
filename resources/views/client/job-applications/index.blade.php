@@ -51,7 +51,7 @@
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body d-flex align-items-center">
                         <div class="rounded-circle bg-primary bg-opacity-10 p-3">
-                            <i class="fas fa-list text-primary"></i>
+                            <i class="fas fa-list text-light"></i>
                         </div>
                         <div class="ms-3">
                             <h6 class="card-subtitle text-muted mb-1">Total</h6>

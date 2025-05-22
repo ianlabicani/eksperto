@@ -309,7 +309,7 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center me-2"
                                                     style="width: 40px; height: 40px;">
-                                                    <i class="fas fa-user text-primary"></i>
+                                                    <i class="fas fa-user text-light"></i>
                                                 </div>
                                                 <div>
                                                     <div class="fw-medium">{{ $jobContract->expert->name ?? 'N/A' }}</div>
