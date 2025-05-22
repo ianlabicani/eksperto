@@ -64,7 +64,8 @@ class JobListingController extends Controller
             ->with([
                 'jobApplications' => function ($q) use ($user) {
                     $q->where('expert_id', $user->id);
-                }
+                },
+                'client'
             ])
             ->latest()
             ->paginate(10);
