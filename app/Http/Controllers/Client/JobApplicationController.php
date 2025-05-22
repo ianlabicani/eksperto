@@ -13,7 +13,11 @@ class JobApplicationController extends Controller
         $client = $request->user();
 
         $jobApplications = $client->jobApplicants()
-            ->with(['expert', 'jobListing'])
+            ->select('id', 'expert_id', 'job_listing_id', 'status', 'created_at')
+            ->with([
+                'expert:id,name,email',
+                'jobListing:id,title,category'
+            ])
             ->get();
 
         // Group applications by status
