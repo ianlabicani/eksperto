@@ -57,7 +57,7 @@
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center mb-4">
                             <div class="bg-light rounded-circle p-3 me-3">
-                                <i class="fas fa-user fa-lg text-primary"></i>
+                                <i class="fas fa-user fa-lg text-light"></i>
                             </div>
                             <div>
                                 <h5 class="fw-bold mb-1">{{ $jobApplication->expert->name }}</h5>
@@ -80,8 +80,8 @@
                 <div class="card shadow-sm rounded-4 border-0 mb-4">
                     <div class="card-body p-4">
                         <h5 class="fw-bold mb-3 d-flex align-items-center">
-                            <div class="bg-light rounded-circle p-2 me-2">
-                                <i class="fas fa-envelope-open-text text-primary"></i>
+                            <div class="bg-primary rounded-circle p-2 me-2">
+                                <i class="fas fa-envelope-open-text text-light"></i>
                             </div>
                             Cover Letter
                         </h5>
@@ -134,7 +134,7 @@
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center mb-4">
                                 <div class="bg-light rounded-circle p-3 me-3">
-                                    <i class="fas fa-file-signature fa-lg text-primary"></i>
+                                    <i class="fas fa-file-signature fa-lg text-light"></i>
                                 </div>
                                 <h5 class="fw-bold mb-0">Contract Details</h5>
                             </div>
@@ -164,7 +164,7 @@
                             <div class="mb-4">
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="bg-light rounded-circle p-2 me-2">
-                                        <i class="fas fa-calendar-alt text-primary"></i>
+                                        <i class="fas fa-calendar-alt text-light"></i>
                                     </div>
                                     <div>
                                         <small class="text-muted d-block">Start Date</small>
@@ -173,7 +173,7 @@
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div class="bg-light rounded-circle p-2 me-2">
-                                        <i class="fas fa-calendar-check text-primary"></i>
+                                        <i class="fas fa-calendar-check text-light"></i>
                                     </div>
                                     <div>
                                         <small class="text-muted d-block">End Date</small>
@@ -184,7 +184,7 @@
 
                             <div class="mb-4">
                                 <h6 class="fw-bold mb-3">
-                                    <i class="fas fa-file-alt text-primary me-2"></i>Contract Terms
+                                    <i class="fas fa-file-alt text-light me-2"></i>Contract Terms
                                 </h6>
                                 <div class="bg-light p-3 rounded-4" style="max-height: 200px; overflow-y: auto;">
                                     <div style="white-space: pre-line;">{{ $jobApplication->jobContract->contract_terms }}</div>
@@ -198,14 +198,34 @@
                         </div>
                     </div>
                 @else
-                    <div class="alert alert-info rounded-4 border-0">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-white rounded-circle p-2 me-3">
-                                <i class="fas fa-info-circle text-info"></i>
+                    @if($jobApplication->status === 'pending')
+                        <div class="alert alert-info rounded-4 border-0">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-white rounded-circle p-2 me-3">
+                                    <i class="fas fa-info-circle text-info"></i>
+                                </div>
+                                <div>The client is still reviewing your application.</div>
                             </div>
-                            <div>The client is still reviewing your application.</div>
                         </div>
-                    </div>
+                    @elseif($jobApplication->status === 'rejected')
+                        <div class="alert alert-danger rounded-4 border-0">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-white rounded-circle p-2 me-3">
+                                    <i class="fas fa-times-circle text-danger"></i>
+                                </div>
+                                <div>Your application was not accepted. You might want to explore other opportunities.</div>
+                            </div>
+                        </div>
+                    @elseif($jobApplication->status === 'cancelled')
+                        <div class="alert alert-secondary rounded-4 border-0">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-white rounded-circle p-2 me-3">
+                                    <i class="fas fa-ban text-secondary"></i>
+                                </div>
+                                <div>You cancelled this application.</div>
+                            </div>
+                        </div>
+                    @endif
                 @endif
             </div>
         </div>
