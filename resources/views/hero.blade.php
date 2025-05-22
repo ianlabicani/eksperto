@@ -6,10 +6,25 @@
                 <p class="lead mb-4">Connect with skilled professionals for your projects and get things done
                     efficiently with our trusted platform.</p>
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="{{ route('register') }}" class="btn btn-light px-4 py-2 fw-semibold"
-                        style="border-radius: 50px;">
-                        Get Started <i class="fa-solid fa-arrow-right ms-2"></i>
-                    </a>
+                    @auth
+                        @if (Auth::user()->isClient())
+                            <a href="{{ route('client.dashboard') }}" class="btn btn-light px-4 py-2 fw-semibold"
+                                style="border-radius: 50px;">
+                                Post a Job <i class="fa-solid fa-arrow-right ms-2"></i>
+                            </a>
+                        @elseif (Auth::user()->isExpert())
+                            <a href="{{ route('expert.dashboard') }}" class="btn btn-light px-4 py-2 fw-semibold"
+                                style="border-radius: 50px;">
+                                Go to Dashboard <i class="fa-solid fa-arrow-right ms-2"></i>
+                            </a>
+
+                        @endif
+                    @else
+                        <a href="{{ route('register') }}" class="btn btn-light px-4 py-2 fw-semibold"
+                            style="border-radius: 50px;">
+                            Get Started <i class="fa-solid fa-arrow-right ms-2"></i>
+                        </a>
+                    @endauth
                     <a href="#features" class="btn btn-outline-light px-4 py-2" style="border-radius: 50px;">
                         Learn More
                     </a>
