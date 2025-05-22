@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle bg-primary bg-opacity-10 p-3">
-                                <i class="fas fa-briefcase text-primary"></i>
+                                <i class="fas fa-briefcase text-light"></i>
                             </div>
                             <div class="ms-3">
                                 <h6 class="card-subtitle text-muted mb-1">Active Jobs</h6>
