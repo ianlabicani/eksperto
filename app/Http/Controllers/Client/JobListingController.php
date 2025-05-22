@@ -155,4 +155,26 @@ class JobListingController extends Controller
         return redirect()->route('client.job-listings.show', $jobListing)
             ->with('success', 'Job status updated successfully!');
     }
+
+    public function update(Request $request, JobListing $jobListing)
+    {
+        // Only validate the fields that are allowed to be edited
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'requirements' => 'required|string',
+            'location' => 'required|string',
+        ]);
+
+        // Update only the permitted fields, ensuring other fields remain unchanged
+        $jobListing->update([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'requirements' => $validated['requirements'],
+            'location' => $validated['location'],
+        ]);
+
+        return redirect()->route('client.job-listings.show', $jobListing)
+            ->with('success', 'Job listing updated successfully!');
+    }
 }

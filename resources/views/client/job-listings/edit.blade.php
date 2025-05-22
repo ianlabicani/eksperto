@@ -3,8 +3,9 @@
 @section('client-content')
     <div class="container py-4">
         <div class="d-flex align-items-center mb-4">
-            <a href="{{ route('client.job-listings.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill me-3">
-                <i class="fas fa-arrow-left me-1"></i> Back to Jobs
+            <a href="{{ route('client.job-listings.show', $jobListing->id) }}"
+                class="btn btn-sm btn-outline-secondary rounded-pill me-3">
+                <i class="fas fa-arrow-left me-1"></i> Back to Job Details
             </a>
             <h4 class="fw-bold m-0">Edit Job Listing</h4>
         </div>
@@ -15,7 +16,7 @@
                     <i class="fas fa-edit me-2"></i>Update Job Details
                 </h5>
                 <p class="small mb-0 mt-1 text-light">You can only edit the job title, description, requirements,
-                    and location.</p>
+                    and location. Other job details will remain unchanged.</p>
             </div>
             <div class="card-body p-4">
                 <form action="{{ route('client.job-listings.update', $jobListing->id) }}" method="POST" id="jobEditForm">
@@ -76,19 +77,11 @@
                             </div>
                         </div>
 
-                        <!-- Hidden fields to preserve original values -->
-                        <input type="hidden" name="category" value="{{ $jobListing->category }}">
-                        <input type="hidden" name="job_type" value="{{ $jobListing->job_type }}">
-                        <input type="hidden" name="salary" value="{{ $jobListing->salary }}">
-                        <input type="hidden" name="rate" value="{{ $jobListing->rate }}">
-                        <input type="hidden" name="vacancies" value="{{ $jobListing->vacancies }}">
-                        <input type="hidden" name="deadline" value="{{ $jobListing->deadline }}">
-
                         <div class="col-12 mt-4">
                             <hr>
                             <div class="d-flex justify-content-between align-items-center">
-                                <p class="text-muted small mb-0"><i class="fas fa-info-circle me-1"></i> Only the fields
-                                    above can be edited. Other job details will remain unchanged.</p>
+                                <p class="text-muted small mb-0"><i class="fas fa-info-circle me-1"></i> Only title,
+                                    description, requirements, and location can be edited.</p>
                                 <div class="d-flex gap-2">
                                     <a href="{{ route('client.job-listings.show', $jobListing->id) }}"
                                         class="btn btn-light px-4 rounded-pill">
