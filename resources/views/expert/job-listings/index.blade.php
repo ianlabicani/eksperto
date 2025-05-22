@@ -12,13 +12,7 @@
         </div>
 
         <!-- Filter Section -->
-        <div class="collapse show mb-4" id="filterSection">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body p-4">
-                    @include('expert.job-listings._ui.filter-form')
-                </div>
-            </div>
-        </div>
+        @include('expert.job-listings._ui.filter-form')
 
         @if ($noExpertiseCategories)
             <div class="alert alert-warning border-0 rounded-4 shadow-sm mb-4">
