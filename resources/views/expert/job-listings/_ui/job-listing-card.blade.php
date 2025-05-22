@@ -41,19 +41,19 @@
             <!-- Status-wise Count -->
             <div class="application-stats mb-3">
                 <div class="d-flex flex-wrap gap-1">
-                    <span class="badge bg-warning">
+                    <span class="badge bg-warning" data-bs-toggle="tooltip" title="Pending Applications">
                         <i
                             class="fas fa-clock me-1"></i>{{ $jobListing->jobApplications()->where('status', 'pending')->count() }}
                     </span>
-                    <span class="badge bg-danger">
+                    <span class="badge bg-danger" data-bs-toggle="tooltip" title="Rejected Applications">
                         <i
                             class="fas fa-times-circle me-1"></i>{{ $jobListing->jobApplications()->where('status', 'rejected')->count() }}
                     </span>
-                    <span class="badge bg-secondary">
+                    <span class="badge bg-secondary" data-bs-toggle="tooltip" title="Cancelled Applications">
                         <i
                             class="fas fa-ban me-1"></i>{{ $jobListing->jobApplications()->where('status', 'cancelled')->count() }}
                     </span>
-                    <span class="badge bg-success">
+                    <span class="badge bg-success" data-bs-toggle="tooltip" title="Accepted Applications">
                         <i
                             class="fas fa-check-circle me-1"></i>{{ $jobListing->jobApplications()->where('status', 'accepted')->count() }}
                     </span>
