@@ -36,7 +36,7 @@
                         <div class="d-flex align-items-center">
                             @if($contact->type == 'email')
                                 <div class="bg-primary bg-opacity-10 p-3 rounded-circle me-3">
-                                    <i class="fas fa-envelope text-primary"></i>
+                                    <i class="fas fa-envelope text-light"></i>
                                 </div>
                                 <div>
                                     <div class="small text-muted">Email</div>
