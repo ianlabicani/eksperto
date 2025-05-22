@@ -14,7 +14,13 @@ class JobApplicationController extends Controller
      */
     public function index(Request $request)
     {
-        $jobApplications = JobApplication::where('expert_id', $request->user()->id)->get();
+        $jobApplications = JobApplication::select('id', 'job_listing_id', 'status', 'created_at')
+            ->where('expert_id', $request->user()->id)
+            ->with([
+                'jobListing:id,title,client_id',
+                'jobListing.client:id,name'
+            ])
+            ->get();
 
         return view('expert.job-applications.index', compact('jobApplications'));
     }
@@ -80,6 +86,9 @@ class JobApplicationController extends Controller
      */
     public function show(JobApplication $jobApplication)
     {
+        // Eager load relationships to avoid lazy loading issues
+        $jobApplication->load(['jobListing', 'jobListing.client']);
+
         return view('expert.job-applications.show', compact('jobApplication'));
     }
 
