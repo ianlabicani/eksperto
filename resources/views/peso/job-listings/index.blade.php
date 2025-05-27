@@ -1,6 +1,6 @@
 @extends('peso.shell')
 
-@section('content')
+@section('peso-content')
     <div class="container mt-4">
         <h2 class="fw-bold">Job Listings</h2>
 
