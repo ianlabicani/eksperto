@@ -1,5 +1,9 @@
 @extends('expert.shell')
 
+@section('title')
+    Expert - Job Application Details
+@endsection
+
 @section('expert-content')
     <div class="container mt-4">
         <!-- Header Section with improved spacing and hierarchy -->
@@ -23,21 +27,21 @@
                 </p>
             </div>
             @php
-                $status = $jobApplication->status;
-                $statusBadge = match ($status) {
-                    'pending' => 'warning',
-                    'accepted' => 'success',
-                    'rejected' => 'danger',
-                    'cancelled' => 'secondary',
-                    default => 'dark',
-                };
-                $statusIcon = match ($status) {
-                    'pending' => 'clock',
-                    'accepted' => 'check-circle',
-                    'rejected' => 'times-circle',
-                    'cancelled' => 'ban',
-                    default => 'info-circle',
-                };
+$status = $jobApplication->status;
+$statusBadge = match ($status) {
+    'pending' => 'warning',
+    'accepted' => 'success',
+    'rejected' => 'danger',
+    'cancelled' => 'secondary',
+    default => 'dark',
+};
+$statusIcon = match ($status) {
+    'pending' => 'clock',
+    'accepted' => 'check-circle',
+    'rejected' => 'times-circle',
+    'cancelled' => 'ban',
+    default => 'info-circle',
+};
             @endphp
             <div class="text-end">
                 <span class="badge bg-{{ $statusBadge }} px-3 py-2 rounded-pill fs-6 mb-2 d-block">
@@ -140,21 +144,21 @@
                             </div>
 
                             @php
-                                $contractStatus = $jobApplication->jobContract->status;
-                                $contractBadge = match ($contractStatus) {
-                                    'pending' => 'warning',
-                                    'accepted' => 'success',
-                                    'rejected' => 'danger',
-                                    'cancelled' => 'secondary',
-                                    default => 'dark',
-                                };
-                                $contractIcon = match ($contractStatus) {
-                                    'pending' => 'clock',
-                                    'accepted' => 'check-circle',
-                                    'rejected' => 'times-circle',
-                                    'cancelled' => 'ban',
-                                    default => 'info-circle',
-                                };
+    $contractStatus = $jobApplication->jobContract->status;
+    $contractBadge = match ($contractStatus) {
+        'pending' => 'warning',
+        'accepted' => 'success',
+        'rejected' => 'danger',
+        'cancelled' => 'secondary',
+        default => 'dark',
+    };
+    $contractIcon = match ($contractStatus) {
+        'pending' => 'clock',
+        'accepted' => 'check-circle',
+        'rejected' => 'times-circle',
+        'cancelled' => 'ban',
+        default => 'info-circle',
+    };
                             @endphp
 
                             <span class="badge bg-{{ $contractBadge }} mb-4 px-3 py-2 rounded-pill d-block text-center">

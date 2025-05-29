@@ -1,5 +1,9 @@
 @extends('expert.profile.shell')
 
+@section('title')
+    Expert - Work Experience
+@endsection
+
 @section('profile-content')
 
     <div class="card-header">

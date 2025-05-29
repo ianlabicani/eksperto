@@ -1,7 +1,11 @@
 @extends('expert.profile.shell')
 
+@section('title')
+    Expert - Educational Background
+@endsection
+
 @section('profile-content')
-    <div class="card">
+    <div class="card no-hover shadow-sm border-0 mb-4">
         <div class="card-header">
             <h3>Educational Background</h3>
         </div>

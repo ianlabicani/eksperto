@@ -1,5 +1,9 @@
 @extends('expert.profile.shell')
 
+@section('title')
+    Expert - Change Password
+@endsection
+
 @section('profile-content')
     <div class="card">
         <div class="card-header">

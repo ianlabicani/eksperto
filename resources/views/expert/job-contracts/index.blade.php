@@ -1,5 +1,9 @@
 @extends('expert.shell')
 
+@section('title')
+    Expert - My Contracts
+@endsection
+
 @section('expert-content')
     <div class="row mb-4">
         <div class="col-12">

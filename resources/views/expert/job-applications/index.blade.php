@@ -1,5 +1,9 @@
 @extends('expert.shell')
 
+@section('title')
+    Expert - My Applications
+@endsection
+
 @section('expert-content')
     <div class="row mb-4">
         <div class="col-12">
@@ -25,20 +29,20 @@
                             <div class="d-flex justify-content-between mb-3">
                                 <h5 class="card-title fw-bold text-truncate">{{ $application->jobListing->title }}</h5>
                                 @php
-                                    $statusClass = match ($application->status) {
-                                        'pending' => 'bg-warning bg-opacity-10 text-warning',
-                                        'cancelled', 'rejected' => 'bg-danger bg-opacity-10 text-danger',
-                                        'accepted' => 'bg-success bg-opacity-10 text-success',
-                                        default => 'bg-primary bg-opacity-10 text-primary',
-                                    };
+        $statusClass = match ($application->status) {
+            'pending' => 'bg-warning bg-opacity-10 text-warning',
+            'cancelled', 'rejected' => 'bg-danger bg-opacity-10 text-danger',
+            'accepted' => 'bg-success bg-opacity-10 text-success',
+            default => 'bg-primary bg-opacity-10 text-primary',
+        };
 
-                                    $statusIcon = match ($application->status) {
-                                        'pending' => 'fa-hourglass-half',
-                                        'cancelled' => 'fa-times-circle',
-                                        'rejected' => 'fa-times-circle',
-                                        'accepted' => 'fa-check-circle',
-                                        default => 'fa-info-circle',
-                                    };
+        $statusIcon = match ($application->status) {
+            'pending' => 'fa-hourglass-half',
+            'cancelled' => 'fa-times-circle',
+            'rejected' => 'fa-times-circle',
+            'accepted' => 'fa-check-circle',
+            default => 'fa-info-circle',
+        };
                                 @endphp
 
                                 <span class="badge {{ $statusClass }} px-3 py-2 rounded-pill">

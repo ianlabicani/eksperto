@@ -1,5 +1,9 @@
 @extends('expert.shell')
 
+@section('title')
+    Expert Profile
+@endsection
+
 @section('expert-content')
     <div class="row justify-content-center">
         @if(session('profile_incomplete') || !$user->isProfileComplete())
@@ -45,17 +49,13 @@
 
 
 
+        @include('expert.profile._ui.user-card.user-card', ['user' => $user])
         <div class="card no-hover shadow-sm border-0 mb-4">
             <div class="card-body p-0">
-                @include('expert.profile._ui.user-card.user-card', ['user' => $user])
             </div>
         </div>
+        @include('expert.profile._ui.card-profile-setting')
 
-        <div class="card no-hover shadow-sm border-0 mb-4">
-            <div class="card-body p-4">
-                @include('expert.profile._ui.card-profile-setting')
-            </div>
-        </div>
 
         <div class="profile-content">
             @yield('profile-content')

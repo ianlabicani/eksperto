@@ -1,4 +1,7 @@
 @extends('expert.shell')
+@section('title')
+    Expert - Job Application
+@endsection
 
 @section('expert-content')
     <div class="container py-4">
@@ -62,7 +65,8 @@
                                     </div>
                                     <div>
                                         <div class="text-secondary small">Posted On</div>
-                                        <div class="fw-semibold text-dark">{{ $jobListing->created_at->format('M d, Y') }}</div>
+                                        <div class="fw-semibold text-dark">{{ $jobListing->created_at->format('M d, Y') }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -73,28 +77,31 @@
                                     </div>
                                     <div>
                                         <div class="text-secondary small">Vacancies</div>
-                                        <div class="fw-semibold text-dark">{{ $jobListing->vacancies ?? 'Not specified' }}</div>
+                                        <div class="fw-semibold text-dark">{{ $jobListing->vacancies ?? 'Not specified' }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         @if(!empty($jobListing->description))
-                        <div class="mb-3">
-                            <h5 class="fw-bold mb-3 text-dark"><i class="fas fa-align-left text-primary me-2"></i>Job Description</h5>
-                            <div class="bg-light p-3 rounded">
-                                <div class="text-dark">{!! nl2br(e($jobListing->description)) !!}</div>
+                            <div class="mb-3">
+                                <h5 class="fw-bold mb-3 text-dark"><i class="fas fa-align-left text-primary me-2"></i>Job
+                                    Description</h5>
+                                <div class="bg-light p-3 rounded">
+                                    <div class="text-dark">{!! nl2br(e($jobListing->description)) !!}</div>
+                                </div>
                             </div>
-                        </div>
                         @endif
 
                         @if(!empty($jobListing->requirements))
-                        <div class="mb-3">
-                            <h5 class="fw-bold mb-3 text-dark"><i class="fas fa-file-alt text-primary me-2"></i>Requirements</h5>
-                            <div class="bg-light p-3 rounded">
-                                <div class="text-dark">{!! nl2br(e($jobListing->requirements)) !!}</div>
+                            <div class="mb-3">
+                                <h5 class="fw-bold mb-3 text-dark"><i class="fas fa-file-alt text-primary me-2"></i>Requirements
+                                </h5>
+                                <div class="bg-light p-3 rounded">
+                                    <div class="text-dark">{!! nl2br(e($jobListing->requirements)) !!}</div>
+                                </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>
@@ -114,8 +121,10 @@
 
                             <div class="mb-4">
                                 <label for="cover_letter" class="form-label fw-semibold text-dark">Cover Letter</label>
-                                <p class="text-secondary small mb-2">Tell the employer why you're a great fit for this role. Highlight your relevant skills and experience.</p>
-                                <textarea name="cover_letter" id="cover_letter" class="form-control" rows="6" placeholder="Write your cover letter here..."></textarea>
+                                <p class="text-secondary small mb-2">Tell the employer why you're a great fit for this role.
+                                    Highlight your relevant skills and experience.</p>
+                                <textarea name="cover_letter" id="cover_letter" class="form-control" rows="6"
+                                    placeholder="Write your cover letter here..."></textarea>
                             </div>
 
                             <div class="alert alert-info border-0 d-flex align-items-center mb-4">
@@ -136,19 +145,19 @@
     </div>
 
     @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Form submission with loading state
-            const form = document.getElementById('application-form');
-            const submitButton = document.getElementById('submit-button');
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Form submission with loading state
+                const form = document.getElementById('application-form');
+                const submitButton = document.getElementById('submit-button');
 
-            if (form && submitButton) {
-                form.addEventListener('submit', function() {
-                    submitButton.disabled = true;
-                    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Submitting...';
-                });
-            }
-        });
-    </script>
+                if (form && submitButton) {
+                    form.addEventListener('submit', function () {
+                        submitButton.disabled = true;
+                        submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Submitting...';
+                    });
+                }
+            });
+        </script>
     @endpush
 @endsection

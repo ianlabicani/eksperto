@@ -1,5 +1,10 @@
 @extends('expert.shell')
 
+@section('title')
+    Expert Dashboard
+@endsection
+
+
 @section('expert-content')
     <div class="row">
         <div class="col-12 mb-4">

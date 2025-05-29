@@ -1,5 +1,9 @@
 @extends('expert.shell')
 
+@section('title')
+    Expert - Job Opportunities
+@endsection
+
 @section('expert-content')
     <div class="container-fluid px-4">
         <!-- Header Section -->

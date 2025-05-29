@@ -1,5 +1,9 @@
 @extends('expert.profile.shell')
 
+@section('title')
+    Expert - Expertise
+@endsection
+
 @section('profile-content')
 
     <div class="card">
